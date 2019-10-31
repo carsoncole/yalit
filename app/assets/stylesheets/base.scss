@@ -20,12 +20,48 @@ body {
   margin-top: 1.666em;
 }
 
+#chapter {
+  ul, .info {
+    display: block;
+    margin: 2em 5em;
+    padding: 1em 2em;
+    background-color: #efefef;
+  }
+
+  h1 {
+    padding-bottom: 0.6em;
+    margin: 1em 0 1em 0;
+    border-bottom: 1px solid #eee;
+    font-weight: 300;
+    font-size: 3.2rem
+  }
+
+  h2 {
+    font-weight: 300;
+    font-size: 1.7rem;
+    margin: 1.5em 0 1em 0;
+  }
+
+  h3 {
+    font-weight: 300;
+    font-size: 1.2rem;
+    margin: 1.5em 0 1em 0;
+  }
+
+}
+
 nav {
   &.main-nav {
+    background-color: $base-color !important;
+    color: #fff !important;
     ul {
       list-style: none;
     }
     margin-bottom: 2em;
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
   }
   &.side-nav {
     background-color: rgb(248, 249, 250);
@@ -83,31 +119,57 @@ nav {
 }
 
 code {
-  display: block;
-  position: relative;
-  right: 0;
-  width: 25em;
-  padding: 1.666em;
-  margin: 1.666em 0;
-  color: #fff;
-  background-color: $base-color;
+  display: inline;
+  color: red;
+  background-color: #efefef;
+  padding: 0.15em;
   border-radius: 0.45em;
 }
 
-h1.chapter {
-  padding-bottom: 0.6em;
-  margin: 1em 0 1em 0;
-  border-bottom: 1px solid #eee;
-  font-weight: 300;
-  font-size: 3.2rem
-}
-
-.navbar-brand {
-  font-size: 1.666rem;
-  font-weight: 300;
-}
-
 .request {
+  display: block;
+  font-family: "Fira Mono", monospace;
+  text-align: center;
+  width: 85%;
+  padding: 1em 1.4em 1.4em 1.4em;
+  margin: 2em auto;
+  color: #fff;
+  background-color: $base-color;
+  border-radius: 0.45em;
+
+  .title {
+    border-bottom: 1px solid lighten($base-color, 50%);
+    text-align: left;
+    font-size: 0.8rem;
+    margin: 0 0 1em 0;
+    padding: 0;
+    color: lighten($base-color, 50%);
+  }
+}
+
+.response {
+  display: block;
+  font-family: "Fira Mono", monospace;
+  text-align: center;
+  width: 85%;
+  padding: 1em 1.4em 1.4em 1.4em;
+  margin: 2em auto;
+  color: #000;
+  background-color: lighten($base-color, 70%);
+  border-radius: 0.45em;
+
+  .title {
+    border-bottom: 1px solid lighten($base-color, 50%);
+    text-align: left;
+    font-size: 0.8rem;
+    margin: 0 0 1em 0;
+    padding: 0;
+    color: lighten($base-color, 50%);
+  }
+
+}
+
+.request2 {
   padding: 1em;
   background-color: $base-color;
   margin: 1em 10%;

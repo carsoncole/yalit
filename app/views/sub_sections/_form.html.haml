@@ -1,4 +1,4 @@
-= form_for [:chapter, :section, @sub_section] do |f|
+= form_for @sub_section do |f|
   - if @sub_section.errors.any?
     #error_explanation
       %h2= "#{pluralize(@sub_section.errors.count, "error")} prohibited this sub_section from being saved:"
@@ -6,20 +6,25 @@
         - @sub_section.errors.full_messages.each do |message|
           %li= message
 
-  / .field
-  /   = f.label :section
-  /   = f.collection_select :section_id, @section.sub_sections.order(rank: :asc), :id, :title
-  .field
+  .form-group
+    = f.label :section
+    = f.collection_select :section_id, @sections, :id, :title, {}, class: 'form-control'
+  .form-group
     = f.label :title
-    = f.text_field :title
-  .field
+    = f.text_field :title, class: 'form-control'
+  .form-group
     = f.label :content
-    = f.text_area :content
-  .field
-    = f.label :rank
-    = f.number_field :rank
-  .field
+    = f.text_area :content, cols: 100, rows: 20, class: 'form-control'
+  .form-group
     = f.label :is_verb
-    = f.check_box :is_verb
-  .actions
-    = f.submit 'Save'
+    = f.check_box :is_verb, class: 'form-control'
+  .row
+    .col-md-2
+      .form-group
+        = f.label :rank
+        = f.number_field :rank, class: 'form-control'
+
+  .row
+    .col-md-6.offset-3
+      .actions
+        = f.submit 'Save', class: 'form-control btn btn-primary'

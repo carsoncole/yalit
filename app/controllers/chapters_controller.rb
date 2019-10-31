@@ -12,6 +12,7 @@ class ChaptersController < ApplicationController
   def show
     @next_chapter = @project.chapters.where("rank > ?", @chapter.rank).order(rank: :asc).limit(1)
     @previous_chapter = @project.chapters.where("rank < ?", @chapter.rank).order(rank: :desc).limit(1)
+    @sections = @chapter.sections
   end
 
   # GET /chapters/new

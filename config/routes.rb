@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "projects#show", {id: 1}
+  root "projects#index"
 
   resources :projects, :sections, :sub_sections
   resources :chapters do

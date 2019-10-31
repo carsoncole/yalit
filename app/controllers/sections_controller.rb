@@ -1,5 +1,6 @@
 class SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
+  before_action :set_chapter, only: [:create, :edit, :update]
 
   # GET /sections
   # GET /sections.json
@@ -28,7 +29,7 @@ class SectionsController < ApplicationController
 
     respond_to do |format|
       if @section.save
-        format.html { redirect_to @section, notice: 'Section was successfully created.' }
+        format.html { redirect_to @chapter, notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class SectionsController < ApplicationController
   def update
     respond_to do |format|
       if @section.update(section_params)
-        format.html { redirect_to @section, notice: 'Section was successfully updated.' }
+        format.html { redirect_to @chapter, notice: 'Section was successfully updated.' }
         format.json { render :show, status: :ok, location: @section }
       else
         format.html { render :edit }
@@ -62,7 +63,11 @@ class SectionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    def set_chapter
+      @chapter = Chapter.find(params[:chapter_id]) if params[:chapter_id]
+      @chapter = Chapter.find(params[:section][:chapter_id]) if params[:section] && params[:section][:chapter_id]
+    end
+
     def set_section
       @section = Section.find(params[:id])
     end

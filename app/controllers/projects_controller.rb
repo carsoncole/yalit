@@ -1,15 +1,14 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
-  # GET /projects
-  # GET /projects.json
   def index
     @projects = Project.all
   end
 
-  # GET /projects/1
-  # GET /projects/1.json
   def show
+    session[:project_id] = @project.id
+    first_chapter = @project.chapters.order(rank: :asc).first
+    redirect_to chapter_path(first_chapter) if first_chapter
   end
 
   # GET /projects/new

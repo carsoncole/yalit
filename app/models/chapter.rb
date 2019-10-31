@@ -5,6 +5,7 @@ class Chapter < ApplicationRecord
 
   belongs_to :project
   has_many :sections, dependent: :destroy
+  has_many :sub_sections, through: :sections
   validates :title, presence: true
   # validates :rank, presence: true
   # validates :rank, uniqueness: truer

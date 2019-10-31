@@ -1,6 +1,6 @@
 class SubSectionsController < ApplicationController
-  before_action :set_chapter
-  before_action :set_section
+  before_action :set_chapter, except: [:new, :create]
+  before_action :set_section, except: [:new, :create]
   before_action :set_sub_section, only: [:show, :edit, :update, :destroy]
 
   # GET /sub_sections
@@ -16,16 +16,21 @@ class SubSectionsController < ApplicationController
 
   # GET /sub_sections/new
   def new
-    @sub_section = @section.sub_sections.new
+    @sub_section = SubSection.new
+    chapter_ids = @project.chapters.select(:id)
+    @sections = Section.where(chapter_id: chapter_ids)
   end
 
   # GET /sub_sections/1/edit
   def edit
+    @sections = @chapter.sections
   end
 
   # POST /sub_sections
   # POST /sub_sections.json
   def create
+    @section = Section.find(params[:sub_section][:section_id])
+    @chapter = @section.chapter
     @sub_section = @section.sub_sections.new(sub_section_params)
 
     respond_to do |format|
@@ -42,9 +47,10 @@ class SubSectionsController < ApplicationController
   # PATCH/PUT /sub_sections/1
   # PATCH/PUT /sub_sections/1.json
   def update
+    @chapter = @sub_section.section.chapter
     respond_to do |format|
       if @sub_section.update(sub_section_params)
-        format.html { redirect_to @sub_section, notice: 'Sub section was successfully updated.' }
+        format.html { redirect_to @chapter, notice: 'Sub section was successfully updated.' }
         format.json { render :show, status: :ok, location: @sub_section }
       else
         format.html { render :edit }
@@ -58,18 +64,18 @@ class SubSectionsController < ApplicationController
   def destroy
     @sub_section.destroy
     respond_to do |format|
-      format.html { redirect_to sub_sections_url, notice: 'Sub section was successfully destroyed.' }
+      format.html { redirect_to @chapter, notice: 'Sub section was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     def set_chapter
-      @chapter = Chapter.find(params[:chapter_id]) 
+      @chapter = Chapter.find(params[:chapter_id]) if params[:chapter_id]
     end
 
     def set_section
-      @section = Section.find(params[:section_id])
+      @section = Section.find(params[:section_id]) if params[:section_id]
     end
 
     def set_sub_section

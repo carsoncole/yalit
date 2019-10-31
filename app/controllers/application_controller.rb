@@ -4,7 +4,9 @@ class ApplicationController < ActionController::Base
   before_action :set_editing_mode
 
   def set_project
-    @project = Project.last
+    @project = if session[:project_id]
+      Project.find(session[:project_id])
+        end
   end
 
   def set_editing_mode

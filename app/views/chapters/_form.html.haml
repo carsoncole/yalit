@@ -6,17 +6,24 @@
         - @chapter.errors.full_messages.each do |message|
           %li= message
 
-  .field
+  .form-group
     = f.label :project
-    = f.collection_select :project_id, Project.all, :id, :name
-  .field
+    = f.collection_select :project_id, Project.all, :id, :name, {}, class: 'form-control'
+  .form-group
     = f.label :title
-    = f.text_field :title
-  .field
+    = f.text_field :title, class: 'form-control'
+  .form-group
     = f.label :content
-    = f.text_area :content, cols: 100, rows: 30
-  .field
-    = f.label :rank
-    = f.number_field :rank
-  .actions
-    = f.submit 'Save'
+    = f.text_area :content, cols: 100, rows: 15, class: 'form-control'
+  .row
+    .col-md-2
+      .form-group
+        = f.label :rank
+        = f.number_field :rank, class: 'form-control'
+  .row
+    .col-md-6.offset-3
+      .actions
+        = f.submit 'Save', class: 'form-control btn btn-primary'
+
+%br
+%br

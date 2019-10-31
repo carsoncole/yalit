@@ -1,15 +1,17 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 project = Project.create(name: 'Grade.us API (Version 4)')
 
-chapters = ["Introduction", "Getting started", "Authentication", "Error handling", "Endpoints"]
+chapters = [
+  { title: "Introduction", content: "The Grade.us API is a RESTful API, responding to JSON requests for intuitive resources used with the Grade.us platform. This API supplants existing Grade.us API's, but it is recommended that customers use this Version 4 API as prior versions will ultimately be deprecated.", rank: 1},
+  { title: "Getting started", content: "Only Agency and higher Plans have access to our API, which can be found at this root URL:  ```https://grade.us/api/v4```", rank: 2},
+  {title: "Authentication", rank: 3}, 
+  {title:"Error handling", rank: 4}, 
+  {title:"Endpoints", rank: 5}
+]
 
 chapters.each do |c|
-  project.chapters.create(title: c)
+  puts c.inspect
+  chapter = project.chapters.new(title: c[:title])
+  chapter.content = c[:content] if c[:content]
+  chapter.rank = c[:rank] if c[:rank]
+  chapter.save
 end

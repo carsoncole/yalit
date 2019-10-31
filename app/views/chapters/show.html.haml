@@ -1,29 +1,43 @@
 .row
   .col-md-12
-    %h1.chapter= @chapter.title
-    = Kramdown::Document.new(@chapter.content).to_html.html_safe if @chapter.content
+    #chapter
+      %h1.chapter
+        = @chapter.title
+        - if @editing_mode && current_user
+          = link_to edit_chapter_path(@chapter) do
+            = fa_icon "edit"
+      = Kramdown::Document.new(@chapter.content).to_html.html_safe if @chapter.content
 
-    - @chapter.sections.each do |section|
-      %h2(id="#{section.title.camelize}")= section.title
+      - @chapter.sections.each do |section|
+        %h2(id="#{section.title.camelize}")
+          = section.title
+          - if @editing_mode && current_user
+            = link_to edit_chapter_section_path(@chapter, section) do
+              = fa_icon "edit"
+            = link_to chapter_section_path(@chapter, section), method: :delete do
+              = fa_icon "trash"
+        = Kramdown::Document.new(section.content).to_html.html_safe if section.content
 
-      = Kramdown::Document.new(section.content).to_html.html_safe if section.content
+        - section.sub_sections.order(rank: :asc).each do |sub_section|
+          %h3(id="#{sub_section.title.camelize}")
+            = sub_section.title
+            - if @editing_mode && current_user
+              = link_to edit_chapter_section_sub_section_path(@chapter, section, sub_section) do
+                = fa_icon "edit"
+              = link_to chapter_section_sub_section_path(@chapter, section, sub_section), method: :delete do
+                = fa_icon "trash"
+          = Kramdown::Document.new(sub_section.content).to_html.html_safe if sub_section.content
 
-      = render partial: 'shared/editing_nav', locals: { element: section }
 
-      - section.sub_sections.each do |sub_section|
-        %h3(id="#{sub_section.title.camelize}")= sub_section.title
-        = Kramdown::Document.new(sub_section.content).to_html.html_safe if sub_section.content
-
-
-    - if @next_chapter.any? || @previous_chapter.any?
-      #chapter-pagination
-        - if @next_chapter.any?
-          .float-right
-            = link_to chapter_path(@next_chapter.first.id) do
-              = @next_chapter.first.title
-              = fa_icon "arrow-right"
-        - if @previous_chapter.any?
-          .float-left
-            = link_to chapter_path(@previous_chapter.first.id) do
-              = fa_icon "arrow-left"
-              = @previous_chapter.first.title
+      - if @next_chapter.any? || @previous_chapter.any?
+        #chapter-pagination
+          - if @next_chapter.any?
+            .float-right
+              = link_to chapter_path(@next_chapter.first.id) do
+                = @next_chapter.first.title
+                = fa_icon "arrow-right"
+          - if @previous_chapter.any?
+            .float-left
+              = link_to chapter_path(@previous_chapter.first.id) do
+                = fa_icon "arrow-left"
+                = @previous_chapter.first.title
