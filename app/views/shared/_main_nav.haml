@@ -1,0 +1,19 @@
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light.main-nav.mb-0
+  .navbar-brand= @project.name
+
+  .collapse.navbar-collapse#navbarToggler
+
+    %ul.navbar-nav.mr-auto
+
+    - if current_user
+      %ul.navbar-nav
+        %li.nav-item
+          = link_to chapter_path(1, editing_mode: true), class: 'nav-link' do
+            - if @editing_mode
+              = fa_icon "toggle-on"
+            - else
+              = fa_icon "toggle-off"
+            Editor
+
+        %li.nav-item.nav-link= current_user.email
+        %li.nav-item= button_to 'Sign out', sign_out_path, method: :delete, class: 'btn btn-secondary'

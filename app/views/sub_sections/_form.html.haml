@@ -1,0 +1,25 @@
+= form_for [:chapter, :section, @sub_section] do |f|
+  - if @sub_section.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@sub_section.errors.count, "error")} prohibited this sub_section from being saved:"
+      %ul
+        - @sub_section.errors.full_messages.each do |message|
+          %li= message
+
+  / .field
+  /   = f.label :section
+  /   = f.collection_select :section_id, @section.sub_sections.order(rank: :asc), :id, :title
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :content
+    = f.text_area :content
+  .field
+    = f.label :rank
+    = f.number_field :rank
+  .field
+    = f.label :is_verb
+    = f.check_box :is_verb
+  .actions
+    = f.submit 'Save'

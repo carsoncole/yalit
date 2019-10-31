@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Section:
+  = @sub_section.section
+%p
+  %b Title:
+  = @sub_section.title
+%p
+  %b Content:
+  = @sub_section.content
+
+= link_to 'Edit', edit_sub_section_path(@sub_section)
+\|
+= link_to 'Back', sub_sections_path

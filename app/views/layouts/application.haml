@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %title Powerapi
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+
+  %body
+    = render "shared/main_nav"
+    .container-fluid#main-container
+      .row
+        .col-md-2.pl-0
+          = render "shared/side_nav"
+        .col-md-8.offset-1#main-content
+          = yield
+
+    - if current_user && @editing_mode
+      #editing-mode
+        = render partial: 'shared/editing_nav'

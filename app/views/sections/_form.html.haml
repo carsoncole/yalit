@@ -1,0 +1,25 @@
+= form_for @section do |f|
+  - if @section.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@section.errors.count, "error")} prohibited this section from being saved:"
+      %ul
+        - @section.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :chapter
+    = f.collection_select :chapter_id, @project.chapters.order(:rank, :asc), :id, :title
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :content
+    = f.text_area :content, cols: 100, rows: 30
+  .field
+    = f.label :rank
+    = f.number_field :rank
+  .field
+    = f.label :is_resource
+    = f.check_box :is_resource
+  .actions
+    = f.submit 'Save'

@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+project = Project.create(name: 'Grade.us API (Version 4)')
+
+chapters = ["Introduction", "Getting started", "Authentication", "Error handling", "Endpoints"]
+
+chapters.each do |c|
+  project.chapters.create(title: c)
+end
