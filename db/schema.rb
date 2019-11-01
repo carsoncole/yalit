@@ -12,8 +12,11 @@
 
 ActiveRecord::Schema.define(version: 2019_11_01_141554) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "chapters", force: :cascade do |t|
-    t.integer "project_id", null: false
+    t.bigint "project_id", null: false
     t.string "title"
     t.text "content"
     t.integer "rank"
@@ -23,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_11_01_141554) do
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.integer "project_id", null: false
+    t.bigint "project_id", null: false
     t.string "email"
     t.string "role"
     t.integer "invited_by_user_id"
@@ -41,7 +44,7 @@ ActiveRecord::Schema.define(version: 2019_11_01_141554) do
   end
 
   create_table "sections", force: :cascade do |t|
-    t.integer "chapter_id", null: false
+    t.bigint "chapter_id", null: false
     t.string "title"
     t.text "content"
     t.integer "rank"
@@ -52,7 +55,7 @@ ActiveRecord::Schema.define(version: 2019_11_01_141554) do
   end
 
   create_table "sub_sections", force: :cascade do |t|
-    t.integer "section_id", null: false
+    t.bigint "section_id", null: false
     t.string "title"
     t.text "content"
     t.integer "rank"
@@ -63,8 +66,8 @@ ActiveRecord::Schema.define(version: 2019_11_01_141554) do
   end
 
   create_table "user_projects", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "project_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
     t.string "role", default: "owner"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
