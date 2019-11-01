@@ -10,9 +10,11 @@ class ProjectsController < ApplicationController
     @user_projects = @project.user_projects.includes(:user).order(role: :desc)
     @invitations = @project.invitations.all
     @invitation = @project.invitations.new
-    # session[:project_id] = @project.id
-    # first_chapter = @project.chapters.order(rank: :asc).first
-    # redirect_to chapter_path(first_chapter) if first_chapter
+    session[:project_id] = @project.id
+    if params[:view]
+      first_chapter = @project.chapters.order(rank: :asc).first
+      redirect_to chapter_path(first_chapter) if first_chapter
+    end
   end
 
   # GET /projects/new

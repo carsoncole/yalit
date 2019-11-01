@@ -1,7 +1,9 @@
 .row
   .col-md-8.offset-2
-    %h1
+    %h1.mb-2.text-center
       = @project.name
+    %h4.mb-5.text-center= link_to "View", project_path(@project, view: true)
+
     = render 'details'
     = render 'users/users'
     = render 'invitations/send_invitation' if @project.admin_or_higher?(current_user)
