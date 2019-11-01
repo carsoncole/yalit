@@ -6,8 +6,19 @@
         - @project.errors.full_messages.each do |message|
           %li= message
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .actions
-    = f.submit 'Save'
+  .row
+    .col-md-8.offset-2
+      .form-group
+        = f.label :name
+        = f.text_field :name, class: 'form-control'
+
+      .form-group
+        = f.label :domain
+        = f.text_field :domain, class: 'form-control'
+
+      .form-group
+        = f.label :ssl_endpoint_domain
+        = f.text_field :ssl_endpoint_domain, class: 'form-control'
+
+      .actions
+        = f.submit 'Save', class: 'btn btn-primary'

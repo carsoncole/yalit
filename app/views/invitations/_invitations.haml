@@ -1,0 +1,20 @@
+%section#invitations
+  .row
+    .col-md-12
+      %h1 Invitations
+      %table.table
+
+      %table.table
+        %thead
+          %tr
+            %th Email
+            %th Role
+            %th
+        %tbody
+          - @invitations.each do |invitation|
+            %tr
+              %td= invitation.email
+              %td= invitation.role.capitalize
+              %td
+                = link_to project_invitation_path(@project, invitation), method: :delete do
+                  = fa_icon "times"

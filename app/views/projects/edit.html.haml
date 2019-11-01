@@ -1,7 +1,14 @@
-%h1 Editing project
+.row
+  .col-md-12
+    %h1 API Documenter
 
-= render 'form'
+    = render 'form'
 
-= link_to 'Show', @project
-\|
-= link_to 'Back', projects_path
+
+.row
+  .col-md-12
+    %br
+    .text-center= link_to "View Documentation", project_path(@project)
+
+
+= render 'users/users'

@@ -1,0 +1,16 @@
+%section#details
+  .row
+    .col-md-12
+      %h1 Details
+      %table.table
+        %tr
+          %th Name
+          %td.text-right= @project.name
+
+        %tr
+          %th Domain
+          %td.text-right= @project.domain
+
+        %tr
+          %th SSL Endpoint
+          %td.text-right= @project.ssl_endpoint_domain

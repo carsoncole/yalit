@@ -15,7 +15,7 @@
             = link_to edit_chapter_section_path(@chapter, section) do
               = fa_icon "edit"
             = link_to chapter_section_path(@chapter, section), method: :delete do
-              = fa_icon "trash"
+              = fa_icon "times"
         = Kramdown::Document.new(section.content).to_html.html_safe if section.content
 
         - section.sub_sections.order(rank: :asc).each do |sub_section|
@@ -25,7 +25,7 @@
               = link_to edit_chapter_section_sub_section_path(@chapter, section, sub_section) do
                 = fa_icon "edit"
               = link_to chapter_section_sub_section_path(@chapter, section, sub_section), method: :delete do
-                = fa_icon "trash"
+                = fa_icon "times"
           = Kramdown::Document.new(sub_section.content).to_html.html_safe if sub_section.content
 
 
@@ -41,3 +41,7 @@
               = link_to chapter_path(@previous_chapter.first.id) do
                 = fa_icon "arrow-left"
                 = @previous_chapter.first.title
+      %br
+      %br
+      %br
+      %br

@@ -1,0 +1,20 @@
+%section#invitation
+  .row
+    .col-md-12
+      %h1 Invite a user
+
+  .row
+    .col-md-12
+      = form_for [@project, @invitation] do |f|
+        .form-inline
+          .form-group.mb-2
+            .field
+              = f.text_field :email , placeholder: 'Email', class: 'form-control'
+          .form-group.mx-sm-3.mb-2
+            .field
+              = f.select :role, options_for_select(UserProject.roles - ['owner']), {},class: 'form-control'
+          .form-check.mx-sm-3.mb-2
+            = f.check_box :send_invite_email, class: 'form-check-input'
+            = f.label :send_invitation, class: 'form-check-label'
+
+          = f.submit "Invite user", class: 'btn btn btn-primary mb-2'

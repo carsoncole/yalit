@@ -2,13 +2,16 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
-    @projects = Project.all
+    @projects = current_user.projects
   end
 
   def show
-    session[:project_id] = @project.id
-    first_chapter = @project.chapters.order(rank: :asc).first
-    redirect_to chapter_path(first_chapter) if first_chapter
+    @user_projects = @project.user_projects.includes(:user).order(role: :desc)
+    @invitations = @project.invitations.all
+    @invitation = @project.invitations.new
+    # session[:project_id] = @project.id
+    # first_chapter = @project.chapters.order(rank: :asc).first
+    # redirect_to chapter_path(first_chapter) if first_chapter
   end
 
   # GET /projects/new
@@ -23,7 +26,9 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(project_params)
+    @project = current_user.projects.build(project_params)
+    @project.user_projects.build(user: current_user)
+
 
     respond_to do |format|
       if @project.save
@@ -41,7 +46,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to edit_project_path(@project), notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -68,6 +73,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name)
+      params.require(:project).permit(:name, :domain, :ssl_endpoint_domain)
     end
 end

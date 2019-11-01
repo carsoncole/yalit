@@ -1,0 +1,8 @@
+.row
+  .col-md-8.offset-2
+    %h1
+      = @project.name
+    = render 'details'
+    = render 'users/users'
+    = render 'invitations/send_invitation' if @project.admin_or_higher?(current_user)
+    = render 'invitations/invitations' if @invitations.any?

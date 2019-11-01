@@ -7,12 +7,14 @@
       %th
       %th
       %th
+      %th
 
   %tbody
     - @projects.each do |project|
       %tr
         %td= project.name
-        %td= link_to 'Show', project
+        %td= link_to 'View', project_path(project, view: true)
+        %td= link_to 'Show', project_path(project)
         %td= link_to 'Edit', edit_project_path(project)
         %td= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }
 

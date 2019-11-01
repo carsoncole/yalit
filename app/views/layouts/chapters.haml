@@ -1,0 +1,16 @@
+!!!
+%html
+  = render 'head'
+
+  %body
+    = render "main_nav"
+    .container-fluid#main-container
+      .row
+        .col-md-2.pl-0
+          = render "side_nav" if @project
+        .col-md-6.offset-2#main-content
+          = yield
+
+    - if current_user && @editing_mode
+      #editing-mode
+        = render partial: 'editing_nav'
