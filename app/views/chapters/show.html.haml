@@ -27,6 +27,20 @@
             = fa_icon "times"
       = Kramdown::Document.new(sub_section.content).to_html.html_safe if sub_section.content
 
+    - section.request_methods.order(rank: :asc).each do |request_method|
+      %h3(id="#{request_method.title.camelize}")
+      %h4
+        = request_method.title
+        .request-info
+          .verb= request_method.verb
+          .url= request_method.url
+        - if @editing_mode && current_user
+          = link_to edit_chapter_section_request_method_path(@chapter, section, request_method) do
+            = fa_icon "edit"
+          = link_to chapter_section_request_method_path(@chapter, section, request_method), method: :delete do
+            = fa_icon "times"
+      = Kramdown::Document.new(request_method.request_content).to_html.html_safe if request_method.request_content
+
 
   - if @next_chapter.any? || @previous_chapter.any?
     #chapter-pagination

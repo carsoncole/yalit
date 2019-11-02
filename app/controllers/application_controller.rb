@@ -5,9 +5,14 @@ class ApplicationController < ActionController::Base
   before_action :set_editing_mode
 
   def set_project
-    @project = if session[:project_id]
-      Project.find(session[:project_id])
-        end
+    hosted_project = Project.where(domain: request.host_with_port).first
+    if hosted_project
+      @project = hosted_project
+    else
+      @project = if session[:project_id]
+        Project.find(session[:project_id])
+      end
+    end
   end
 
   def set_editing_mode

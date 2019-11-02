@@ -13,6 +13,9 @@ class ProjectsController < ApplicationController
     session[:project_id] = @project.id
     if params[:view]
       first_chapter = @project.chapters.order(rank: :asc).first
+      unless first_chapter
+        first_chapter = @project.chapters.create(title: 'Default')
+      end
       redirect_to chapter_path(first_chapter) if first_chapter
     end
   end
@@ -26,7 +29,7 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/new
+  #FIXME This path is broken
   def new
     @project = Project.new
   end
@@ -85,6 +88,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :domain, :ssl_endpoint_domain, :color, :description, :terms_of_service_url, :contact_name, :contact_email, :license_name, :license_url, :version)
+      params.require(:project).permit(:name, :domain, :ssl_endpoint_domain, :color, :description, :terms_of_service_url, :contact_name, :contact_email, :contact_url, :license_name, :license_url, :version, :generate_default_content)
     end
 end

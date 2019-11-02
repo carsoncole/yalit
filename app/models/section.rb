@@ -1,6 +1,7 @@
 class Section < ApplicationRecord
   belongs_to :chapter
   has_many :sub_sections, dependent: :destroy
+  has_many :request_methods, dependent: :destroy
 
   before_save :set_rank!, if: proc{ |c| c.rank.nil? }
 

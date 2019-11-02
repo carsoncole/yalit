@@ -8,9 +8,15 @@
 
   .row
     .col-md-8.offset-2
+
+
       .form-group
         = f.label :name
         = f.text_field :name, class: 'form-control', required: true
+
+      .form-group
+        = f.label :generate_default_content
+        = f.check_box :generate_default_content, class: 'form-control'
 
       .form-group
         = f.label :description

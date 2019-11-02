@@ -10,12 +10,19 @@
               %li.nav-item
                 = link_to chapter_path(chapter, anchor: section.title.camelize), class: 'nav-link' do
                   = fa_icon "folder-open" if section.is_resource?
-                  = section.title
+                  - if section.is_resource?
+                    %span.resource= section.title
+                  - else
+                    = section.title
                 %ul
                   - if section.sub_sections.any?
                     - section.sub_sections.each do |sub_section|
                       %li.nav-item
                         = link_to chapter_path(chapter, anchor: sub_section.title.camelize), class: 'nav-link' do
-                          - if sub_section.is_verb?
-                            %i.fa.fa-file
                           = sub_section.title
+                  - if section.request_methods.any?
+                    - section.request_methods.each do |request_method|
+                      %li.nav-item
+                        = link_to chapter_path(chapter, anchor: request_method.title.camelize), class: 'nav-link' do
+                          .badge.badge-info= request_method.verb
+                          = request_method.title

@@ -1,7 +1,7 @@
 = form_for :session, url: session_path do |form|
   .form-group
     = form.label :email
-    = form.text_field :email, type: 'email', class: 'form-control'
+    = form.email_field :email, type: 'email', class: 'form-control'
 
   .form-group
     = form.label :password

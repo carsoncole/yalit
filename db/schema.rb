@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_02_002557) do
+ActiveRecord::Schema.define(version: 2019_11_02_145652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,20 @@ ActiveRecord::Schema.define(version: 2019_11_02_002557) do
     t.string "version"
   end
 
+  create_table "request_methods", force: :cascade do |t|
+    t.bigint "section_id", null: false
+    t.string "verb"
+    t.string "title"
+    t.string "description"
+    t.string "url"
+    t.text "request_content"
+    t.text "response_content"
+    t.integer "rank"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["section_id"], name: "index_request_methods_on_section_id"
+  end
+
   create_table "sections", force: :cascade do |t|
     t.bigint "chapter_id", null: false
     t.string "title"
@@ -63,12 +77,20 @@ ActiveRecord::Schema.define(version: 2019_11_02_002557) do
     t.index ["chapter_id"], name: "index_sections_on_chapter_id"
   end
 
+  create_table "servers", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.string "url"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_servers_on_project_id"
+  end
+
   create_table "sub_sections", force: :cascade do |t|
     t.bigint "section_id", null: false
     t.string "title"
     t.text "content"
     t.integer "rank"
-    t.boolean "is_verb", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["section_id"], name: "index_sub_sections_on_section_id"
@@ -97,7 +119,9 @@ ActiveRecord::Schema.define(version: 2019_11_02_002557) do
 
   add_foreign_key "chapters", "projects"
   add_foreign_key "invitations", "projects"
+  add_foreign_key "request_methods", "sections"
   add_foreign_key "sections", "chapters"
+  add_foreign_key "servers", "projects"
   add_foreign_key "sub_sections", "sections"
   add_foreign_key "user_projects", "projects"
   add_foreign_key "user_projects", "users"

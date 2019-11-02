@@ -19,7 +19,7 @@
           %li.nav-item
             = link_to project_path(@project), class: 'nav-link', "data-toggle": 'tooltip', "title": 'Project' do
               = fa_icon "archive"
-        - elsif @project && controller_name == 'projects'
+        - elsif @project && @project.persisted? && controller_name == 'projects'
           %li.nav-item
             = link_to project_path(@project, view: true), class: 'nav-link' do
               = fa_icon "eye"

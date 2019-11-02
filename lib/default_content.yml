@@ -1,0 +1,22 @@
+chapters:
+  - Introduction:
+    title: Introduction
+    content: This is where you add your introduction. Edit away!
+    rank: 1
+
+  - Endpoints:
+    title: Endpoints
+    content: This is where you list all of your endpoints.
+    rank: 2
+    sections:
+      - get_pets:
+        title: Pets
+        is_resource: true
+        rank: 1
+        request_methods:
+          - get_method:
+            verb: GET
+            title: Get all Pets
+            description: This will get all of the available Pets
+            url: https://example.com/pets
+
