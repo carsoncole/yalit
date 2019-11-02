@@ -1,3 +1,4 @@
+#TODO Add home page (not logged in) and fix top banner for not logged in
 class ApplicationController < ActionController::Base
   include Clearance::Controller
   before_action :set_project

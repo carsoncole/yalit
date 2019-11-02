@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "projects#index"
+  root "home#index"
 
   resources :projects do
     get 'schema' => 'projects#schema', as: 'schema'
