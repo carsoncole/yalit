@@ -1,11 +1,52 @@
 %section#details
   .row
     .col-md-12
-      %h1 Details
+      %h1
+        Details
+        .float-right
+          = link_to edit_project_path(@project) do
+            = fa_icon "edit"
+
       %table.table
         %tr
           %th Name
           %td.text-right= @project.name
+
+        %tr
+          %th Description
+          %td.text-right= @project.description
+
+        %tr
+          %th Terms of service
+          %td.text-right= @project.terms_of_service_url
+
+        %tr
+          %th Contact name
+          %td.text-right= @project.contact_name
+
+        %tr
+          %th Contact URL
+          %td.text-right= @project.contact_url
+
+        %tr
+          %th Contact email
+          %td.text-right= @project.contact_email
+
+        %tr
+          %th License
+          %td.text-right= @project.license_name
+
+        %tr
+          %th License URL
+          %td.text-right= @project.license_url
+
+        %tr
+          %th Version
+          %td.text-right= @project.version
+
+        %tr
+          %th Color
+          %td.text-right= @project.color
 
         %tr
           %th Domain

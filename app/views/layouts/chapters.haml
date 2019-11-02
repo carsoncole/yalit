@@ -6,7 +6,7 @@
     = render "main_nav"
     .container-fluid#main-container
       .row
-        .col-md-2.pl-0
+        .col-md-2.pl-0#side-nav
           = render "side_nav" if @project
         .col-md-6.offset-2#main-content
           = yield

@@ -1,0 +1,13 @@
+.sign-up
+  .row
+    .col-md-8.offset-2
+      %h1= t(".title")
+
+      = form_for @user do |form|
+        = render partial: '/users/form', object: form
+
+        .form-group
+          = form.submit "Sign up", class: 'btn btn-primary'
+
+        .other-links
+          = link_to t(".sign_in"), sign_in_path

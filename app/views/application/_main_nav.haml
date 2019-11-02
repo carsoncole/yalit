@@ -1,13 +1,13 @@
-%nav.navbar.navbar-expand-lg.bg-dark.main-nav.mb-0
+%nav.navbar.navbar-expand-lg.navbar-dark.main-nav.mb-0(style="background-color: #{ @project ? @project.color : '007bff'} !important")
   .navbar-brand= @project.name if @project
 
-  .collapse.navbar-collapse#navbarToggler
+  .collapse.navbar-collapse#navbarSupportedContent
 
     %ul.navbar-nav.mr-auto
 
     - if current_user
       %ul.navbar-nav
-        - if @project
+        - if @project && controller_name == 'chapters'
           %li.nav-item
             - url = request.url + '?editing_mode=true'
             = link_to url, class: 'nav-link' do
@@ -16,6 +16,22 @@
               - else
                 = fa_icon "toggle-off"
               Editor
-        %li.nav-item.nav-link= link_to "Projects", projects_path
-        %li.nav-item.nav-link= current_user.email
-        %li.nav-item= button_to 'Sign out', sign_out_path, method: :delete, class: 'btn btn-secondary'
+          %li.nav-item
+            = link_to project_path(@project), class: 'nav-link' do
+              = fa_icon "archive"
+        - elsif @project && controller_name == 'projects'
+          %li.nav-item
+            = link_to project_path(@project, view: true), class: 'nav-link' do
+              = fa_icon "eye"
+        %li.nav-item.dropdown
+          = link_to "#", id: "navbarDropdown", class: 'nav-link dropdown-toggle', "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false", "role": "button" do
+            = fa_icon "user-circle"
+          .dropdown-menu.dropdown-menu-right(aria-labelledby="navbarDropdown")
+            = link_to projects_path, class: 'dropdown-item' do
+              = fa_icon "folder"
+              Projects
+            %div.dropdown-divider
+            .dropdown-item= current_user.email
+            = link_to sign_out_path, method: :delete, class: 'dropdown-item' do
+              = fa_icon "sign-out"
+              Sign out

@@ -10,7 +10,43 @@
     .col-md-8.offset-2
       .form-group
         = f.label :name
-        = f.text_field :name, class: 'form-control'
+        = f.text_field :name, class: 'form-control', required: true
+
+      .form-group
+        = f.label :description
+        = f.text_field :description, class: 'form-control', required: true
+
+      .form-group
+        = f.label :terms_of_service_url
+        = f.text_field :terms_of_service_url, class: 'form-control'
+
+      .form-group
+        = f.label :contact_name
+        = f.text_field :contact_name, class: 'form-control'
+
+      .form-group
+        = f.label :contact_url
+        = f.text_field :contact_url, class: 'form-control'
+
+      .form-group
+        = f.label :contact_email
+        = f.email_field :contact_email, class: 'form-control'
+
+      .form-group
+        = f.label :license_name
+        = f.text_field :license_name, class: 'form-control'
+
+      .form-group
+        = f.label :license_url
+        = f.text_field :license_url, class: 'form-control'
+
+      .form-group
+        = f.label :version
+        = f.text_field :version, class: 'form-control', required: true
+
+      .form-group
+        = f.label :color
+        = f.text_field :color, class: 'form-control'
 
       .form-group
         = f.label :domain

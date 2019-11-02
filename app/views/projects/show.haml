@@ -2,7 +2,10 @@
   .col-md-8.offset-2
     %h1.mb-2.text-center
       = @project.name
-    %h4.mb-5.text-center= link_to "View", project_path(@project, view: true)
+    %h5.mb-5.text-center
+      = link_to "View", project_path(@project, view: true)
+      \|
+      = link_to "Schema", project_schema_path(@project)
 
     = render 'details'
     = render 'users/users'

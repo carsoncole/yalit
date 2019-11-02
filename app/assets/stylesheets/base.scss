@@ -1,4 +1,4 @@
-$base-color: #191970;
+$base-color: #777777;
 $base-black: #111111;
 
 html {
@@ -17,13 +17,6 @@ body {
   margin: 1.666em 0;
 }
 
-#main-container-old {
-  height: 100%;
-  .row {
-    min-height: 100%;
-  }
-}
-
 #main-content {
   margin-top: 1.666em;
 }
@@ -39,6 +32,13 @@ h1 {
   margin: 1em 0 2em;
 }
 
+form {
+  :required {
+    background-color: lighten(red, 35%);
+    font-weight: 700;
+  }
+}
+
 section {
   h1 {
     font-size: 1.3rem;
@@ -48,6 +48,8 @@ section {
   border-top: 2px solid #999;
   margin-top: 1em;
 }
+
+
 
 #chapter {
   ul, .info {
@@ -79,10 +81,21 @@ section {
 
 }
 
+#side-nav {
+  display: flex;
+  background-color: rgb(248, 249, 250);
+  min-height: 100%;
+}
+
+#schema {
+  .download-link {
+    font-size: 1.75rem;
+  }
+}
+
 nav {
   &.main-nav {
-    background-color: $base-color !important;
-    color: #fff !important;
+    background-color: $base-color;
     ul {
       list-style: none;
     }
@@ -92,10 +105,12 @@ nav {
       font-weight: 300;
     }
   }
+
+
+
   &.side-nav {
+    min-height: 100%;
     background-color: rgb(248, 249, 250);
-    height: 100%;
-    mid-height: 100%;
     padding: 1em;
     ul {
       list-style: none;

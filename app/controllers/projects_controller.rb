@@ -17,6 +17,14 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def schema
+    @project = current_user.projects.find(params[:project_id])
+    @schema = @project.schema
+    if params[:download]
+      send_data(@schema, :filename => "schema.text", :type => "text/html")
+    end
+  end
+
   # GET /projects/new
   def new
     @project = Project.new
@@ -49,7 +57,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to edit_project_path(@project), notice: 'Project was successfully updated.' }
+        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -76,6 +84,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :domain, :ssl_endpoint_domain)
+      params.require(:project).permit(:name, :domain, :ssl_endpoint_domain, :color, :description, :terms_of_service_url, :contact_name, :contact_email, :license_name, :license_url, :version)
     end
 end

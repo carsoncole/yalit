@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_01_141554) do
+ActiveRecord::Schema.define(version: 2019_11_02_002557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 2019_11_01_141554) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "domain"
     t.string "ssl_endpoint_domain"
+    t.string "color"
+    t.string "description"
+    t.string "terms_of_service_url"
+    t.string "contact_name"
+    t.string "contact_url"
+    t.string "contact_email"
+    t.string "license_name"
+    t.string "license_url"
+    t.string "version"
   end
 
   create_table "sections", force: :cascade do |t|
