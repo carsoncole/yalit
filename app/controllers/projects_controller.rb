@@ -17,11 +17,12 @@ class ProjectsController < ApplicationController
     end
   end
 
+  #TODO Fix for Postman importing
   def schema
     @project = current_user.projects.find(params[:project_id])
     @schema = @project.schema
     if params[:download]
-      send_data(@schema, :filename => "schema.text", :type => "text/html")
+      send_data(JSON.pretty_generate(@schema), :filename => "schema.yml", :type => "text/html")
     end
   end
 

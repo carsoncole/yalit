@@ -1,5 +1,5 @@
 carson_user =  User.find_by(email: 'carson@grade.us') || User.create(email: 'carson@grade.us', password: "robert")
-project = carson_user.projects.create(name: 'Grade.us API (Version 4)')
+project = carson_user.projects.create(name: 'Grade.us API (Version 4)', description: 'This is the API for Grade.us.')
 
 chapters = 
   [

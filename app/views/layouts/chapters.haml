@@ -14,3 +14,6 @@
     - if current_user && @editing_mode
       #editing-mode
         = render partial: 'editing_nav'
+
+%script
+  $(document).ready(function(){$('[data-toggle="tooltip"]').tooltip(); });

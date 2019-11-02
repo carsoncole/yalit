@@ -17,20 +17,19 @@
                 = fa_icon "toggle-off"
               Editor
           %li.nav-item
-            = link_to project_path(@project), class: 'nav-link' do
+            = link_to project_path(@project), class: 'nav-link', "data-toggle": 'tooltip', "title": 'Project' do
               = fa_icon "archive"
         - elsif @project && controller_name == 'projects'
           %li.nav-item
             = link_to project_path(@project, view: true), class: 'nav-link' do
               = fa_icon "eye"
+        %li.nav-item
+          = link_to projects_path, class: 'nav-link', "data-toggle": 'tooltip', "title": 'All projects' do
+            = fa_icon "folder"
         %li.nav-item.dropdown
           = link_to "#", id: "navbarDropdown", class: 'nav-link dropdown-toggle', "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false", "role": "button" do
             = fa_icon "user-circle"
           .dropdown-menu.dropdown-menu-right(aria-labelledby="navbarDropdown")
-            = link_to projects_path, class: 'dropdown-item' do
-              = fa_icon "folder"
-              Projects
-            %div.dropdown-divider
             .dropdown-item= current_user.email
             = link_to sign_out_path, method: :delete, class: 'dropdown-item' do
               = fa_icon "sign-out"

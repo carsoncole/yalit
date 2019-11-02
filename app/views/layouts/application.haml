@@ -10,3 +10,7 @@
       .row
         .col-md-6.offset-3#main-content
           = yield
+
+%script
+  $(document).ready(function(){$('[data-toggle="tooltip"]').tooltip(); });
+
