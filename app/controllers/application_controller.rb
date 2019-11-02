@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
     hosted_project = Project.where(domain: request.host_with_port).first
     if hosted_project
       @project = hosted_project
+      @hosted = true
     else
       @project = if session[:project_id]
         Project.find(session[:project_id])

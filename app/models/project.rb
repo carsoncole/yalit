@@ -23,6 +23,10 @@ class Project < ApplicationRecord
     rights && rights.role == 'owner' ? true : false
   end
 
+  def first_chapter
+    chapters.order(rank: :asc).first
+  end
+
   #TODO Add more key/values to complete schema
   # This schema is based on https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md
   def schema
