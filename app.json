@@ -5,7 +5,10 @@
         "test": "rubocop .",
         "test": "rails test:system",
         "test": "rails test"
-      }
+      },
+      "addons":[
+        "heroku-postgresql:in-dyno"
+      ]
     }
   }
 }
