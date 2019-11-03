@@ -7,6 +7,16 @@
       \|
       = link_to "Schema", project_schema_path(@project)
 
+    %h4#toggle-is-published
+      - if @project.is_published
+        = link_to project_toggle_is_published_path(@project), method: :post do
+          = fa_icon "toggle-on"
+          Published
+      - else
+        = link_to project_toggle_is_published_path(@project), method: :post do
+          = fa_icon "toggle-off"
+          Published
+
     = render 'details'
     = render 'users/users'
     = render 'invitations/send_invitation' if @project.admin_or_higher?(current_user)

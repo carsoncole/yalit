@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_02_145652) do
+ActiveRecord::Schema.define(version: 2019_11_03_023051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2019_11_02_145652) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "domain"
+    t.string "host_name"
     t.string "ssl_endpoint_domain"
     t.string "color"
     t.string "description"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2019_11_02_145652) do
     t.string "license_name"
     t.string "license_url"
     t.string "version"
+    t.boolean "is_published", default: false
   end
 
   create_table "request_methods", force: :cascade do |t|

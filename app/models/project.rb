@@ -1,9 +1,23 @@
+#TODO Connect to Heroku API for configuring SSL
+
+#TODO Fix how having a domain should have it present, but offline for maintenance
 class Project < ApplicationRecord
   has_many :chapters, dependent: :destroy
   has_many :user_projects, dependent: :destroy
   has_many :users, through: :user_projects
   has_many :invitations, dependent: :destroy
   has_many :servers, dependent: :destroy
+
+  validates :name, presence: true
+  validates :description, presence: true
+
+  validates :host_name, uniqueness: true, if: proc { |p| p.host_name.present? }
+
+  validates :host_name, format: { without: /\Ahttp[s]?/,
+    message: "should not be preceded with http(s)" }, if: proc { |p| p.host_name.present? }
+
+  validates :host_name, format: { with: /\A[0-9A-Za-z\.\-]+\z/,
+    message: "should not have any special characters" }, if: proc { |p| p.host_name.present? }
 
   attr_accessor :generate_default_content
 

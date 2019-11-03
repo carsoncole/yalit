@@ -4,6 +4,8 @@
   %thead
     %tr
       %th Name
+      %th.text-center Published
+      %th Host name
       %th
       %th
       %th
@@ -13,6 +15,10 @@
     - @projects.each do |project|
       %tr
         %td= project.name
+        %td.text-center
+          - if project.is_published
+            = fa_icon "check"
+        %td= project.host_name
         %td= link_to 'View', project_path(project, view: true)
         %td= link_to 'Show', project_path(project)
         %td= link_to 'Edit', edit_project_path(project)

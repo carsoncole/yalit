@@ -1,10 +1,14 @@
 = form_for @project do |f|
+
   - if @project.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
-      %ul
-        - @project.errors.full_messages.each do |message|
-          %li= message
+    .row
+      .col-md-10.offset-1
+        .card#error_explanation
+          .card-header= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+          .card-body
+            %ul.list-group.list-group-flush
+              - @project.errors.full_messages.each do |message|
+                %li.list-group-item= message
 
   .row
     .col-md-8.offset-2
@@ -13,10 +17,10 @@
       .form-group
         = f.label :name
         = f.text_field :name, class: 'form-control', required: true
-
-      .form-group
-        = f.label :generate_default_content
-        = f.check_box :generate_default_content, class: 'form-control'
+      - unless @project.persisted?
+        .form-group
+          = f.label :generate_default_content
+          = f.check_box :generate_default_content, class: 'form-control'
 
       .form-group
         = f.label :description
@@ -55,12 +59,12 @@
         = f.text_field :color, class: 'form-control'
 
       .form-group
-        = f.label :domain
-        = f.text_field :domain, class: 'form-control'
+        = f.label :host_name, "Host name (ex: api.example.com)"
+        = f.text_field :host_name, class: 'form-control'
 
-      .form-group
-        = f.label :ssl_endpoint_domain
-        = f.text_field :ssl_endpoint_domain, class: 'form-control'
+      / .form-group
+      /   = f.label :ssl_endpoint_domain
+      /   = f.text_field :ssl_endpoint_domain, class: 'form-control'
 
       .actions
         = f.submit 'Save', class: 'btn btn-primary'

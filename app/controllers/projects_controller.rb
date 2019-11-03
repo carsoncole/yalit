@@ -34,8 +34,19 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
-  # GET /projects/1/edit
+  #TODO Add popup messages to be more helpful
   def edit
+  end
+
+  def toggle_is_published
+    @project = Project.find(params[:project_id])
+    if @project.host_name.present? || @project.is_published
+      @project.toggle(:is_published)
+      @project.save
+      redirect_to project_path(@project), notice: "Your project API docs are #{ @project.is_published? ? 'now' : 'no longer' } showing on https://#{@project.host_name}."
+    else
+      redirect_to project_path(@project), alert: 'A host name must be added to publish.'
+    end
   end
 
   # POST /projects
@@ -88,6 +99,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :domain, :ssl_endpoint_domain, :color, :description, :terms_of_service_url, :contact_name, :contact_email, :contact_url, :license_name, :license_url, :version, :generate_default_content)
+      params.require(:project).permit(:name, :host_name, :ssl_endpoint_domain, :color, :description, :terms_of_service_url, :contact_name, :contact_email, :contact_url, :license_name, :license_url, :version, :generate_default_content)
     end
 end

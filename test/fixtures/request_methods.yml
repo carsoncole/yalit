@@ -6,8 +6,8 @@ one:
   title: MyString
   description: MyString
   url: MyString
-  request: MyText
-  response: MyText
+  request_content: MyText
+  response_content: MyText
 
 two:
   section: two
@@ -15,5 +15,5 @@ two:
   title: MyString
   description: MyString
   url: MyString
-  request: MyText
-  response: MyText
+  request_content: MyText
+  response_content: MyText
