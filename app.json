@@ -2,7 +2,9 @@
   "environments": {
     "test": {
       "scripts": {
-        "test": "rubocop ."
+        "Rubocop tests": "rubocop .",
+        "Rails system tests": "rails test:system",
+        "Rails unit test": "rails test"
       }
     }
   }
