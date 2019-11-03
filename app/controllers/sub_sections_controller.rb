@@ -35,7 +35,7 @@ class SubSectionsController < ApplicationController
 
     respond_to do |format|
       if @sub_section.save
-        format.html { redirect_to chapter_path(@chapter.id), notice: 'Sub section was successfully created.' }
+        format.html { redirect_to chapter_path(@chapter.id), notice: "Sub section was successfully created." }
         format.json { render :show, status: :created, location: @sub_section }
       else
         format.html { render :new }
@@ -50,7 +50,7 @@ class SubSectionsController < ApplicationController
     @chapter = @sub_section.section.chapter
     respond_to do |format|
       if @sub_section.update(sub_section_params)
-        format.html { redirect_to @chapter, notice: 'Sub section was successfully updated.' }
+        format.html { redirect_to @chapter, notice: "Sub section was successfully updated." }
         format.json { render :show, status: :ok, location: @sub_section }
       else
         format.html { render :edit }
@@ -64,7 +64,7 @@ class SubSectionsController < ApplicationController
   def destroy
     @sub_section.destroy
     respond_to do |format|
-      format.html { redirect_to @chapter, notice: 'Sub section was successfully destroyed.' }
+      format.html { redirect_to @chapter, notice: "Sub section was successfully destroyed." }
       format.json { head :no_content }
     end
   end

@@ -1,7 +1,7 @@
-require 'kramdown'
+require "kramdown"
 
 class Chapter < ApplicationRecord
-  # after_initialize :set_defaults!, unless: proc{ |c| c.is_persisted? }
+  # after_initialize :set_defaults!, unless: proc { |c| c.is_persisted? }
 
   belongs_to :project
   has_many :sections, dependent: :destroy
@@ -10,7 +10,7 @@ class Chapter < ApplicationRecord
   # validates :rank, presence: true
   # validates :rank, uniqueness: truer
 
-  # before_validation :set_rank!, if: proc{ |c| c.rank.nil? }
+  # before_validation :set_rank!, if: proc { |c| c.rank.nil? }
 
   def set_defaults!
     last_ranked_chapter = project.chapters.where.not(id: nil, rank: nil).order(rank: :asc).last

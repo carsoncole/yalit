@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  root "home#index"
+  constraints Clearance::Constraints::SignedIn.new do
+    root to: 'projects#index', as: :signed_in_root
+  end
+
+  constraints Clearance::Constraints::SignedOut.new do
+    root to: 'home#index'
+  end
 
   resources :projects do
     get 'schema' => 'projects#schema', as: 'schema'

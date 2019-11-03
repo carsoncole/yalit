@@ -10,6 +10,7 @@ class Project < ApplicationRecord
 
   validates :name, presence: true
   validates :description, presence: true
+  validates :version, presence: true
 
   validates :host_name, uniqueness: true, if: proc { |p| p.host_name.present? }
 
@@ -21,7 +22,7 @@ class Project < ApplicationRecord
 
   attr_accessor :generate_default_content
 
-  after_create :generate_content!, if: proc{ |p| p.generate_default_content }
+  after_create :generate_content!, if: proc { |p| p.generate_default_content }
 
   def initialize(args)
     super
@@ -34,7 +35,7 @@ class Project < ApplicationRecord
 
   def owner?(user)
     rights = user_projects.find_by(user: user)
-    rights && rights.role == 'owner' ? true : false
+    rights && rights.role == "owner" ? true : false
   end
 
   def first_chapter
@@ -45,7 +46,7 @@ class Project < ApplicationRecord
   # This schema is based on https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md
   def schema
     if servers.any?
-      servers_array = servers.all.map {|s| "'url': #{s.url}, 'description': '#{s.description}'" }.join(", ")
+      servers_array = servers.all.map { |s| "'url': #{s.url}, 'description': '#{s.description}'" }.join(", ")
     else
       servers_array = nil
     end
@@ -67,33 +68,33 @@ class Project < ApplicationRecord
         "version": version
       },
         "servers": [ servers_array ],
-        "path":""
+        "path": ""
     }
   end
 
   #OPTIMIZE Refactor to use rank key-value so this will work with any number of ranks
   def admin_or_higher?(user)
     rights = user_projects.find_by(user: user)
-    rights && ['owner', 'admin'].include?(rights.role) ? true : false
+    rights && ["owner", "admin"].include?(rights.role) ? true : false
   end
 
   def editor?(user)
     rights = user_projects.find_by(user: user)
-    rights && ['editor'].include?(rights.role) ? true : false
+    rights && ["editor"].include?(rights.role) ? true : false
   end
 
   #TODO Add more default content
-  def generate_content!(file='lib/gradeus_content.yml')
+  def generate_content!(file = "lib/default_content.yml")
     content = YAML.load_file(file)
 
-    content['chapters'].each do |chapter|
-      new_chapter= chapters.create(title: chapter['title'], content: chapter['content'], rank: chapter['rank'])
-      if chapter['sections']
-        chapter['sections'].each do |section|
-          new_section = new_chapter.sections.create(title: section['title'], rank: section['rank'], is_resource: section['is_resource'])
-          if section['request_methods']
-            section['request_methods'].each do |method|
-              new_section.request_methods.create(title: method['title'], description: method['description'], verb: method['verb'], url: method['url'])
+    content["chapters"].each do |chapter|
+      new_chapter= chapters.create(title: chapter["title"], content: chapter["content"], rank: chapter["rank"])
+      if chapter["sections"]
+        chapter["sections"].each do |section|
+          new_section = new_chapter.sections.create(title: section["title"], rank: section["rank"], is_resource: section["is_resource"])
+          if section["request_methods"]
+            section["request_methods"].each do |method|
+              new_section.request_methods.create(title: method["title"], description: method["description"], verb: method["verb"], url: method["url"])
             end
           end
         end

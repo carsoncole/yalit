@@ -1,0 +1,11 @@
+inherit_gem:
+  rubocop-rails_config:
+    - config/rails.yml
+
+# This seems unnecessary
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# Need this to use 'Rake Notes' functionality
+Layout/LeadingCommentSpace:
+  Enabled: false

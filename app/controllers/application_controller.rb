@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     if hosted_project
       @project = hosted_project
       @hosted = true
-      unless controller_name == 'chapters'
+      unless controller_name == "chapters"
         redirect_to chapter_path(@project.first_chapter)
       end
     else

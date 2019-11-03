@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
     if params[:view]
       first_chapter = @project.chapters.order(rank: :asc).first
       unless first_chapter
-        first_chapter = @project.chapters.create(title: 'Default')
+        first_chapter = @project.chapters.create(title: "Default")
       end
       redirect_to chapter_path(first_chapter) if first_chapter
     end
@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.find(params[:project_id])
     @schema = @project.schema
     if params[:download]
-      send_data(JSON.pretty_generate(@schema), :filename => "schema.yml", :type => "text/html")
+      send_data(JSON.pretty_generate(@schema), filename: "schema.yml", type: "text/html")
     end
   end
 
@@ -43,9 +43,9 @@ class ProjectsController < ApplicationController
     if @project.host_name.present? || @project.is_published
       @project.toggle(:is_published)
       @project.save
-      redirect_to project_path(@project), notice: "Your project API docs are #{ @project.is_published? ? 'now' : 'no longer' } showing on https://#{@project.host_name}."
+      redirect_to project_path(@project), notice: "Your project API docs are #{ @project.is_published? ? "now" : "no longer" } showing on https://#{@project.host_name}."
     else
-      redirect_to project_path(@project), alert: 'A host name must be added to publish.'
+      redirect_to project_path(@project), alert: "A host name must be added to publish."
     end
   end
 
@@ -58,7 +58,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to @project, notice: "Project was successfully created." }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -72,7 +72,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to @project, notice: "Project was successfully updated." }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -86,7 +86,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to projects_url, notice: "Project was successfully destroyed." }
       format.json { head :no_content }
     end
   end
