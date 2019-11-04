@@ -52,6 +52,13 @@
           %th Host name
           %td.text-right= @project.host_name
 
+        %tr
+          %th Heroku ACM Status
+          %td.text-right= @project.heroku_acm_status
+
+        %tr
+          %th Heroku CNAME
+          %td.text-right= @project.heroku_cname
         / %tr
         /   %th SSL Endpoint
         /   %td.text-right= @project.ssl_endpoint_domain
