@@ -24,6 +24,8 @@ class Project < ApplicationRecord
 
   after_create :generate_content!, if: proc { |p| p.generate_default_content }
 
+  before_save :update_hostname_on_heroku!, if: proc { |p| p.host_name_changed? }
+
   def initialize(args)
     super
     self.color = "#007bff"
@@ -83,13 +85,26 @@ class Project < ApplicationRecord
     rights && ["editor"].include?(rights.role) ? true : false
   end
 
-  def heroku_find_or_create_domain
+  def update_hostname_on_heroku!
+    if host_name_changed? && host_name_was.blank?
+      heroku_find_or_create_host_name
+    elsif host_name_changed? && host_name.blank?
+      heroku_destroy_host_name
+    end
+  end
 
-   59:     heroku.domain.info(ENV['HEROKU_APP'], "*.#{hostname}")
-   60    rescue Excon::Error::NotFound
-   61:     heroku.domain.create(ENV['HEROKU_APP'], { hostname: "*.#{hostname}" })
-   62    end
+  def heroku_find_or_create_host_name
+    return nil unless ENV['HEROKU_APP']
+    heroku = Heroku.new.client
+    heroku.domain.info(ENV['HEROKU_APP'],host_name)
+  rescue Excon::Error::NotFound
+    heroku.domain.create(ENV['HEROKU_APP'], { hostname: host_name })
+  end
 
+  def heroku_destroy_host_name
+    return nil unless ENV['HEROKU_APP']
+    heroku = Heroku.new.client
+    heroku.domain.delete(ENV['HEROKU_APP'], host_name)
   end
 
   #TODO Add more default content
