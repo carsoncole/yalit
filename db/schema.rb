@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_045824) do
+ActiveRecord::Schema.define(version: 2019_11_04_064425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,8 +54,10 @@ ActiveRecord::Schema.define(version: 2019_11_04_045824) do
     t.string "heroku_acm_status"
     t.string "heroku_acm_status_reason"
     t.string "heroku_cname"
-    t.datetime "heroku_acm_created"
+    t.datetime "heroku_acm_created_at"
     t.string "heroku_acm_id"
+    t.string "heroku_domain_status"
+    t.datetime "heroku_acm_updated_at"
   end
 
   create_table "request_methods", force: :cascade do |t|

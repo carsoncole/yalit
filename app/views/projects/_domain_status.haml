@@ -1,0 +1,37 @@
+%section#details
+  .row
+    .col-md-12
+      %h1
+        Host
+        .float-right
+          = link_to edit_project_path(@project) do
+            = fa_icon "edit"
+      %table.table
+
+        %tr
+          %th Host name
+          %td.text-right= @project.host_name
+
+        %tr
+          %th Heroku ACM Status
+          %td.text-right= @project.heroku_acm_status
+
+        %tr
+          %th Heroku ACM Status Reason
+          %td.text-right= @project.heroku_acm_status_reason
+
+        %tr
+          %th Heroku ACM created
+          %td.text-right= @project.heroku_acm_created_at
+
+        %tr
+          %th Heroku ACM updated
+          %td.text-right= @project.heroku_acm_updated_at
+
+        %tr
+          %th Heroku ACM ID
+          %td.text-right= @project.heroku_acm_id
+
+        %tr
+          %th Heroku domain status
+          %td.text-right= @project.heroku_domain_status
