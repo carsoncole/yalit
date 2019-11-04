@@ -100,6 +100,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :host_name, :ssl_endpoint_domain, :color, :description, :terms_of_service_url, :contact_name, :contact_email, :contact_url, :license_name, :license_url, :version, :generate_default_content)
+      params.require(:project).permit(:name, :host_name, :ssl_endpoint_domain, :color, :description, :terms_of_service_url, :contact_name, :contact_email, :contact_url, :license_name, :license_url, :version, :generate_default_content, :heroku_acm_status, :heroku_cname)
     end
 end

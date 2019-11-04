@@ -87,7 +87,9 @@ class Project < ApplicationRecord
 
   def update_hostname_on_heroku!
     if host_name_changed? && host_name_was.blank?
-      heroku_find_or_create_host_name
+      result = heroku_find_or_create_host_name
+      self.heroku_acm_status = result["acm_status"]
+      self.heroku_cname = result["cname"]
     elsif host_name_changed? && host_name.blank?
       heroku_destroy_host_name
     end
@@ -104,7 +106,9 @@ class Project < ApplicationRecord
   def heroku_destroy_host_name
     return nil unless ENV["HEROKU_APP_NAME"]
     heroku = Heroku.new.client
-    heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name)
+    result = heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name)
+    self.heroku_acm_status = nil
+    self.heroku_cname = nil
   end
 
   #TODO Add more default content
