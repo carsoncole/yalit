@@ -94,17 +94,17 @@ class Project < ApplicationRecord
   end
 
   def heroku_find_or_create_host_name
-    return nil unless ENV['HEROKU_APP']
+    return nil unless ENV["HEROKU_APP_NAME"]
     heroku = Heroku.new.client
-    heroku.domain.info(ENV['HEROKU_APP'],host_name)
+    heroku.domain.info(ENV["HEROKU_APP_NAME"],host_name)
   rescue Excon::Error::NotFound
-    heroku.domain.create(ENV['HEROKU_APP'], { hostname: host_name })
+    heroku.domain.create(ENV["HEROKU_APP_NAME"], { hostname: host_name })
   end
 
   def heroku_destroy_host_name
-    return nil unless ENV['HEROKU_APP']
+    return nil unless ENV["HEROKU_APP_NAME"]
     heroku = Heroku.new.client
-    heroku.domain.delete(ENV['HEROKU_APP'], host_name)
+    heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name)
   end
 
   #TODO Add more default content
