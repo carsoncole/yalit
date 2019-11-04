@@ -1,0 +1,25 @@
+%h1 Listing request_methods
+
+%table
+  %thead
+    %tr
+      %th Section
+      %th Title
+      %th Content
+      %th
+      %th
+      %th
+
+  %tbody
+    - @request_methods.each do |request_method|
+      %tr
+        %td= request_method.section
+        %td= request_method.title
+        %td= request_method.content
+        %td= link_to 'Show', request_method
+        %td= link_to 'Edit', edit_request_method_path(request_method)
+        %td= link_to 'Destroy', request_method, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Sub section', new_request_method_path

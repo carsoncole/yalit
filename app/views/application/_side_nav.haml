@@ -21,7 +21,7 @@
                         = link_to chapter_path(chapter, anchor: sub_section.title.camelize), class: 'nav-link' do
                           = sub_section.title
                   - if section.request_methods.any?
-                    - section.request_methods.each do |request_method|
+                    - section.request_methods.order(rank: :asc).each do |request_method|
                       %li.nav-item
                         = link_to chapter_path(chapter, anchor: request_method.title.camelize), class: 'nav-link' do
                           .badge.badge-info= request_method.verb

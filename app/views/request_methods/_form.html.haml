@@ -1,0 +1,39 @@
+= form_for @request_method do |f|
+  - if @request_method.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@request_method.errors.count, "error")} prohibited this request_method from being saved:"
+      %ul
+        - @request_method.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = f.label :section
+    = f.collection_select :section_id, @sections, :id, :title, {}, class: 'form-control'
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control'
+  .form-group
+    = f.label :verb
+    = f.text_field :verb, class: 'form-control'
+  .form-group
+    = f.label :url
+    = f.text_field :url, class: 'form-control'
+  .form-group
+    = f.label :content
+    = f.text_area :content, class: 'form-control', row: 20, cols: 50
+  .form-group
+    = f.label :request_content
+    = f.text_area :request_content, cols: 50, rows: 15, class: 'form-control'
+  .form-group
+    = f.label :response_content
+    = f.text_area :response_content, cols: 50, rows: 15, class: 'form-control'
+  .row
+    .col-md-2
+      .form-group
+        = f.label :rank
+        = f.number_field :rank, class: 'form-control'
+
+  .row
+    .col-md-6.offset-3
+      .actions
+        = f.submit 'Save', class: 'form-control btn btn-primary'

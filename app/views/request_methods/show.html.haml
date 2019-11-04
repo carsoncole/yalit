@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Section:
+  = @request_method.section
+%p
+  %b Title:
+  = @request_method.title
+%p
+  %b Content:
+  = @request_method.content
+
+= link_to 'Edit', edit_request_method_path(@request_method)
+\|
+= link_to 'Back', request_methods_path

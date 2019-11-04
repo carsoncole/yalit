@@ -63,3 +63,4 @@ gem "kramdown"
 gem "font-awesome-rails"
 gem "clearance"
 gem 'platform-api'
+gem 'json'

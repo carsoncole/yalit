@@ -33,6 +33,30 @@ body {
   }
 }
 
+#interaction.request, #interaction.response  {
+  display: block;
+  font-family: "Fira Mono", monospace;
+  padding: 1em 1.4em 1.4em 1.4em;
+  margin: 2em auto;
+  color: #fff;
+  background-color: lighten($base-color, 30%);
+  border-radius: 0.45em;
+
+  .title {
+    font-size: 1.1em;
+    font-weight: 500;
+    margin: 0 0 1em 0;
+    text-transform: uppercase;
+  }
+
+}
+
+
+
+
+
+
+
 #toggle-is-published {
   margin: 1em 0;
   text-align: center;
@@ -101,26 +125,26 @@ section {
 
   h2 {
     font-weight: 300;
-    font-size: 1.7rem;
+    font-size: 2.25rem;
     margin: 1.5em 0 1em 0;
   }
 
   h3 {
     font-weight: 300;
-    font-size: 1.2rem;
-    margin: 1.5em 0 1em 0;
+    font-size: 1.3rem;
+    margin: 2.5em 0 1em 0;
   }
 
   .request-info {
-    border: 1px solid #AAAAAA;
     background-color: #efefef;
-    padding: 0.25em;
-    font-size: 1.15em;
+    padding: 0.3em 0.5em;
+    font-size: 1em;
     margin: 1em 0;
     .verb {
       display: inline;
       font-weight: 700;
       color: $base-color;
+      padding-right: 0.22em;
     }
     .url {
       display: inline;
@@ -222,54 +246,4 @@ code {
   border-radius: 0.45em;
 }
 
-.request {
-  display: block;
-  font-family: "Fira Mono", monospace;
-  text-align: center;
-  width: 85%;
-  padding: 1em 1.4em 1.4em 1.4em;
-  margin: 2em auto;
-  color: #fff;
-  background-color: $base-color;
-  border-radius: 0.45em;
-
-  .title {
-    border-bottom: 1px solid lighten($base-color, 50%);
-    text-align: left;
-    font-size: 0.8rem;
-    margin: 0 0 1em 0;
-    padding: 0;
-    color: lighten($base-color, 50%);
-  }
-}
-
-.response {
-  display: block;
-  font-family: "Fira Mono", monospace;
-  text-align: center;
-  width: 85%;
-  padding: 1em 1.4em 1.4em 1.4em;
-  margin: 2em auto;
-  color: #000;
-  background-color: lighten($base-color, 70%);
-  border-radius: 0.45em;
-
-  .title {
-    border-bottom: 1px solid lighten($base-color, 50%);
-    text-align: left;
-    font-size: 0.8rem;
-    margin: 0 0 1em 0;
-    padding: 0;
-    color: lighten($base-color, 50%);
-  }
-
-}
-
-.request2 {
-  padding: 1em;
-  background-color: $base-color;
-  margin: 1em 10%;
-  color: #fff;
-  border-radius: 0.45em;
-}
 
