@@ -34,6 +34,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "rubocop", "~> 0.76.0", require: false
   gem "rubocop-rails_config"
+  gem "faker"
 end
 
 group :development do
@@ -61,3 +62,4 @@ gem "jquery-rails"
 gem "kramdown"
 gem "font-awesome-rails"
 gem "clearance"
+gem 'platform-api'

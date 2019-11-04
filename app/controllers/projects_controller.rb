@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   before_action :require_login
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
+  #TODO Redirect to a welcome page if no projects exist
   def index
     @projects = current_user.projects
   end

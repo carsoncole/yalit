@@ -12,7 +12,7 @@ class UserTest < ActiveSupport::TestCase
 
     user.destroy
     assert Project.find(project.id)
-    asset_not User.find_by(id: user.id)
+    assert_not User.find_by(id: user.id)
   end
 end
 

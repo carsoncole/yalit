@@ -27,7 +27,7 @@
           = link_to projects_path, class: 'nav-link', "data-toggle": 'tooltip', "title": 'All projects' do
             = fa_icon "folder"
         %li.nav-item.dropdown
-          = link_to "#", id: "navbarDropdown", class: 'nav-link dropdown-toggle', "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false", "role": "button" do
+          = link_to "#", id: "navbarDropdown",class: 'nav-link dropdown-toggle', "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false", "role": "button" do
             = fa_icon "user-circle"
           .dropdown-menu.dropdown-menu-right(aria-labelledby="navbarDropdown")
             .dropdown-item= current_user.email

@@ -83,6 +83,15 @@ class Project < ApplicationRecord
     rights && ["editor"].include?(rights.role) ? true : false
   end
 
+  def heroku_find_or_create_domain
+
+   59:     heroku.domain.info(ENV['HEROKU_APP'], "*.#{hostname}")
+   60    rescue Excon::Error::NotFound
+   61:     heroku.domain.create(ENV['HEROKU_APP'], { hostname: "*.#{hostname}" })
+   62    end
+
+  end
+
   #TODO Add more default content
   def generate_content!(file = "lib/default_content.yml")
     content = YAML.load_file(file)
