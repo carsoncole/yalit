@@ -32,3 +32,4 @@ class ApplicationController < ActionController::Base
     @editing_mode = session["editing_mode"] if session["editing_mode"].present? && session["editing_mode"]
   end
 end
+
