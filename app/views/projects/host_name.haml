@@ -24,9 +24,12 @@
           %td.text-right
             - if @project.host_name.present?
               - if @project.is_hosted?
+                Hosting is on
                 = link_to project_path(@project, params: {project: {is_hosted: false}}), method: :patch do
                   .fa-2x= fa_icon "toggle-on"
+                
               - else
+                Hosting is off
                 = link_to project_path(@project, params: {project: {is_hosted: true}}), method: :patch do
                   .fa-2x= fa_icon "toggle-off"
 
