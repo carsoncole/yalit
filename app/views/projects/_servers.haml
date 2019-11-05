@@ -1,0 +1,14 @@
+.row
+  .col-md-12
+    %h2
+      Servers
+      .float-right
+        = link_to edit_project_path(@project) do
+          = fa_icon "edit"
+
+
+    %table.table
+      - @servers.each do |server|
+        %tr
+          %td= server.description
+          %td.text-right= server.url

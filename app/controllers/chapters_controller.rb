@@ -19,6 +19,15 @@ class ChaptersController < ApplicationController
   def edit
   end
 
+  #TODO Fix for Postman importing
+  def schema
+    @project = current_user.projects.find(params[:project_id])
+    @schema = @project.schema
+    if params[:download]
+      send_data(JSON.pretty_generate(@schema), filename: "openapi.json")
+    end
+  end
+
   def create
     @chapter = @project.chapters.new(chapter_params)
 

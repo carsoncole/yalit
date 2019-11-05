@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   end
 
   resources :projects do
-    get 'schema' => 'projects#schema', as: 'schema'
+    get 'schema' => 'chapters#schema', as: 'schema'
+    get 'basic' => 'projects#basic', as: 'basic'
+    get 'api_details' => 'projects#api_details', as: 'api_details'
+    get 'users' => 'projects#users', as: 'users'
+    get 'host_name' => 'projects#host_name', as: 'host_name'
     resources :invitations
     post 'toggle_is_published' => 'projects#toggle_is_published', as: 'toggle_is_published'
   end

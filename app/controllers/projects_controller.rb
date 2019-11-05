@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :require_login
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :basic, :users, :api_details]
 
   #TODO Redirect to a welcome page if no projects exist
   def index
@@ -8,11 +8,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project.heroku_get_domain_status!
+    redirect_to project_basic_path(@project) unless params[:view]
     @project.save if @project.changed?
-    @user_projects = @project.user_projects.includes(:user).order(role: :desc)
-    @invitations = @project.invitations.all
-    @invitation = @project.invitations.new
     session[:project_id] = @project.id
     if params[:view]
       first_chapter = @project.chapters.order(rank: :asc).first
@@ -23,13 +20,22 @@ class ProjectsController < ApplicationController
     end
   end
 
-  #TODO Fix for Postman importing
-  def schema
+  def basic
+  end
+
+  def api_details
+    @servers = @project.servers
+  end
+
+  def users
+    @user_projects = @project.user_projects.includes(:user).order(role: :desc)
+    @invitations = @project.invitations.all
+    @invitation = @project.invitations.new
+  end
+
+  def host_name
     @project = current_user.projects.find(params[:project_id])
-    @schema = @project.schema
-    if params[:download]
-      send_data(JSON.pretty_generate(@schema), filename: "schema.yml", type: "text/html")
-    end
+    @project.heroku_get_domain_status!
   end
 
   #FIXME This path is broken
@@ -70,17 +76,15 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /projects/1
-  # PATCH/PUT /projects/1.json
   def update
-    respond_to do |format|
-      if @project.update(project_params)
-        format.html { redirect_to @project, notice: "Project was successfully updated." }
-        format.json { render :show, status: :ok, location: @project }
+    if @project.update(project_params)
+      if params[:project][:is_hosted]
+        redirect_to project_host_name_path(@project)
       else
-        format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+       redirect_to @project, notice: "Project was successfully updated."
       end
+    else
+      render :edit
     end
   end
 
@@ -97,11 +101,15 @@ class ProjectsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.find(params[:id])
+      @project = if params[:project_id]
+        Project.find(params[:project_id])
+      else
+        Project.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :host_name, :ssl_endpoint_domain, :color, :description, :terms_of_service_url, :contact_name, :contact_email, :contact_url, :license_name, :license_url, :version, :generate_default_content, :heroku_acm_status, :heroku_cname, :heroku_acm_status_reason, :heroku_acm_created_at, :heroku_acm_updated_at, :heroku_acm_created_at, :heroku_acm_id, :heroku_domain_status)
+      params.require(:project).permit(:name, :host_name, :ssl_endpoint_domain, :color, :description, :terms_of_service_url, :contact_name, :contact_email, :contact_url, :license_name, :license_url, :version, :generate_default_content, :heroku_acm_status, :heroku_cname, :heroku_acm_status_reason, :heroku_acm_created_at, :heroku_acm_updated_at, :heroku_acm_created_at, :heroku_acm_id, :heroku_domain_status, :is_hosted)
     end
 end

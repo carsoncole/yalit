@@ -1,0 +1,60 @@
+= render 'nav'
+
+%section#details
+  .row
+    .col-md-12
+
+      %h2
+        Hosting
+        .float-right
+          = link_to edit_project_path(@project) do
+            = fa_icon "edit"
+      %table.table
+
+        %tr
+          %th 
+            Host name
+          %td.text-right= @project.host_name
+
+        %tr
+          %th
+            Hosting
+            %br
+            %small This activates white-labeled hosting.
+          %td.text-right
+            - if @project.host_name.present?
+              - if @project.is_hosted?
+                = link_to project_path(@project, params: {project: {is_hosted: false}}), method: :patch do
+                  .fa-2x= fa_icon "toggle-on"
+              - else
+                = link_to project_path(@project, params: {project: {is_hosted: true}}), method: :patch do
+                  .fa-2x= fa_icon "toggle-off"
+
+
+        %tr
+          %th Status
+          %td.text-right= @project.heroku_acm_status
+
+        %tr
+          %th Status - Explanation
+          %td.text-right= @project.heroku_acm_status_reason
+
+
+        %tr
+          %th
+            CNAME Record
+            %br
+            %small DNS needs to be updated with this CNAME pointed at the Host name above.
+          %td.text-right= @project.heroku_cname
+
+        %tr
+          %th Created
+          %td.text-right= @project.heroku_acm_created_at
+
+        %tr
+          %th Updated
+          %td.text-right= @project.heroku_acm_updated_at
+
+        %tr
+          %th Domain status
+          %td.text-right= @project.heroku_domain_status

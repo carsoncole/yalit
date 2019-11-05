@@ -1,21 +1,20 @@
-%section#users
+#users
   .row
     .col-md-12
-      %h1 Users
+      %h2 Users
 
       %table.table
-        %thead
-          %tr
-            %th Email
-            %th Role
-            %th.text-right
+        / %thead
+        /   %tr
+        /     %th Email
+        /     %th.text-right Role
         %tbody
           - @user_projects.each do |up|
             %tr
-              %td= up.user.email
-              %td= up.role.capitalize
-              %td.text-right
+              %td
+                = up.user.email
                 - if @project.admin_or_higher?(current_user)
                   - unless up.role == 'owner'
                     = link_to user_project_path(up), method: :delete do
                       = fa_icon "trash"
+              %td.text-right= up.role.capitalize

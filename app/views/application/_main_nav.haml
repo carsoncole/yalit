@@ -1,13 +1,14 @@
 %nav.navbar.navbar-expand-lg.navbar-dark.main-nav.mb-0(style="background-color: #{ @project ? @project.color : '007bff'} !important")
-  .navbar-brand= @project.name if @project
+  .navbar-brand
+    - if @project
+      = link_to @project.name, chapter_path(@project.first_chapter )
 
-  .collapse.navbar-collapse#navbarSupportedContent
+  - if current_user
+    .collapse.navbar-collapse#navbarSupportedContent
+      %ul.navbar-nav.mr-auto
 
-    %ul.navbar-nav.mr-auto
-
-    - if current_user
       %ul.navbar-nav
-        - if @project && controller_name == 'chapters'
+        - if @project&.persisted? && controller_name == 'chapters'
           %li.nav-item
             - url = request.url + '?editing_mode=true'
             = link_to url, class: 'nav-link' do
@@ -16,16 +17,17 @@
               - else
                 = fa_icon "toggle-off"
               Editor
+        - if @project&.persisted? && ['chapters', 'projects'].include?(controller_name)
           %li.nav-item
             = link_to project_path(@project), class: 'nav-link', "data-toggle": 'tooltip', "title": 'Project' do
               = fa_icon "archive"
-        - elsif @project && @project.persisted? && controller_name == 'projects'
+          %li.nav-item
+            = link_to projects_path, class: 'nav-link', "data-toggle": 'tooltip', "title": 'All projects' do
+              = fa_icon "folder"
+        - if @project && @project.persisted? && controller_name == 'projects'
           %li.nav-item
             = link_to project_path(@project, view: true), class: 'nav-link' do
-              = fa_icon "eye"
-        %li.nav-item
-          = link_to projects_path, class: 'nav-link', "data-toggle": 'tooltip', "title": 'All projects' do
-            = fa_icon "folder"
+              = fa_icon "eye"\
         %li.nav-item.dropdown
           = link_to "#", id: "navbarDropdown",class: 'nav-link dropdown-toggle', "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false", "role": "button" do
             = fa_icon "user-circle"

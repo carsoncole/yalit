@@ -51,12 +51,6 @@ body {
 
 }
 
-
-
-
-
-
-
 #toggle-is-published {
   margin: 1em 0;
   text-align: center;
@@ -90,21 +84,20 @@ h1 {
 
 form {
   :required {
-    background-color: #ccc;
-    font-weight: 700;
+    background-color: #efefef;
+    font-weight: 400;
   }
 }
 
-section {
-  h1 {
-    font-size: 1.3rem;
-    margin: 0 0 1.5em 0;
+#details {
+  margin-top: 2em;
+  h2 {
+    border-top: 1px solid #ccc;
+    padding-top: 1.5em;
+    font-size: 1.5em;
+    margin: 2em 0 2em;
   }
-  padding: 1em;
-  border-top: 2px solid #999;
-  margin-top: 1em;
 }
-
 
 
 #chapter {
@@ -158,9 +151,6 @@ section {
   display: flex;
   background-color: rgb(248, 249, 250);
   min-height: 100%;
-  .resource {
-    font-weight: 800;
-  }
 }
 
 #schema {
@@ -179,6 +169,12 @@ nav {
     .navbar-brand {
       font-size: 1.5rem;
       font-weight: 300;
+      a {
+        color: #fff;
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
   }
 
@@ -245,5 +241,21 @@ code {
   padding: 0.15em;
   border-radius: 0.45em;
 }
+#project-nav {
+  margin: 1em 0 em 0;
+  h2 {
+    font-size: 1.2em;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  h1 { 
+    font-weight: 300;
+    margin: 0;
+  }
+  a.nav-link.active {
+    color: #999;
+  }
 
+
+}
 

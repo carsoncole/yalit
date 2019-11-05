@@ -18,21 +18,20 @@ class Project < ApplicationRecord
     message: "should not be preceded with http(s)" }, if: proc { |p| p.host_name.present? }
 
   validates :host_name, format: { with: /\A[0-9A-Za-z\.\-]+\z/,
-    message: "should not have any special characters" }, if: proc { |p| p.host_name.present? }
+    message: "should not have any special characters" }, if: proc { |p| p.host_name.present? && p.host_name != 'localhost:3000' }
 
   validates :host_name, format: { with: /\A.+\..+\z/,
-    message: "should be a complete host name" }, if: proc { |p| p.host_name.present? }
+    message: "should be a complete host name" }, if: proc { |p| p.host_name.present? && p.host_name != 'localhost:3000' }
 
   attr_accessor :generate_default_content
 
   after_create :generate_content!, if: proc { |p| p.generate_default_content }
 
-  before_save :update_hostname_on_heroku!, if: proc { |p| p.host_name_changed? }
+  # before_save :update_hostname_on_heroku!, if: proc { |p| p.is_hosted_changed? }
 
   def initialize(args)
     super
     self.color = "#007bff"
-    self.version = "1.0.0"
     self.contact_email = "contact@example.com"
     self.license_name = "Apache 2.0"
     self.license_url = "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -47,38 +46,8 @@ class Project < ApplicationRecord
     chapters.order(rank: :asc).first
   end
 
-  def openapi_acceptable?
-    false
-  end
-
-  #TODO Add more key/values to complete schema
-  # This schema is based on https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md
   def schema
-    if servers.any?
-      servers_array = servers.all.map { |s| "'url': #{s.url}, 'description': '#{s.description}'" }.join(", ")
-    else
-      servers_array = nil
-    end
-    {
-      "openapi": "3.0.0",
-      "info": {
-        "title": name,
-        "description": description,
-        "termsOfService": terms_of_service_url ? terms_of_service_url : "",
-        "contact": {
-          "name": contact_name ? contact_name : "",
-          "url": contact_url ? contact_url : "",
-          "email": contact_email.present? ? contact_email : "contact@example.com",
-        },
-        "license": {
-          "name": license_name,
-          "url": license_url
-        },
-        "version": version
-      },
-        "servers": [ servers_array ],
-        "path": ""
-    }
+    Schema.new(self).open_api
   end
 
   #OPTIMIZE Refactor to use rank key-value so this will work with any number of ranks
@@ -93,7 +62,7 @@ class Project < ApplicationRecord
   end
 
   def update_hostname_on_heroku!
-    if host_name_changed? && host_name_was.blank?
+    if is_hosted_changed? && is_hosted_was.blank?
       result = heroku_find_or_create_host_name
       self.heroku_acm_status = result["acm_status"]
       self.heroku_cname = result["cname"]
@@ -147,7 +116,7 @@ class Project < ApplicationRecord
     self.heroku_domain_status = nil
     heroku = Heroku.new.client
     # result = heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name)
-    result = heroku.domain.delete('yalit-staging', host_name_was)
+    result = heroku.domain.delete('yalit-staging', host_name_changed? ? host_name_was : host_name)
     puts result
   rescue Excon::Error::NotFound => e
     puts"!"*80
@@ -165,7 +134,7 @@ class Project < ApplicationRecord
           new_section = new_chapter.sections.create(title: section["title"], rank: section["rank"], is_resource: section["is_resource"])
           if section["request_methods"]
             section["request_methods"].each do |method|
-              new_section.request_methods.create(title: method["title"], description: method["description"], verb: method["verb"], url: method["url"])
+              new_section.request_methods.create(title: method["title"], request_content: method["description"], verb: method["verb"], url: method["url"])
             end
           end
         end

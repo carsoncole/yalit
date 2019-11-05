@@ -1,0 +1,13 @@
+.row
+  .col-md-10.offset-1
+
+    %br
+    #schema
+      %p.mb-0 Open API Version 3.0.3
+      %h1.mb-3.mt-0= @project.name
+
+      %p.download-link.mb-3.text-right
+        = link_to project_schema_path(@project, download: true) do
+          = fa_icon "download"
+
+      %pre= JSON.pretty_generate(@schema)

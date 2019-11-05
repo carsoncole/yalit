@@ -1,4 +1,11 @@
-%h1 Projects
+%h1
+  Projects
+
+
+%p.float-right
+  = link_to new_project_path do
+    = fa_icon "plus"
+    New project
 
 %table.table
   %thead
@@ -26,4 +33,3 @@
 
 %br
 
-= link_to 'New Project', new_project_path

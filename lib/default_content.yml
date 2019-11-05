@@ -17,6 +17,8 @@ chapters:
           - get_method:
             verb: GET
             title: Get all Pets
-            description: This will get all of the available Pets
+            url: 'http://example.com/api/v1'
+            request_content: This is the content for a request
+            response_content: This is the content for the response
             url: https://example.com/pets
 

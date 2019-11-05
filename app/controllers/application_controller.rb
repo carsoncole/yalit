@@ -7,12 +7,14 @@ class ApplicationController < ActionController::Base
 
   def set_project
     hosted_project = Project.where(host_name: request.host_with_port).first
+    puts "*"*80
+    puts hosted_project.id
     if hosted_project
       @project = hosted_project
       @hosted = true
-      unless controller_name == "chapters"
-        redirect_to chapter_path(@project.first_chapter)
-      end
+      # unless controller_name == "chapters"
+      #   redirect_to chapter_path(@project.first_chapter)
+      # end
     else
       @project = if session[:project_id]
         Project.find_by(id: session[:project_id])
