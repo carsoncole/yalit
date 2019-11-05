@@ -25,12 +25,12 @@
             - if @project.host_name.present?
               - if @project.is_hosted?
                 Hosting is on
-                = link_to project_path(@project, params: {project: {is_hosted: false}}), method: :patch do
+                = link_to project_path(@project, params: {project: {is_hosted: false}}), method: :patch, data: { confirm: "ATTENTION! This will DISABLE hosting for the host #{ @project.host_name}.  Re-enabling this will require updating DNS records to reflect a new endpoint that will be used in a CNAME record."} do
                   .fa-2x= fa_icon "toggle-on"
                 
               - else
                 Hosting is off
-                = link_to project_path(@project, params: {project: {is_hosted: true}}), method: :patch do
+                = link_to project_path(@project, params: {project: {is_hosted: true}}), method: :patch, data: { confirm: "ATTENTION! This will enable hosting for the host #{ @project.host_name}. Once enabled, update the DNS record for #{ @project.host_name} => CNAME, with the CNAME information that will be shown once this is enabled."} do
                   .fa-2x= fa_icon "toggle-off"
 
 
