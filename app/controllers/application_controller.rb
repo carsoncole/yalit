@@ -7,8 +7,6 @@ class ApplicationController < ActionController::Base
 
   def set_project
     hosted_project = Project.where(host_name: request.host_with_port).first
-    puts "*"*80
-    puts hosted_project.id
     if hosted_project
       @project = hosted_project
       @hosted = true

@@ -33,6 +33,7 @@ class Project < ApplicationRecord
     super
     self.color = "#007bff"
     self.contact_email = "contact@example.com"
+    self.version = "1.0.0"
     self.license_name = "Apache 2.0"
     self.license_url = "http://www.apache.org/licenses/LICENSE-2.0.html"
   end
