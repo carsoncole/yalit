@@ -8,7 +8,7 @@
       .row
         .col-md-2.pl-0#side-nav
           = render "side_nav" if @project
-        .col-md-6.offset-2#main-content
+        .col-md-10#main-content
           = yield
 
     - if current_user && @editing_mode

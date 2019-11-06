@@ -1,8 +1,9 @@
 %nav.navbar.navbar-expand-lg.navbar-dark.main-nav.mb-0(style="background-color: #{ @project ? @project.color : '007bff'} !important")
   .navbar-brand
-    - if @project
+    - if @project && @project.persisted?
       = link_to @project.name, chapter_path(@project.first_chapter )
-
+    - else
+      Yalit
   - if current_user
     .collapse.navbar-collapse#navbarSupportedContent
       %ul.navbar-nav.mr-auto

@@ -80,8 +80,9 @@ class Project < ApplicationRecord
     end
   end
 
+  #TODO Add env variables in credentials file
   def heroku_get_domain_status!
-    return unless host_name.present?
+    return nil unless host_name.present?
     heroku = Heroku.new.client
     # result = heroku.domain.info('yalit-staging',host_name) rescue nil
     result = heroku.domain.info(ENV["HEROKU_APP_NAME"],host_name) rescue nil

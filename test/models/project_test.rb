@@ -23,5 +23,29 @@ class ProjectTest < ActiveSupport::TestCase
 
     project.host_name = "something.com"
     assert project.valid?
+
+    # development site work
+    project.host_name = "localhost:3000"
+    assert project.valid?
+  end
+
+  test "getting Heroku hostname nil status with no domain" do
+    project = build(:project)
+    assert_not project.is_hosted
+    assert_nil project.heroku_get_domain_status!
+  end
+
+  test "generating of default content" do
+    project = create(:project, generate_default_content: false)
+    assert project.chapters.empty?
+
+    project = create(:project, generate_default_content: true)
+    assert project.chapters.any?
+  end
+
+  test "basic validations are met" do
+    project = build(:project, name: nil)
+    assert_not project.valid?
+
   end
 end
