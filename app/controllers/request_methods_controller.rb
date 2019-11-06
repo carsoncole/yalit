@@ -32,6 +32,8 @@ class RequestMethodsController < ApplicationController
     @section = Section.find(params[:request_method][:section_id])
     @chapter = @section.chapter
     @request_method = @section.request_methods.new(request_method_params)
+    @request_method.project.id = @project.id
+    @sections = @chapter.sections
 
     respond_to do |format|
       if @request_method.save
