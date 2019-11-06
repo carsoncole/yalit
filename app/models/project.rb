@@ -27,7 +27,7 @@ class Project < ApplicationRecord
 
   after_create :generate_content!, if: proc { |p| p.generate_default_content }
 
-  # before_save :update_hostname_on_heroku!, if: proc { |p| p.is_hosted_changed? }
+  before_save :update_hostname_on_heroku!, if: proc { |p| p.is_hosted_changed? }
 
   def initialize(args)
     super
@@ -101,8 +101,6 @@ class Project < ApplicationRecord
   rescue Excon::Error::NotFound
     # heroku.domain.create(ENV["HEROKU_APP_NAME"], { hostname: host_name })
     response = heroku.domain.create('yalit-staging', { hostname: host_name })
-    puts "*"*80
-    puts response
     response
   end
 
@@ -120,7 +118,6 @@ class Project < ApplicationRecord
     result = heroku.domain.delete('yalit-staging', host_name_changed? ? host_name_was : host_name)
     puts result
   rescue Excon::Error::NotFound => e
-    puts"!"*80
     puts e
   end
 
