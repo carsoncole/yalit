@@ -82,7 +82,8 @@ class Project < ApplicationRecord
   def heroku_get_domain_status!
     return unless host_name.present?
     heroku = Heroku.new.client
-    result = heroku.domain.info('yalit-staging',host_name) rescue nil
+    # result = heroku.domain.info('yalit-staging',host_name) rescue nil
+    result = heroku.domain.info(ENV["HEROKU_APP_NAME"],host_name) rescue nil
     if result
       self.heroku_acm_status = result["acm_status"]
       self.heroku_cname = result["cname"]
@@ -101,7 +102,7 @@ class Project < ApplicationRecord
     heroku.domain.info(ENV["HEROKU_APP_NAME"],host_name)
     # heroku.domain.info('yalit-staging',host_name)
   rescue Excon::Error::NotFound
-    heroku.domain.create(ENV["HEROKU_APP_NAME"], { hostname: host_name })
+    response = heroku.domain.create(ENV["HEROKU_APP_NAME"], { hostname: host_name })
     # response = heroku.domain.create('yalit-staging', { hostname: host_name })
     response
   end
