@@ -7,7 +7,7 @@ class InvitationsController < ApplicationController
       email: params[:invitation][:email].downcase,
       role: params[:invitation][:role]
       )
-    redirect_to users_path)
+    redirect_to project_users_path(@project)
   end
 
   def destroy
