@@ -1,4 +1,5 @@
 #TODO Fix how having a domain should have it present, but offline for maintenance
+#FIXME Need to protect against deleting or changing host_name while active
 class Project < ApplicationRecord
   require "platform-api"
 
@@ -63,7 +64,7 @@ class Project < ApplicationRecord
   end
 
   def update_hostname_on_heroku!
-    if is_hosted_changed? && is_hosted_was.blank?
+    if is_hosted_changed? && is_hosted
       result = heroku_find_or_create_host_name
       self.heroku_acm_status = result["acm_status"]
       self.heroku_cname = result["cname"]
@@ -72,7 +73,7 @@ class Project < ApplicationRecord
       self.heroku_acm_updated_at = result["updated_at"]
       self.heroku_acm_id = result["id"]
       self.heroku_domain_status = result["status"]
-    elsif host_name_changed? && host_name.blank?
+    else
       heroku_destroy_host_name
     end
   end
@@ -94,18 +95,18 @@ class Project < ApplicationRecord
   end
 
   def heroku_find_or_create_host_name
-    # return nil unless ENV["HEROKU_APP_NAME"]
+    return nil unless ENV["HEROKU_APP_NAME"]
     heroku = Heroku.new.client
-    # heroku.domain.info(ENV["HEROKU_APP_NAME"],host_name)
-    heroku.domain.info('yalit-staging',host_name)
+    heroku.domain.info(ENV["HEROKU_APP_NAME"],host_name)
+    # heroku.domain.info('yalit-staging',host_name)
   rescue Excon::Error::NotFound
-    # heroku.domain.create(ENV["HEROKU_APP_NAME"], { hostname: host_name })
-    response = heroku.domain.create('yalit-staging', { hostname: host_name })
+    heroku.domain.create(ENV["HEROKU_APP_NAME"], { hostname: host_name })
+    # response = heroku.domain.create('yalit-staging', { hostname: host_name })
     response
   end
 
   def heroku_destroy_host_name
-    # return nil unless ENV["HEROKU_APP_NAME"]
+    return nil unless ENV["HEROKU_APP_NAME"]
     self.heroku_acm_status = nil
     self.heroku_cname = nil
     self.heroku_acm_status_reason = nil
@@ -115,7 +116,8 @@ class Project < ApplicationRecord
     self.heroku_domain_status = nil
     heroku = Heroku.new.client
     # result = heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name)
-    result = heroku.domain.delete('yalit-staging', host_name_changed? ? host_name_was : host_name)
+    # result = heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name_changed? ? host_name_was : host_name)
+    result = heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name)
     puts result
   rescue Excon::Error::NotFound => e
     puts e

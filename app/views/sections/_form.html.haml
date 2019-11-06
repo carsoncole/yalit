@@ -8,7 +8,7 @@
 
   .form-group
     = f.label :chapter
-    = f.collection_select :chapter_id, @project.chapters.order(:rank, :asc), :id, :title, {}, class: 'form-control'
+    = f.collection_select :chapter_id, @project.chapters.order(rank: :asc), :id, :title, {}, class: 'form-control'
   .form-group
     = f.label :title
     = f.text_field :title, class: 'form-control'
