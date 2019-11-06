@@ -1,4 +1,5 @@
 class ServersController < ApplicationController
+  before_action :require_login
   before_action :set_server, only: [:show, :edit, :update, :destroy]
   def index
     @servers = @project.servers

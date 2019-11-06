@@ -46,6 +46,5 @@ class ProjectTest < ActiveSupport::TestCase
   test "basic validations are met" do
     project = build(:project, name: nil)
     assert_not project.valid?
-
   end
 end

@@ -5,13 +5,25 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   #   @chapter = chapters(:one)
   # end
 
-  # test "should get index" do
-  #   get chapters_url
-  #   assert_response :success
+  test "should get new" do
+    get new_chapter_url
+    assert_response :redirect
+  end
+
+  test "should not list chapters" do
+    get chapters_url
+    assert_response :redirect
+  end
+
+  # test "should not show a chapter not logged in or on hosted" do
+  #   chapter = create(:chapter)
+  #   assert chapter.valid?
+  #   get chapter_url(chapter)
+  #   assert_redirected_to sign_in_url
   # end
 
-  # test "should get new" do
-  #   get new_chapter_url
+  # test "should show chapter" do
+  #   get chapter_url(@chapter)
   #   assert_response :success
   # end
 
@@ -21,11 +33,6 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   #   end
 
   #   assert_redirected_to chapter_url(Chapter.last)
-  # end
-
-  # test "should show chapter" do
-  #   get chapter_url(@chapter)
-  #   assert_response :success
   # end
 
   # test "should get edit" do

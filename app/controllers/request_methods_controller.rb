@@ -1,4 +1,5 @@
 class RequestMethodsController < ApplicationController
+  before_action :require_login
   before_action :set_chapter, except: [:new, :create]
   before_action :set_section, except: [:new, :create]
   before_action :set_request_method, only: [:show, :edit, :update, :destroy]

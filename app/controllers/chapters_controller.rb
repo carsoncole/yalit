@@ -1,4 +1,5 @@
 class ChaptersController < ApplicationController
+  before_action :require_login, except: [:show, :schema]
   before_action :set_chapter, only: [:show, :edit, :update, :destroy]
 
   def index

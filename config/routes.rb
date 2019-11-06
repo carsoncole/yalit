@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  get 'servers/index'
-  get 'servers/show'
-  get 'servers/edit'
-  get 'servers/update'
-  get 'servers/create'
-  get 'servers/destroy'
   constraints Clearance::Constraints::SignedIn.new do
     root to: 'projects#index', as: :signed_in_root
   end
@@ -12,6 +6,8 @@ Rails.application.routes.draw do
   constraints Clearance::Constraints::SignedOut.new do
     root to: 'home#index'
   end
+
+  get 'not_found' => 'home#not_found', as: 'not_found'
 
   resources :projects do
     get 'schema' => 'chapters#schema', as: 'schema'

@@ -1,4 +1,5 @@
 class InvitationsController < ApplicationController
+  before_action :require_login
   before_action :set_project
 
   def create

@@ -2,21 +2,35 @@
 #TODO Add a maintenance mode
 class ApplicationController < ActionController::Base
   include Clearance::Controller
-  before_action :set_project
+  before_action :set_project, except: [:not_found]
   before_action :set_editing_mode
 
   def set_project
-    hosted_project = Project.where(host_name: request.host_with_port).first
-    if hosted_project
-      @project = hosted_project
+    if hosted_site
+      @project = hosted_site
       @hosted = true
-      # unless controller_name == "chapters"
-      #   redirect_to chapter_path(@project.first_chapter)
-      # end
     else
       @project = if session[:project_id]
         Project.find_by(id: session[:project_id])
       end
+    end
+    puts "%"*80
+    puts request.host
+    puts @project
+    puts root_site?
+    puts params
+    redirect_to not_found_path unless @project && root_site?
+  end
+
+  def hosted_site
+    Project.where(host_name: request.host_with_port).first
+  end
+
+  def root_site?
+    if %w( localhost staging.yalit.io www.example.com ).include? request.host
+      true
+    else
+      false
     end
   end
 

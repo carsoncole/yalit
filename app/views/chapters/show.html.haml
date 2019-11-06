@@ -1,6 +1,6 @@
 .row
-  #chapter
-    .col-md-8
+  .col-md-12
+    #chapter
       %h1.chapter
         = @chapter.title
         - if @editing_mode && current_user
@@ -28,42 +28,48 @@
                 = fa_icon "times"
           = Kramdown::Document.new(sub_section.content).to_html.html_safe if sub_section.content
 
-    .col-md-4
-      - section.request_methods.order(rank: :asc).each do |request_method|
-        %h3(id="#{request_method.title.camelize}")
-          = request_method.title
-          - if @editing_mode && current_user
-            = link_to edit_chapter_section_request_method_path(@chapter, section, request_method) do
-              = fa_icon "edit"
-            = link_to chapter_section_request_method_path(@chapter, section, request_method), method: :delete do
-              = fa_icon "times"
-        .request-info
-          .verb{style: "color: #{@project.color}"}= request_method.verb
-          .url= request_method.path
-        = Kramdown::Document.new(request_method.content).to_html.html_safe if request_method.content
+        - section.request_methods.order(rank: :asc).each do |request_method|
+          %h3(id="#{request_method.title.parameterize}")
+            = request_method.title
+            - if @editing_mode && current_user
+              = link_to edit_chapter_section_request_method_path(@chapter, section, request_method) do
+                = fa_icon "edit"
+              = link_to chapter_section_request_method_path(@chapter, section, request_method), method: :delete do
+                = fa_icon "times"
+          = Kramdown::Document.new(request_method.description).to_html.html_safe if request_method.description
+          .request-info
+            .verb{style: "color: #{@project.color}"}= request_method.verb.upcase
+            .url
+              - url = ""
+              - server = @project.servers.any? ? @project.servers.first.url : ""
+              - url += server + request_method.path
+              = url
 
-        - if request_method.request_content
-          #interaction.request{style: "background-color: #{@project.color}"}
-            .title Request
-            = Kramdown::Document.new(request_method.request_content).to_html.html_safe
+          / - if request_method.request_content
+          /   / #interaction.request{style: "background-color: #{@project.color}"}
+          /   #interaction.request
+          /     .title Request
+          /     .body
+          /       = Kramdown::Document.new(request_method.request_content).to_html.html_safe
 
-        - if request_method.response_content
-          #interaction.response
-            .title Response
-            %pre= request_method.response_content
+          - if request_method.response_content
+            #interaction.response
+              .title Response
+              .body
+                %pre= request_method.response_content
 
-    - if @next_chapter.any? || @previous_chapter.any?
-      #chapter-pagination
-        - if @next_chapter.any?
-          .float-right
-            = link_to chapter_path(@next_chapter.first.id) do
-              = @next_chapter.first.title
-              = fa_icon "arrow-right"
-        - if @previous_chapter.any?
-          .float-left
-            = link_to chapter_path(@previous_chapter.first.id) do
-              = fa_icon "arrow-left"
-              = @previous_chapter.first.title
+      - if @next_chapter.any? || @previous_chapter.any?
+        #chapter-pagination
+          - if @next_chapter.any?
+            .float-right
+              = link_to chapter_path(@next_chapter.first.id) do
+                = @next_chapter.first.title
+                = fa_icon "arrow-right"
+          - if @previous_chapter.any?
+            .float-left
+              = link_to chapter_path(@previous_chapter.first.id) do
+                = fa_icon "arrow-left"
+                = @previous_chapter.first.title
       %br
       %br
       %br

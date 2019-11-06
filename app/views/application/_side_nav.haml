@@ -1,32 +1,34 @@
-%nav.nav.side-nav
-  %ul.navbar-nav.mr-auto
-    - @project.chapters.order(rank: :asc).each do |chapter|
-      - next unless chapter.persisted?
-      %li.nav-item{ class: params[:id].to_i == chapter.id ? 'active' : nil }
-        = link_to chapter.title, chapter_path(chapter), class: 'nav-link'
-        - if chapter.sections.any?
-          %ul
-            - chapter.sections.each do |section|
-              %li.nav-item
-                = link_to chapter_path(chapter, anchor: section.title.camelize), class: 'nav-link' do
-                  = fa_icon "folder-open" if section.is_resource?
-                  - if section.is_resource?
-                    %span.resource= section.title
-                  - else
-                    = section.title
-                %ul
-                  - if section.sub_sections.any?
-                    - section.sub_sections.each do |sub_section|
-                      %li.nav-item
-                        = link_to chapter_path(chapter, anchor: sub_section.title.camelize), class: 'nav-link' do
-                          = sub_section.title
-                  - if section.request_methods.any?
-                    - section.request_methods.order(rank: :asc).each do |request_method|
-                      %li.nav-item
-                        = link_to chapter_path(chapter, anchor: request_method.title.camelize), class: 'nav-link' do
-                          .badge.badge-info= request_method.verb.upcase
-                          = request_method.title
-    %li.nav_item
-      = link_to project_schema_path(@project), class: "nav-link #{ action_name == 'schema' ? 'active' : nil }" do
-        = fa_icon "map"
-        OpenAPI
+#side-nav
+  %nav.nav.side-nav
+    %ul.navbar-nav.mr-auto
+      - @project.chapters.order(rank: :asc).each do |chapter|
+        - next unless chapter.persisted?
+        %li.nav-item{ class: params[:id].to_i == chapter.id ? 'active' : nil }
+          = link_to chapter.title, chapter_path(chapter), class: 'nav-link'
+          - if chapter.sections.any?
+            %ul
+              - chapter.sections.each do |section|
+                %li.nav-item
+                  = link_to chapter_path(chapter, anchor: section.title.camelize), class: 'nav-link' do
+                    = fa_icon "folder-open" if section.is_resource?
+                    - if section.is_resource?
+                      %span.resource= section.title
+                    - else
+                      = section.title
+                  %ul
+                    - if section.sub_sections.any?
+                      - section.sub_sections.each do |sub_section|
+                        %li.nav-item
+                          = link_to chapter_path(chapter, anchor: sub_section.title.camelize), class: 'nav-link' do
+                            = sub_section.title
+                    - if section.request_methods.any?
+                      - section.request_methods.order(rank: :asc).each do |request_method|
+                        %li.nav-item
+                          = link_to chapter_path(chapter, anchor: request_method.title.parameterize), class: 'nav-link' do
+                            .badge.badge-success= request_method.verb.upcase
+                            = request_method.title
+
+      %li.nav_item
+        = link_to project_schema_path(@project), class: "nav-link #{ action_name == 'schema' ? 'active' : nil }" do
+          = fa_icon "map"
+          OpenAPI

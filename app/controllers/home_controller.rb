@@ -4,4 +4,7 @@ class HomeController < ApplicationController
       redirect_to chapter_path(@project.first_chapter)
     end
   end
+
+  def not_found
+  end
 end
