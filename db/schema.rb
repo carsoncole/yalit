@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_05_173909) do
+ActiveRecord::Schema.define(version: 2019_11_06_011731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,13 +66,15 @@ ActiveRecord::Schema.define(version: 2019_11_05_173909) do
     t.bigint "section_id", null: false
     t.string "verb"
     t.string "title"
-    t.string "url"
+    t.string "path"
     t.text "request_content"
     t.text "response_content"
     t.integer "rank"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "content"
+    t.integer "project_id"
+    t.string "description"
     t.index ["section_id"], name: "index_request_methods_on_section_id"
   end
 

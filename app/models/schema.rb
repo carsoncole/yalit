@@ -8,6 +8,7 @@ class Schema
     self.project = project
     self.open_api = self.schema_minimum.to_h.merge! info
     self.open_api.merge! servers
+    self.open_api.merge! paths
     self
   end
 
@@ -51,6 +52,16 @@ class Schema
         "url": server.url,
         "description": server.description
       }
+    end
+    result
+  end
+
+  def paths
+    result = { :paths => {} }
+    project.request_methods.order(rank: :asc).each do |method|
+      next if method.path.nil?
+      result[:paths][method.path.to_sym] = { method.verb.downcase => { "description": method.description }}
+      result[:paths][method.path.to_sym] = { method.verb.downcase => { "responses": { "200": "description"} }}
     end
     result
   end

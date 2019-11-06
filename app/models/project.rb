@@ -8,6 +8,7 @@ class Project < ApplicationRecord
   has_many :users, through: :user_projects
   has_many :invitations, dependent: :destroy
   has_many :servers, dependent: :destroy
+  has_many :request_methods
 
   validates :name, presence: true
   validates :description, presence: true
@@ -49,7 +50,7 @@ class Project < ApplicationRecord
   end
 
   def schema
-    Schema.new(self).open_api
+    Schema.new(self)
   end
 
   #OPTIMIZE Refactor to use rank key-value so this will work with any number of ranks

@@ -37,7 +37,7 @@
             = fa_icon "times"
       .request-info
         .verb{style: "color: #{@project.color}"}= request_method.verb
-        .url= request_method.url
+        .url= request_method.path
       = Kramdown::Document.new(request_method.content).to_html.html_safe if request_method.content
 
       - if request_method.request_content

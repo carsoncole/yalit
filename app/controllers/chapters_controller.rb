@@ -22,7 +22,7 @@ class ChaptersController < ApplicationController
   #TODO Fix for Postman importing
   def schema
     @project = current_user.projects.find(params[:project_id])
-    @schema = @project.schema
+    @schema = @project.schema.open_api
     if params[:download]
       send_data(JSON.pretty_generate(@schema), filename: "openapi.json")
     end
