@@ -1,0 +1,20 @@
+= form_for @server do |f|
+  - if @server.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@server.errors.count, "error")} prohibited this section from being saved:"
+      %ul
+        - @server.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = f.label :url
+    = f.text_field :url, class: 'form-control'
+
+  .form-group
+    = f.label :description
+    = f.text_field :description, class: 'form-control'
+
+  .row
+    .col-md-6.offset-3
+      .actions
+        = f.submit 'Save', class: 'form-control btn btn-primary'

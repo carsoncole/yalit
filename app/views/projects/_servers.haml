@@ -2,13 +2,16 @@
   .col-md-12
     %h2
       Servers
-      .float-right
-        = link_to edit_project_path(@project) do
-          = fa_icon "edit"
 
-
+    %p.float-right
+      = link_to new_server_path do
+        = fa_icon "plus"
+        Add server
     %table.table
       - @servers.each do |server|
         %tr
           %td= server.description
-          %td.text-right= server.url
+          %td.text-right
+            = server.url
+            = link_to server_path(server), method: :delete do
+              = fa_icon "times"

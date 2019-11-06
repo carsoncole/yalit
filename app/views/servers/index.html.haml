@@ -1,0 +1,17 @@
+= render 'projects/nav'
+
+#details
+
+  .row
+    .col-md-12
+      %h2 
+        Servers
+        %span.float-right
+          = link_to new_server_path do
+            = fa_icon "plus"
+
+      %table.table
+        - @servers.each do |server|
+          %tr
+            %td= server.description
+            %td.text-right= server.url

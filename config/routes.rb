@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'servers/index'
+  get 'servers/show'
+  get 'servers/edit'
+  get 'servers/update'
+  get 'servers/create'
+  get 'servers/destroy'
   constraints Clearance::Constraints::SignedIn.new do
     root to: 'projects#index', as: :signed_in_root
   end
@@ -18,7 +24,7 @@ Rails.application.routes.draw do
   end
 
   resources :sections, :sub_sections, :request_methods
-  resources :user_projects
+  resources :user_projects, :servers
   
 
   resources :chapters do
