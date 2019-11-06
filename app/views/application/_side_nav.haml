@@ -24,7 +24,7 @@
                     - section.request_methods.order(rank: :asc).each do |request_method|
                       %li.nav-item
                         = link_to chapter_path(chapter, anchor: request_method.title.camelize), class: 'nav-link' do
-                          .badge.badge-info= request_method.verb.uppercase
+                          .badge.badge-info= request_method.verb.upcase
                           = request_method.title
     %li.nav_item
       = link_to project_schema_path(@project), class: "nav-link #{ action_name == 'schema' ? 'active' : nil }" do
