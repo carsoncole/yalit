@@ -67,6 +67,7 @@ class Project < ApplicationRecord
   def update_hostname_on_heroku!
     if is_hosted_changed? && is_hosted
       result = heroku_find_or_create_host_name
+      return if result.nil?
       self.heroku_acm_status = result["acm_status"]
       self.heroku_cname = result["cname"]
       self.heroku_acm_status_reason = result["acm_status_reason"]
