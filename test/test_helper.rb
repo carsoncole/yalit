@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+require "clearance/test_unit"
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods

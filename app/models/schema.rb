@@ -70,17 +70,46 @@ class Schema
     result
   end
 
+  #FIXME Important! This remains broken
   def paths
-    result = { :paths => {} }
+    result = {}
+
     chapter_ids = project.chapters.select(:id)
     section_ids = Section.where(chapter_id: chapter_ids).select(:id)
-    rms = RequestMethod.where(section_id: section_ids)
-    rms.order(rank: :asc).each do |method|
-      next if method.path.nil?
-      result[:paths][method.path.to_sym] = { method.verb.downcase => { "description": method.description }}
-      result[:paths][method.path.to_sym] = { method.verb.downcase => { "responses": { "200": "description"} }}
+    @rms = RequestMethod.where(section_id: section_ids)
+    
+    paths_1 = @rms.pluck(:path).uniq
+
+    paths_1.each do |path|
+      result.merge!({ path.to_sym => verbs_payload(path) })
+    end
+
+    puts "&"*50
+    puts result
+
+    result
+  end
+
+  def verbs_payload(path)
+    result = {}
+    path_rms = @rms.where(path: path)
+    path_rms.each do |rm|
+      result.merge!({ rm.verb.to_sym => {"description" => "some desc", "responses" => responses_payload(rm) } })
     end
     result
   end
+
+  def responses_payload(rm)
+    result = {}
+    result.merge!({ "200": { "content": {"application/json": {}  } }})
+    result
+  end
+
+  def application_json_payload
+  end
+
+
+
+
 
 end

@@ -3,7 +3,7 @@
     - if @project && @project.persisted?
       = link_to @project.name, chapter_path(@project.first_chapter )
     - else
-      Yalit
+      = link_to "Yalit", root_path
   - if current_user
     .collapse.navbar-collapse#navbarSupportedContent
       %ul.navbar-nav.mr-auto

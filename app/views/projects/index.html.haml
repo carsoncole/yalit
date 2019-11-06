@@ -1,35 +1,37 @@
-%h1
-  Projects
+.row
+  .col-md-8.offset-2
+    %h1
+      Projects
 
 
-%p.float-right
-  = link_to new_project_path do
-    = fa_icon "plus"
-    New project
+    %p.float-right
+      = link_to new_project_path do
+        = fa_icon "plus"
+        New project
 
-%table.table
-  %thead
-    %tr
-      %th Name
-      %th.text-center Published
-      %th Host name
-      %th
-      %th
-      %th
-      %th
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th.text-center Hosted
+          %th Host name
+          %th
 
-  %tbody
-    - @projects.each do |project|
-      %tr
-        %td= project.name
-        %td.text-center
-          - if project.is_published
-            = fa_icon "check"
-        %td= project.host_name
-        %td= link_to 'View', project_path(project, view: true)
-        %td= link_to 'Show', project_path(project)
-        %td= link_to 'Edit', edit_project_path(project)
-        %td= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure? This will result in all project information to be destroyed and is not recoverable.' }
+      %tbody
+        - @projects.each do |project|
+          %tr
+            %td= project.name
+            %td.text-center
+              - if project.is_published
+                = fa_icon "check"
+            %td= project.host_name
+            %td
+              = link_to project_path(project, view: true) do
+                = fa_icon "eye"
+              = link_to edit_project_path(project) do
+                = fa_icon "edit"
+              = link_to project, method: :delete, data: { confirm: 'Are you sure? This will result in all project information to be destroyed and is not recoverable.' } do
+                = fa_icon "times"
 
-%br
+    %br
 

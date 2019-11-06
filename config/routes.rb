@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   resources :user_projects, :servers
   
 
-  resources :chapters do
+  resources :chapters, except: [:index] do
     resources :sections do
       resources :sub_sections
       resources :request_methods
