@@ -1,15 +1,15 @@
-.row
-  .col-md-12
-    %h1 API Documentation Site & Schema Details
+= render 'nav'
 
-= render 'project_details_explanation'
+%section#details
+  .row
+    .col-md-12
+      %h2 API Documentation Site & Schema Details
 
-.row
-  .col-md-12
-    = render 'form'
+      = render 'project_details_explanation'
 
+  .row
+    .col-md-12
+      = render 'form'
 
-.row
-  .col-md-12
-    %br
-    .text-center= link_to "View Documentation", project_path(@project)
+      %br
+      %br

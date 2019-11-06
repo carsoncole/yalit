@@ -1,20 +1,18 @@
 
-  .row
-    .col-md-12
-      %h2 Invitations
-      %table.table
+.row
+  .col-md-12
+    %h2 Invitations
 
-      %table.table
-        %thead
+    %table.table
+      / %thead
+      /   %tr
+      /     %th Email
+      /     %th.text-right Role
+      %tbody
+        - @invitations.each do |invitation|
           %tr
-            %th Email
-            %th Role
-            %th
-        %tbody
-          - @invitations.each do |invitation|
-            %tr
-              %td= invitation.email
-              %td= invitation.role.capitalize
-              %td
-                = link_to project_invitation_path(@project, invitation), method: :delete do
-                  = fa_icon "times"
+            %td= invitation.email
+            %td.text-right
+              = invitation.role.capitalize
+              = link_to project_invitation_path(@project, invitation), method: :delete do
+                = fa_icon "times"

@@ -3,5 +3,5 @@
 
 %section#details
   = render 'users/users'
-  = render 'invitations/send_invitation' if @project.admin_or_higher?(current_user)
   = render 'invitations/invitations' if @invitations.any?
+  = render 'invitations/send_invitation' if @project.admin_or_higher?(current_user)
