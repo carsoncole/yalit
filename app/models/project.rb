@@ -8,7 +8,6 @@ class Project < ApplicationRecord
   has_many :users, through: :user_projects
   has_many :invitations, dependent: :destroy
   has_many :servers, dependent: :destroy
-  has_many :request_methods
 
   validates :name, presence: true
   validates :description, presence: true

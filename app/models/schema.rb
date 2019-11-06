@@ -2,18 +2,28 @@
 # This schema is based on https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md
 class Schema
 
-  attr_accessor :project, :open_api
+  attr_accessor :project
 
   def initialize(project)
     self.project = project
-    self.open_api = self.schema_minimum.to_h.merge! info
-    self.open_api.merge! servers
-    self.open_api.merge! paths
     self
   end
 
+  #TODO This needs to be further worked on
   def compliant?
-    false
+    valid = true
+    valid = false unless open_api[:openapi].present?
+    valid = false unless open_api[:info].present?
+    valid = false unless open_api[:servers].present?
+    valid = false unless open_api[:paths].present?
+    valid
+  end
+
+  def open_api
+    result = schema_minimum.to_h.merge! info
+    result.merge! servers
+    result.merge! paths
+    result
   end
 
   def schema_minimum
@@ -62,7 +72,10 @@ class Schema
 
   def paths
     result = { :paths => {} }
-    project.request_methods.order(rank: :asc).each do |method|
+    chapter_ids = project.chapters.select(:id)
+    section_ids = Section.where(chapter_id: chapter_ids).select(:id)
+    rms = RequestMethod.where(section_id: section_ids)
+    rms.order(rank: :asc).each do |method|
       next if method.path.nil?
       result[:paths][method.path.to_sym] = { method.verb.downcase => { "description": method.description }}
       result[:paths][method.path.to_sym] = { method.verb.downcase => { "responses": { "200": "description"} }}
