@@ -9,17 +9,14 @@ class ApplicationController < ActionController::Base
     if hosted_site
       @project = hosted_site
       @hosted = true
+      puts "HOSTED  "*20
     else
-      @project = if session[:project_id]
+      puts "UNHOSTED  "*20
+      @project = if session[:project_id] && current_user
         Project.find_by(id: session[:project_id])
       end
     end
-    puts "%"*80
-    puts request.host
-    puts @project
-    puts root_site?
-    puts params
-    redirect_to not_found_path unless @project && root_site?
+    # redirect_to not_found_path unless @project && root_site?
   end
 
   def hosted_site

@@ -12,6 +12,10 @@ class Schema
     self
   end
 
+  def compliant?
+    false
+  end
+
   def schema_minimum
     {
       "openapi": "3.0.3",
