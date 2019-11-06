@@ -135,7 +135,7 @@ class Project < ApplicationRecord
           new_section = new_chapter.sections.create(title: section["title"], rank: section["rank"], is_resource: section["is_resource"])
           if section["request_methods"]
             section["request_methods"].each do |method|
-              new_section.request_methods.create(title: method["title"], request_content: method["description"], verb: method["verb"], url: method["url"])
+              new_section.request_methods.create(title: method["title"], request_content: method["description"], verb: method["verb"], path: method["path"])
             end
           end
         end

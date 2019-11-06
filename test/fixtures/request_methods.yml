@@ -4,7 +4,7 @@ one:
   section: one
   verb: MyString
   title: MyString
-  url: MyString
+  path: MyString
   request_content: MyText
   response_content: MyText
 
@@ -12,6 +12,6 @@ two:
   section: two
   verb: MyString
   title: MyString
-  url: MyString
+  path: MyString
   request_content: MyText
   response_content: MyText

@@ -15,7 +15,7 @@ chapters:
         rank: 1
         request_methods:
           - get_method:
-            verb: GET
+            verb: get
             title: Get all Pets
             url: 'http://example.com/api/v1'
             request_content: This is the content for a request

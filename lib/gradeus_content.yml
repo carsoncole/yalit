@@ -68,7 +68,7 @@ chapters:
         rank: 1
         request_methods:  
           - get_method:
-            verb: GET
+            verb: get
             title: Get all Users
             description: This will get all users, including the master user.
             url: https://grade.us/api/v4/users
@@ -79,17 +79,17 @@ chapters:
 
               <div class='response'><div class='title'>Response</div>{ user_id: 1035, email: 'john.doe@gmail.com', created_at: '2019-10-01 01:23.123 TZ'}</div>
           - create_method: 
-            verb: POST
+            verb: post
             title: Create a User
             description: This will create a User.
             url: https://grade.us/api/v4/users
           - create_method: 
-            verb: PATCH
+            verb: patch
             title: Update a User
             description: This will update any attributes for a specific user.
             url: https://grade.us/api/v4/users/:id
           - create_method: 
-            verb: DELETE
+            verb: delete
             title: Delete a User
             description: This will delete a User.
             url: https://grade.us/api/v4/users/:id

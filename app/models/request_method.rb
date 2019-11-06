@@ -1,5 +1,5 @@
 class RequestMethod < ApplicationRecord
-  VERBS = ["GET", "POST", "PUT", "DELETE", "PATCH"]
+  VERBS = ["get", "post", "put", "delete", "patch"]
 
   belongs_to :section
   belongs_to :project, optional: true
