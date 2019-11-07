@@ -20,13 +20,13 @@ class Schema
   end
 
   def open_api
-    result = schema_minimum.to_h.merge! info
+    result = minimum.to_h.merge! info
     result.merge! servers
     result.merge! paths
     result
   end
 
-  def schema_minimum
+  def minimum
     {
       "openapi": "3.0.3",
       "info": {
@@ -39,21 +39,33 @@ class Schema
   end
 
   def info
-    result = { :info => schema_minimum[:info] }
-    result[:info]["description"] = @project.description if @project.description.present?
-    result[:info]["terms_of_service"] = @project.terms_of_service_url if @project.terms_of_service_url.present?
-    result[:info]["description"] = @project.description if @project.description
-    if @project.contact_name || @project.contact_url || @project.contact_email
-      result[:info]["contact"] = {}
-      result[:info]["contact"]["name"] = @project.contact_name if @project.contact_name.present?
-      result[:info]["contact"]["url"] = @project.contact_url if @project.contact_url.present?
-      result[:info]["contact"]["email"] = @project.contact_email if @project.contact_email.present?
-    end
-    if @project.license_name.present? || project.license_url.present?
-      result[:info]["license"] = {}
-      result[:info]["license"]["name"] = @project.license_name if @project.license_name.present?
-      result[:info]["license"]["url"] = @project.license_url if @project.license_url.present?
-    end
+    result = {}
+
+    result.merge!(:info => { "description": @project.description }) if @project.description.present?
+    result.merge!(:info => { "termsOfService": @project.terms_of_service_url }) if @project.terms_of_service_url.present?
+
+    result.merge!(:info => { "contact": { "name": @project.contact_name } }) if @project.contact_name.present?
+    result.merge!(:info => { "contact": { "url": @project.contact_url } }) if @project.contact_url.present?
+    result.merge!(:info => { "contact": { "email": @project.contact_email } }) if @project.contact_email.present?
+
+    result.merge!(:info => { "license": { "name": @project.license_name } }) if @project.license_name.present?
+    result.merge!(:info => { "license": { "url": @project.license_url } }) if @project.license_url.present?
+
+    # result = { :info => schema_minimum[:info] }
+    # result[:info]["description"] = @project.description if @project.description.present?
+    # result[:info]["terms_of_service"] = @project.terms_of_service_url if @project.terms_of_service_url.present?
+    # result[:info]["description"] = @project.description if @project.description
+    # if @project.contact_name || @project.contact_url || @project.contact_email
+    #   result[:info]["contact"] = {}
+    #   result[:info]["contact"]["name"] = @project.contact_name if @project.contact_name.present?
+    #   result[:info]["contact"]["url"] = @project.contact_url if @project.contact_url.present?
+    #   result[:info]["contact"]["email"] = @project.contact_email if @project.contact_email.present?
+    # end
+    # if @project.license_name.present? || project.license_url.present?
+    #   result[:info]["license"] = {}
+    #   result[:info]["license"]["name"] = @project.license_name if @project.license_name.present?
+    #   result[:info]["license"]["url"] = @project.license_url if @project.license_url.present?
+    # end
     result
   end
 
@@ -99,7 +111,7 @@ class Schema
 
   def responses_payload(rm)
     result = {}
-    result.merge!({ "200": { "content": {"application/json": {}  } }})
+    result.merge!({ "200": { "content" => {"application/json" => {}  }, "description" => "some description" }})
     result
   end
 
