@@ -20,60 +20,49 @@ class Schema
   end
 
   def open_api
-    result = minimum.to_h.merge! info
-    result.merge! servers
-    result.merge! paths
+    result = {}
+    result.merge!(openapi: openapi_version)
+    result.merge!({info: info})
+    result.merge!({ servers: servers })
+    result.merge!({ paths: paths })
     result
   end
 
-  def minimum
-    {
-      "openapi": "3.0.3",
-      "info": {
-        "title": @project.name,
-        "version": @project.version
-      },
-      "servers": [
-      ]
-    }
+  def openapi_version
+    "3.0.3"
   end
 
   def info
     result = {}
+    result.merge!({ "title": @project.name })
+    result.merge!({ "description": @project.description })
+    result.merge!({ "termsOfService": @project.terms_of_service_url }) if @project.terms_of_service_url.present?
+    result.merge!({ contact: contact })
+    result.merge!({ license: license })
+    result.merge!({ version: @project.version })
+    result
+  end
 
-    result.merge!(:info => { "description": @project.description }) if @project.description.present?
-    result.merge!(:info => { "termsOfService": @project.terms_of_service_url }) if @project.terms_of_service_url.present?
+  def contact
+    result = {}
+    result.merge!({:name => @project.contact_name}) if @project.contact_name.present?
+    result.merge!({ :url =>  @project.contact_url}) if @project.contact_url.present?
+    result.merge!({ :email=> @project.contact_email}) if @project.contact_email.present?
+    result
+  end
 
-    result.merge!(:info => { "contact": { "name": @project.contact_name } }) if @project.contact_name.present?
-    result.merge!(:info => { "contact": { "url": @project.contact_url } }) if @project.contact_url.present?
-    result.merge!(:info => { "contact": { "email": @project.contact_email } }) if @project.contact_email.present?
-
-    result.merge!(:info => { "license": { "name": @project.license_name } }) if @project.license_name.present?
-    result.merge!(:info => { "license": { "url": @project.license_url } }) if @project.license_url.present?
-
-    # result = { :info => schema_minimum[:info] }
-    # result[:info]["description"] = @project.description if @project.description.present?
-    # result[:info]["terms_of_service"] = @project.terms_of_service_url if @project.terms_of_service_url.present?
-    # result[:info]["description"] = @project.description if @project.description
-    # if @project.contact_name || @project.contact_url || @project.contact_email
-    #   result[:info]["contact"] = {}
-    #   result[:info]["contact"]["name"] = @project.contact_name if @project.contact_name.present?
-    #   result[:info]["contact"]["url"] = @project.contact_url if @project.contact_url.present?
-    #   result[:info]["contact"]["email"] = @project.contact_email if @project.contact_email.present?
-    # end
-    # if @project.license_name.present? || project.license_url.present?
-    #   result[:info]["license"] = {}
-    #   result[:info]["license"]["name"] = @project.license_name if @project.license_name.present?
-    #   result[:info]["license"]["url"] = @project.license_url if @project.license_url.present?
-    # end
+  def license
+    result = {}
+    result.merge!({ "name": @project.license_name }) if @project.license_name.present?
+    result.merge!({ "url": @project.license_url }) if @project.license_url.present?
     result
   end
 
   def servers
-    result = { :servers => [] }
+    result = []
     servers_array = @project.servers.all
     servers_array.each do |server|
-      result[:servers] << {
+      result << {
         "url": server.url,
         "description": server.description
       }
@@ -91,13 +80,11 @@ class Schema
     paths_1 = @rms.pluck(:path).uniq
 
     paths_1.each do |path|
-      result.merge!({ path.to_sym => verbs_payload(path) })
+      result.merge!({ "#{path}":  verbs_payload(path) })
     end
 
-    puts "&"*50
-    puts result
-
-    return {paths: result}
+    result.merge!("parameters": { "name": "user_uuid", "in": "path", "description": "username to fetch", "required": true, "schema": { "type": "string"} })
+    result
   end
 
   def verbs_payload(path)
