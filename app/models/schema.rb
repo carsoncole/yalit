@@ -34,8 +34,7 @@ class Schema
         "version": @project.version
       },
       "servers": [
-      ],
-      "paths": {}
+      ]
     }
   end
 
@@ -73,7 +72,6 @@ class Schema
   #FIXME Important! This remains broken
   def paths
     result = {}
-
     chapter_ids = project.chapters.select(:id)
     section_ids = Section.where(chapter_id: chapter_ids).select(:id)
     @rms = RequestMethod.where(section_id: section_ids)
@@ -87,7 +85,7 @@ class Schema
     puts "&"*50
     puts result
 
-    result
+    return {paths: result}
   end
 
   def verbs_payload(path)
