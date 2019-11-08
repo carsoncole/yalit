@@ -34,6 +34,10 @@
           = f.check_box :generate_default_content, class: 'form-control'
 
       .form-group
+        = f.label :open_api_version
+        = f.text_field :open_api_version, class: 'form-control'
+
+      .form-group
         = f.label :terms_of_service_url
         = f.text_field :terms_of_service_url, class: 'form-control'
 

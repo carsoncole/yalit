@@ -3,6 +3,7 @@ class RequestMethod < ApplicationRecord
 
   belongs_to :section
   belongs_to :project, optional: true
+  has_many :parameters
 
   validates :path, presence: true
   validates :description, presence: true

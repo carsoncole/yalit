@@ -32,6 +32,7 @@ class Project < ApplicationRecord
 
   def initialize(args)
     super
+    self.open_api_version = Schema.new(self).openapi_version
     self.color = "#007bff"
     self.contact_email = "contact@example.com"
     self.version = "1.0.0"
@@ -144,4 +145,12 @@ class Project < ApplicationRecord
       end
     end
   end
+
+  def url
+    return nil unless host_name
+    "https://" + host_name
+  end
+
+
+
 end

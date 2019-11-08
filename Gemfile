@@ -64,3 +64,4 @@ gem "font-awesome-rails"
 gem "clearance"
 gem 'platform-api'
 gem 'json'
+gem 'rack-cors'

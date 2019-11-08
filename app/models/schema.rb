@@ -1,5 +1,6 @@
 #TODO Add more key/values to complete schema
 # This schema is based on https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md
+#TODO Add a COPY TEXT button to schema page
 class Schema
 
   attr_accessor :project
@@ -13,8 +14,10 @@ class Schema
   def compliant?
     valid = true
     valid = false unless open_api[:openapi].present?
-    valid = false unless open_api[:info].present?
-    valid = false unless open_api[:servers].present?
+    unless open_api[:info].present? && open_api[:info][:title].present? && open_api[:info][:version].present? && open_api[:info][:license].present?
+      valid = false
+    end
+    valid = false unless open_api[:servers].present? && open_api[:servers].any?
     valid = false unless open_api[:paths].present?
     valid
   end
@@ -25,11 +28,12 @@ class Schema
     result.merge!({info: info})
     result.merge!({ servers: servers })
     result.merge!({ paths: paths })
+    result.merge!(external_docs) if external_docs
     result
   end
 
   def openapi_version
-    "3.0.3"
+    "3.0.2"
   end
 
   def info
@@ -90,15 +94,16 @@ class Schema
     path_rms = @rms.where(path: path)
     path_rms.each do |rm|
       result.merge!({ rm.verb.to_sym => 
-        {"description" => "some desc", "responses" => responses_payload(rm), "parameters" => parameters_payload(rm) }
+        {"description" => rm.description, "responses" => responses_payload(rm), "parameters" => parameters_payload(rm) }
       })
     end
     result
   end
 
+  #TODO Create a responses class to hold this data. Currently this is mocked
   def responses_payload(rm)
     result = {}
-    result.merge!({ "200": { "content" => {"application/json" => {}  }, "description" => "some description" }})
+    result.merge!({ "200": { "description" => "some description" }})
     result
   end
 
@@ -106,6 +111,15 @@ class Schema
     result = []
     result << {"in": "path", name: 'user_uuid', required: true, schema: { type: 'string' }, description: "Some description"}
     result
+  end
+
+  def security
+    { "api_key": [] }
+  end
+
+  def external_docs
+    return nil unless project.is_hosted? && project.host_name
+    { externalDocs: { url: project.url } }
   end
 
 

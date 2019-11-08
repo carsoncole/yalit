@@ -27,6 +27,12 @@ class ChaptersController < ApplicationController
     if params[:download]
       send_data(JSON.pretty_generate(@schema), filename: "openapi.json")
     end
+
+    respond_to do |format|
+      format.html {render :schema }
+      format.json { render json: @schema}
+    end
+
   end
 
   def create

@@ -3,29 +3,31 @@
 
     %br
     #schema
-      %p.mb-0 Open API Version 3.0.3
+      %p.mb-0 Open API Schema
       %h1.mb-3.mt-0= @project.name
 
       .row
         .col-md-8
           %p.mt-4
-            This JSON is structured to comply with the OpenAPI 3.0.0 specification and can be imported into any number of API editors, including
+            This JSON is structured to comply with the OpenAPI specification and can be imported into any number of API editors, including
             = succeed(".") do
               = link_to "Swagger Editor", "https://editor.swagger.io"
           - if current_user
-            %h5 
+            %p 
               Status:
-            - if @project.schema.compliant?
-              %span.badge.badge-success Compliant
-            - else
-              %span.badge.badge-danger NOT COMPLIANT
-              - unless @project.schema.compliant?
-                For this JSON to be OAS compliant, specific API details must be provided. Review the API specs.
+              - if @project.schema.compliant?
+                %span.badge.badge-success Compliant
+              - else
+                %span.badge.badge-danger NOT COMPLIANT
+                - unless @project.schema.compliant?
+                  For this JSON to be OAS compliant, specific API details must be provided. Review the API specs.
 
 
       %p.download-link.mb-3.text-right
         = link_to project_schema_path(@project, download: true) do
           = fa_icon "download"
+      %p.mb-3.text-right
+        = link_to "Swagger", "http://petstore.swagger.io/?url=#{request.original_url}.json"
 
       %pre= JSON.pretty_generate(@schema)
 

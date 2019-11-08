@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_160848) do
+ActiveRecord::Schema.define(version: 2019_11_08_025811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 2019_11_06_160848) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_invitations_on_project_id"
+  end
+
+  create_table "parameters", force: :cascade do |t|
+    t.bigint "request_method_id", null: false
+    t.string "name"
+    t.string "description"
+    t.string "type", default: "integer"
+    t.boolean "is_required", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["request_method_id"], name: "index_parameters_on_request_method_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -60,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_11_06_160848) do
     t.datetime "heroku_acm_updated_at"
     t.boolean "is_hosted", default: false
     t.string "root_url"
+    t.string "open_api_version"
   end
 
   create_table "request_methods", force: :cascade do |t|
@@ -130,6 +142,7 @@ ActiveRecord::Schema.define(version: 2019_11_06_160848) do
 
   add_foreign_key "chapters", "projects"
   add_foreign_key "invitations", "projects"
+  add_foreign_key "parameters", "request_methods"
   add_foreign_key "request_methods", "sections"
   add_foreign_key "sections", "chapters"
   add_foreign_key "servers", "projects"
