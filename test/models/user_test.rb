@@ -5,14 +5,14 @@ class UserTest < ActiveSupport::TestCase
     assert create(:user)
   end
 
-  test "user-created projects remain after destroying user" do
+  test "user-created projects don't remain after destroying user if they are owner" do
     user = create(:user)
-    project = create(:project)
-    project.user_projects.build(user: user)
+    user_project = user.user_projects.last
+    project = user.user_projects.last
 
-    user.destroy
-    assert Project.find(project.id)
-    assert_not User.find_by(id: user.id)
+    assert_equal user_project.role, "owner"
+
+    assert user.destroy
+    assert_not Project.find_by(id: project.id)
   end
 end
-

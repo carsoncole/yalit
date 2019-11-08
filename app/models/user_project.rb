@@ -7,13 +7,14 @@ class UserProject < ApplicationRecord
   end
 
   validates :role, inclusion: { in: UserProject.roles }
-  validate :check_for_only_one_owner, if: proc { |up| up.role == "owner" }
   validates :user_id, uniqueness: { scope: :project_id }
+  validates :role, uniqueness: { scope: :project_id }, if: proc { |up| up.role == 'owner' }
 
-  def check_for_only_one_owner
-    user_projects = project.user_projects.where(role: "owner")
-    if user_projects.count > 1
-      errors.add(:role, "can't add more than one owner")
+  validate :check_if_role_changing_from_owner
+
+  def check_if_role_changing_from_owner
+    if self.role_changed? && self.role_was == 'owner'
+      errors.add(:role, "Ownership can not be removed")
     end
   end
 end

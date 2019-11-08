@@ -12,6 +12,7 @@ class Project < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
   validates :version, presence: true
+  validate :is_hosted_needs_host_name
 
   validates :host_name, uniqueness: true, if: proc { |p| p.host_name.present? }
 
@@ -27,6 +28,8 @@ class Project < ApplicationRecord
   attr_accessor :generate_default_content
 
   after_create :generate_content!, if: proc { |p| p.generate_default_content }
+
+  before_save :disable_hosting_if_host_name_changed!, if: proc { |p| p.host_name_changed? && p.is_hosted? }
 
   before_save :update_hostname_on_heroku!, if: proc { |p| p.is_hosted_changed? }
 
@@ -76,7 +79,7 @@ class Project < ApplicationRecord
       self.heroku_acm_id = result["id"]
       self.heroku_domain_status = result["status"]
     else
-      heroku_destroy_host_name
+      heroku_find_and_destroy_host_name
     end
   end
 
@@ -109,8 +112,8 @@ class Project < ApplicationRecord
     response
   end
 
-  def heroku_destroy_host_name
-    return nil unless ENV["HEROKU_APP_NAME"]
+  def heroku_find_and_destroy_host_name
+    # return nil unless ENV["HEROKU_APP_NAME"]
     self.heroku_acm_status = nil
     self.heroku_cname = nil
     self.heroku_acm_status_reason = nil
@@ -119,6 +122,7 @@ class Project < ApplicationRecord
     self.heroku_acm_id = nil
     self.heroku_domain_status = nil
     heroku = Heroku.new.client
+    heroku.domain.info(ENV["HEROKU_APP_NAME"],host_name)
     # result = heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name)
     # result = heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name_changed? ? host_name_was : host_name)
     result = heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name)
@@ -151,6 +155,15 @@ class Project < ApplicationRecord
     "https://" + host_name
   end
 
+  def disable_hosting_if_host_name_changed!
+    heroku_find_and_destroy_host_name
+    self.is_hosted = false
+  end
 
+  def is_hosted_needs_host_name
+    if is_hosted && host_name.blank?
+      errors.add(:is_hosted, "Hosting requires a host name")
+    end
+  end
 
 end

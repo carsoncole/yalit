@@ -47,4 +47,16 @@ class ProjectTest < ActiveSupport::TestCase
     project = build(:project, name: nil)
     assert_not project.valid?
   end
+
+  test "change host_name should remove hosting" do
+    project = create(:project, is_hosted: true, host_name: "example.com")
+
+    assert project.update(host_name: 'newexample.com')
+    assert_not project.reload.is_hosted
+  end
+
+  test "enabling is_hosted should be only possible with host_name" do
+    project = create(:project, is_hosted: false)
+    assert_not project.update(is_hosted: true)
+  end
 end
