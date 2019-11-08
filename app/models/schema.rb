@@ -82,8 +82,6 @@ class Schema
     paths_1.each do |path|
       result.merge!({ "#{path}":  verbs_payload(path) })
     end
-
-    result.merge!("parameters": { "name": "user_uuid", "in": "path", "description": "username to fetch", "required": true, "schema": { "type": "string"} })
     result
   end
 
@@ -91,7 +89,9 @@ class Schema
     result = {}
     path_rms = @rms.where(path: path)
     path_rms.each do |rm|
-      result.merge!({ rm.verb.to_sym => {"description" => "some desc", "responses" => responses_payload(rm) } })
+      result.merge!({ rm.verb.to_sym => 
+        {"description" => "some desc", "responses" => responses_payload(rm), "parameters" => parameters_payload(rm) }
+      })
     end
     result
   end
@@ -102,7 +102,10 @@ class Schema
     result
   end
 
-  def application_json_payload
+  def parameters_payload(rm)
+    result = []
+    result << {"in": "path", name: 'user_uuid', required: true, schema: { type: 'string' }, description: "Some description"}
+    result
   end
 
 
