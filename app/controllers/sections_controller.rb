@@ -1,7 +1,7 @@
 class SectionsController < ApplicationController
   before_action :require_login
   before_action :set_section, only: [:show, :edit, :update, :destroy]
-  before_action :set_chapter, only: [:create, :edit, :update]
+  before_action :set_chapter, only: [:create, :edit, :update, :destroy]
 
   # GET /sections
   # GET /sections.json
@@ -58,7 +58,7 @@ class SectionsController < ApplicationController
   def destroy
     @section.destroy
     respond_to do |format|
-      format.html { redirect_to sections_url, notice: "Section was successfully destroyed." }
+      format.html { redirect_to chapter_path(@chapter), notice: "Section was successfully destroyed." }
       format.json { head :no_content }
     end
   end
