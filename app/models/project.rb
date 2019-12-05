@@ -36,7 +36,7 @@ class Project < ApplicationRecord
   def initialize(args)
     super
     self.open_api_version = Schema.new(self).openapi_version
-    self.color = "#007bff"
+    self.color = "#0f4c81"
     self.contact_email = "contact@example.com"
     self.version = "1.0.0"
     self.license_name = "Apache 2.0"

@@ -17,8 +17,7 @@
               Status:
               - if @project.schema.compliant?
                 %span.badge.badge-success Compliant
-              - else
-                %span.badge.badge-danger NOT COMPLIANT
+              - else                %span.badge.badge-danger NOT COMPLIANT
                 - unless @project.schema.compliant?
                   For this JSON to be OAS compliant, specific API details must be provided. Review the API specs.
 

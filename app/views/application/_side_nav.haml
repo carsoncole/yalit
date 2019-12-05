@@ -10,11 +10,12 @@
               - chapter.sections.each do |section|
                 %li.nav-item
                   = link_to chapter_path(chapter, anchor: section.title.camelize), class: 'nav-link' do
-                    = fa_icon "folder-open" if section.is_resource?
-                    - if section.is_resource?
-                      %span.resource= section.title
-                    - else
-                      = section.title
+                    .endpoint
+                      = fa_icon "folder-open" if section.is_resource?
+                      - if section.is_resource?
+                        = section.title
+                      - else
+                        = section.title
                   %ul
                     - if section.sub_sections.any?
                       - section.sub_sections.each do |sub_section|
@@ -25,7 +26,7 @@
                       - section.request_methods.order(rank: :asc).each do |request_method|
                         %li.nav-item
                           = link_to chapter_path(chapter, anchor: request_method.title.parameterize), class: 'nav-link' do
-                            .badge.badge-success= request_method.verb.upcase
+                            = fa_icon "stream"
                             = request_method.title
 
       %li.nav_item

@@ -1,4 +1,6 @@
 $base-color: #0f4c81;
+$secondary-color: lighten($base-color, 10%);
+$third-color: darken($base-color, 10%);
 $base-black: #111111;
 $background: #efefef;
 $highlight: green;
@@ -8,7 +10,8 @@ html {
 }
 
 body {
-  height: 100%
+  height: 100%;
+  font-size: 15px;
 }
 
 #homepage {
@@ -160,12 +163,16 @@ form {
     line-height: 1.666em;
     font-size: 1em;
     margin: 1em 0;
+    display: block;
+    border-radius: 0.45em;
     .verb {
       display: inline-block;
       font-weight: 700;
-      background-color: $highlight;
+      background-color: $secondary-color;
       padding: 0.5em;
       color: #ffffff !important;
+      border-radius: 0.45em 0 0 0.45em;
+
     }
     .url {
       display: inline-block;
@@ -286,7 +293,19 @@ code {
   a.nav-link.active {
     color: #999;
   }
-
-
 }
 
+.badge-verb {
+  background-color: $secondary-color;
+  color: #efefef;
+}
+
+li.nav-item .endpoint {
+  display: inline-block;
+  background-color: $third-color;
+  font-size: 0.9em;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  color: #efefef;
+  border-radius: 0.35em;
+}
