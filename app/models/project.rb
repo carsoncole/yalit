@@ -12,7 +12,6 @@ class Project < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
   validates :version, presence: true
-  validate :set_color, presence: true
   validate :is_hosted_needs_host_name
 
   validates :host_name, uniqueness: true, if: proc { |p| p.host_name.present? }
@@ -29,10 +28,9 @@ class Project < ApplicationRecord
   attr_accessor :generate_default_content
 
   after_create :generate_content!, if: proc { |p| p.generate_default_content }
-
   before_save :disable_hosting_if_host_name_changed!, if: proc { |p| p.host_name_changed? && p.is_hosted? }
-
   before_save :update_hostname_on_heroku!, if: proc { |p| p.is_hosted_changed? }
+  before_save :set_color_if_blank!, if: proc { |p| p.color.blank? }
 
   def initialize(args)
     super
