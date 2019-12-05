@@ -12,6 +12,7 @@ class Project < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
   validates :version, presence: true
+  validate :set_color, presence: true
   validate :is_hosted_needs_host_name
 
   validates :host_name, uniqueness: true, if: proc { |p| p.host_name.present? }
@@ -164,6 +165,10 @@ class Project < ApplicationRecord
     if is_hosted && host_name.blank?
       errors.add(:is_hosted, "Hosting requires a host name")
     end
+  end
+
+  def set_color_if_blank!
+    self.color = "#0f4c81" if color.blank?
   end
 
 end
