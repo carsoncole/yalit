@@ -9,6 +9,6 @@
       %br
       %ul.nav.justify-content-end
         %li.nav-item= link_to "Info", project_basic_path(@project), class: "nav-link #{ action_name == "basic" ? "active" : nil }"
-        %li.nav-item= link_to "API Specs", project_api_details_path(@project), class: "nav-link #{ action_name == "api_details" ? "active" : nil }"
+        %li.nav-item= link_to "Details", project_api_details_path(@project), class: "nav-link #{ action_name == "api_details" ? "active" : nil }"
         %li.nav_item= link_to "Hosting", project_host_name_path(@project), class: "nav-link #{ action_name == 'host_name' ? 'active' : nil }"
-        %li.nav_item= link_to "Access", project_users_path(@project), class: "nav-link #{ action_name == 'users' ? 'active' : nil }"
+        %li.nav_item= link_to "Users", project_users_path(@project), class: "nav-link #{ action_name == 'users' ? 'active' : nil }"

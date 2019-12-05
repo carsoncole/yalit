@@ -23,7 +23,7 @@ class ServersController < ApplicationController
 
     respond_to do |format|
       if @server.save
-        format.html { redirect_to servers_path, notice: "Server was successfully created." }
+        format.html { redirect_to api_details_path, notice: "Server was successfully created." }
         format.json { render :show, status: :created, location: @server }
       else
         format.html { render :new }
@@ -33,6 +33,8 @@ class ServersController < ApplicationController
   end
 
   def destroy
+    @server.destroy
+    redirect_to project_api_details_path(@project)
   end
 
   def set_server
@@ -40,6 +42,6 @@ class ServersController < ApplicationController
   end
 
   def server_params
-    params.require(:server).permit(:url, :description)
+    params.require(:server).permit(:url, :description, :api_key)
   end
 end
