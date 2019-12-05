@@ -25,11 +25,13 @@
               - if project.is_hosted
                 = fa_icon "check"
             %td= project.host_name
-            %td
+            %td.text-right
               = link_to project_path(project, view: true) do
                 = fa_icon "eye"
+              \|
               = link_to edit_project_path(project) do
                 = fa_icon "edit"
+              \|
               = link_to project, method: :delete, data: { confirm: 'Are you sure? This will result in all project information to be destroyed and is not recoverable.' } do
                 = fa_icon "times"
 
