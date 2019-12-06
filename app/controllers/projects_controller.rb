@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    redirect_to project_basic_path(@project) unless params[:view]
+    redirect_to project_api_details_path(@project) unless params[:view]
     @project.save if @project.changed?
     session[:project_id] = @project.id
     if params[:view]
