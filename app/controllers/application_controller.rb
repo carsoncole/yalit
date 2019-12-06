@@ -9,9 +9,7 @@ class ApplicationController < ActionController::Base
     if hosted_site
       @project = hosted_site
       @hosted = true
-      puts "HOSTED  "*20
     else
-      puts "UNHOSTED  "*20
       @project = if session[:project_id] && current_user
         Project.find_by(id: session[:project_id])
       end

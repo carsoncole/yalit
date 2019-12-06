@@ -12,6 +12,11 @@ class ServersController < ApplicationController
   end
 
   def update
+    if @server.update(server_params)
+      redirect_to project_api_details_path(@project), notice: "Project was successfully updated."
+    else
+      render :edit
+    end
   end
 
   def new
