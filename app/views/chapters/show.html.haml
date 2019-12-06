@@ -65,7 +65,7 @@
               .body
                 - j = ActiveSupport::JSON
                 - rm = j.decode(request_method.response_content)
-                %pre= JSON.pretty_generate(JSON.parse(request_method.response_content))
+                %pre= JSON.pretty_generate(JSON.parse(request_method.response_content)) rescue "Content is not valid JSON"
 
       - if @next_chapter.any? || @previous_chapter.any?
         #chapter-pagination
