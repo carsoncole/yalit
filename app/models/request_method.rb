@@ -20,10 +20,14 @@ class RequestMethod < ApplicationRecord
 
   def ping!
     if project && project.ping_server
-      api_key = project.ping_server.api_key
-      request = project.ping_server.url + path
+      server = project.ping_server
+      api_key = server.api_key
+      request = server.url + path
       update(request_content: verb.upcase + ' ' + request)
-      response = HTTParty.get(request, headers: { "Authorization" => "Token " + api_key })
+      headers = {}
+      headers = headers.merge({ "Authorization" => server.authorization_header }) if server.authorization_header.present?
+      headers = headers.merge({ "Content-Type" => server.content_type_header}) if server.authorization_header.present?
+      response = HTTParty.get(request, headers: headers)
       update(response_content: response.body, response_code: response.code)
     end
   end

@@ -4,7 +4,7 @@
       %h2= "#{pluralize(@server.errors.count, "error")} prohibited this section from being saved:"
       %ul
         - @server.errors.full_messages.each do |message|
-          %li= message
+          %li= messagew
 
   .form-group
     = f.label :url
@@ -18,6 +18,14 @@
     .form-group
       = f.label :use_for_ping, "Use for Testing"
       = f.check_box :use_for_ping, class: 'form-control'
+
+    .form-group
+      = f.label :content_type_header
+      = f.text_field :content_type_header, class: 'form-control'
+
+    .form-group
+      = f.label :authorization_header
+      = f.text_field :authorization_header, class: 'form-control'
 
   .form-group
     = f.label :api_key, "API Key"

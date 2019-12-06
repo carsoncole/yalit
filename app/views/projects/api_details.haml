@@ -4,16 +4,20 @@
   .row
     .col-md-12
 
-      %h2
-        Info
-        %span.float-right
-          = link_to edit_project_path(@project) do
-            = fa_icon "edit"
+      %p.float-right
+        = link_to edit_project_path(@project) do
+          = fa_icon "edit"
 
       %table.table
         %tr
           %th Title
           %td.text-right= @project.name
+
+        %tr
+          %th Description
+          %td.text-right= @project.description
+
+
         %tr
           %th Version
           %td.text-right= @project.version

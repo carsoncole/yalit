@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :require_login
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :basic, :users, :api_details]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :users, :api_details]
 
   #TODO Redirect to a welcome page if no projects exist
   def index
@@ -18,9 +18,6 @@ class ProjectsController < ApplicationController
       end
       redirect_to chapter_path(first_chapter) if first_chapter
     end
-  end
-
-  def basic
   end
 
   def api_details

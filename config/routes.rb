@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 
   resources :projects do
     get 'schema' => 'chapters#schema', as: 'schema'
-    get 'basic' => 'projects#basic', as: 'basic'
     get 'api_details' => 'projects#api_details', as: 'api_details'
     get 'users' => 'projects#users', as: 'users'
     get 'host_name' => 'projects#host_name', as: 'host_name'
