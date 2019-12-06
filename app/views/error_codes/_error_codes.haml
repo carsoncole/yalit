@@ -1,0 +1,25 @@
+%br
+.row
+  .col-md-10.offset-1
+    - if @editing_mode
+      %p
+        = link_to new_section_error_code_path(section) do
+          = fa_icon "plus"
+          Add Code
+    %table.table
+      %thead
+        %tr
+          %th Error
+          %th HTTP Status
+          %th Custom Status
+          %th
+      - section.error_codes.each do |error_code|
+        %tr
+          %td
+            = error_code.title
+          %td
+            = error_code.http_status_code
+          %td
+            = error_code.custom_status_code
+          %td
+            = error_code.description

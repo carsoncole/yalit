@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_06_042611) do
+ActiveRecord::Schema.define(version: 2019_12_06_175738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(version: 2019_12_06_042611) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_chapters_on_project_id"
+  end
+
+  create_table "error_codes", force: :cascade do |t|
+    t.bigint "section_id", null: false
+    t.string "title"
+    t.integer "http_status_code"
+    t.integer "custom_status_code"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["section_id"], name: "index_error_codes_on_section_id"
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -98,6 +109,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_042611) do
     t.boolean "is_resource", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_error_codes", default: false
     t.index ["chapter_id"], name: "index_sections_on_chapter_id"
   end
 
@@ -147,6 +159,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_042611) do
   end
 
   add_foreign_key "chapters", "projects"
+  add_foreign_key "error_codes", "sections"
   add_foreign_key "invitations", "projects"
   add_foreign_key "parameters", "request_methods"
   add_foreign_key "request_methods", "sections"

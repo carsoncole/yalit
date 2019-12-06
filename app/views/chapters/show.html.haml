@@ -20,6 +20,9 @@
               = fa_icon "times"
         = Kramdown::Document.new(section.content).to_html.html_safe if section.content
 
+        - if section.is_error_codes?
+          = render partial: 'error_codes/error_codes', locals: { section: section }
+
         - section.sub_sections.order(rank: :asc).each do |sub_section|
           %h3(id="#{sub_section.title.camelize}")
             = sub_section.title

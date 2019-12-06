@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   resources :sections, :sub_sections
   resources :user_projects, :servers
   
+  resources :sections do
+    resources :error_codes
+  end
 
   resources :chapters, except: [:index] do
     resources :sections do

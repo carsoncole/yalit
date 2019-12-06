@@ -1,0 +1,25 @@
+%h1 Error Codes
+
+.row
+  .col-md-12
+    - if @editing_mode
+      %p
+        = link_to new_section_error_code_path(@section) do
+          = fa_icon "plus"
+          Add Code
+    %table.table
+      - @error_codes.each do |error_code|
+        %tr
+          %td
+            = error_code.title
+          %td
+            = error_code.http_status_code
+          %td
+            = error_code.custom_status_code
+          %td
+            = error_code.description
+          %td.text-right
+            = link_to edit_section_error_code_path(@section, error_code) do
+              = fa_icon "edit"
+            = link_to section_error_code_path(@section, error_code), method: :delete do
+              = fa_icon "times"
