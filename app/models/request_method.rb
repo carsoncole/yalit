@@ -1,8 +1,8 @@
 class RequestMethod < ApplicationRecord
+  include HTTParty
   VERBS = ["get", "post", "delete", "patch"]
 
   belongs_to :section
-  belongs_to :project, optional: true
   has_many :parameters
 
   validates :path, presence: true
@@ -12,5 +12,19 @@ class RequestMethod < ApplicationRecord
 
   def downcase_verb!
     self.verb = verb.downcase
+  end
+
+  def project
+    section.chapter.project
+  end
+
+  def ping!
+    if project && project.ping_server
+      api_key = project.ping_server.api_key
+      request = project.ping_server.url + path
+      update(request_content: verb.upcase + ' ' + request)
+      response = HTTParty.get(request, headers: { "Authorization" => "Token " + api_key })
+      update(response_content: response.body, response_code: response.code)
+    end
   end
 end

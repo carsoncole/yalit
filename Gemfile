@@ -65,3 +65,4 @@ gem "clearance"
 gem 'platform-api'
 gem 'json'
 gem 'rack-cors'
+gem 'httparty'

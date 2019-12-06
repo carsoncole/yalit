@@ -2,7 +2,7 @@ class RequestMethodsController < ApplicationController
   before_action :require_login
   before_action :set_chapter, except: [:new, :create]
   before_action :set_section, except: [:new, :create]
-  before_action :set_request_method, only: [:show, :edit, :update, :destroy]
+  before_action :set_request_method, only: [:show, :edit, :update, :ping, :destroy]
 
   # GET /request_methods
   # GET /request_methods.json
@@ -25,6 +25,11 @@ class RequestMethodsController < ApplicationController
   # GET /request_methods/1/edit
   def edit
     @sections = @chapter.sections
+  end
+
+  def ping
+    @request_method.ping!
+    redirect_to chapter_path(@request_method.section.chapter)
   end
 
   # POST /request_methods
@@ -77,11 +82,15 @@ class RequestMethodsController < ApplicationController
     end
 
     def set_request_method
-      @request_method = RequestMethod.find(params[:id])
+      if params[:request_method_id]
+        @request_method = RequestMethod.find(params[:request_method_id])
+      else
+        @request_method = RequestMethod.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_method_params
-      params.require(:request_method).permit(:section_id, :title, :request_content, :response_content, :content, :rank, :verb, :path, :description)
+      params.require(:request_method).permit(:section_id, :title, :request_content, :response_content, :content, :rank, :verb, :path, :description, :response_code)
     end
 end

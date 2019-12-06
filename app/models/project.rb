@@ -100,6 +100,10 @@ class Project < ApplicationRecord
     end
   end
 
+  def ping_server
+    servers.where(use_for_ping: true).first
+  end
+
   def heroku_find_or_create_host_name
     return nil unless ENV["HEROKU_APP_NAME"]
     heroku = Heroku.new.client

@@ -39,26 +39,33 @@
               = link_to chapter_section_request_method_path(@chapter, section, request_method), method: :delete do
                 = fa_icon "times"
           = Kramdown::Document.new(request_method.description).to_html.html_safe if request_method.description
-          .request-info
-            .verb{style: "color: #{@project.color}"}= request_method.verb.upcase
-            .url
-              - url = ""
-              - server = @project.servers.any? ? @project.servers.first.url : ""
-              - url += server + request_method.path
-              = url
-
+          / .request-info
+          /   .verb{style: "color: #{@project.color}"}= request_method.verb.upcase
+          /   .url
+          /     - url = ""
+          /     - server = @project.servers.any? ? @project.servers.first.url : ""
+          /     - url += server + request_method.path
+          /     = url
           - if request_method.request_content.present?
             / #interaction.request{style: "background-color: #{@project.color}"}
             #interaction.request
+              - if @editing_mode && current_user && current_user.is_beta_user?
+                .refresh= button_to "Refresh", request_method_ping_path(request_method.id), class: 'btn btn-success btn-sm', method: :get
               .title Request
               .body
-                %pre= request_method.request_content
+                = request_method.request_content
 
           - if request_method.response_content.present?
             #interaction.response
-              .title Response
+              .title
+                Response
+                - if request_method.response_code.present?
+                  = surround("(", ")") do
+                    = request_method.response_code
               .body
-                %pre= request_method.response_content
+                - j = ActiveSupport::JSON
+                - rm = j.decode(request_method.response_content)
+                %pre= JSON.pretty_generate(JSON.parse(request_method.response_content))
 
       - if @next_chapter.any? || @previous_chapter.any?
         #chapter-pagination

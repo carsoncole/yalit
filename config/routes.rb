@@ -19,7 +19,11 @@ Rails.application.routes.draw do
     post 'toggle_is_published' => 'projects#toggle_is_published', as: 'toggle_is_published'
   end
 
-  resources :sections, :sub_sections, :request_methods
+  resources :request_methods do 
+    get 'ping' => 'request_methods#ping', as: 'ping'
+  end
+
+  resources :sections, :sub_sections
   resources :user_projects, :servers
   
 
