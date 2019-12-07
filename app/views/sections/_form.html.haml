@@ -23,6 +23,11 @@
   .form-group
     = f.label :is_error_codes
     = f.check_box :is_error_codes, class: 'form-control'
+  - if @section.persisted? && @section.is_error_codes?
+    .form-group
+      = f.label :error_endpoint_path
+      = f.text_field :error_endpoint_path, class: 'form-control'
+
   .form-group
     = f.label :is_resource
     = f.check_box :is_resource, class: 'form-control'

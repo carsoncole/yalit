@@ -73,8 +73,12 @@ body {
   }
   .refresh {
     float: right;
-    margin-top: 0.35em;
-    margin-right: 0.35em;
+    margin-top: 0.55em;
+    padding-right: 1em;
+    font-size: 1.15em;
+    a {
+      color: #efefef;
+    }
   }
 
 
@@ -312,4 +316,10 @@ li.nav-item .endpoint {
   padding-right: 0.4em;
   color: #efefef;
   border-radius: 0.35em;
+}
+
+table.table th,td {
+  &.action {
+    width: 6em;
+  }
 }

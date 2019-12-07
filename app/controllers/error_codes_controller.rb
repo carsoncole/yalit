@@ -1,6 +1,7 @@
 class ErrorCodesController < ApplicationController
   before_action :require_login
   before_action :set_section
+  before_action :set_error_code, except: [:new, :create]
 
   def index
     @error_codes = @section.error_codes.order(:custom_status_code, :http_status_code)
@@ -13,6 +14,11 @@ class ErrorCodesController < ApplicationController
   end
 
   def update
+    if @error_code.update(error_code_params)
+      redirect_to chapter_path(@section.chapter), notice: "Error code was successfully updated."
+    else
+      render :edit
+    end
   end
 
   def new
@@ -29,15 +35,21 @@ class ErrorCodesController < ApplicationController
   end
 
   def destroy
+    @error_code.destroy
+    redirect_to chapter_path(@section.chapter)
   end
 
   private
+
+  def set_error_code
+    @error_code = ErrorCode.find(params[:id])
+  end
 
   def set_section
     @section = Section.find(params[:section_id])
   end
 
   def error_code_params
-    params.require(:error_code).permit(:http_status_code, :custom_status_code, :description, :title)
+    params.require(:error_code).permit(:http_status_code, :custom_status_code, :message, :title)
   end
 end

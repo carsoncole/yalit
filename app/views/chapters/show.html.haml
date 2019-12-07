@@ -53,7 +53,10 @@
             / #interaction.request{style: "background-color: #{@project.color}"}
             #interaction.request
               - if @editing_mode && current_user && current_user.is_beta_user?
-                .refresh= button_to "Refresh", request_method_ping_path(request_method.id), class: 'btn btn-success btn-sm', method: :get
+                .refresh
+                  = link_to request_method_ping_path(request_method.id) do
+                    = fa_icon "refresh"
+                / .refresh= button_to "Refresh", request_method_ping_path(request_method.id), class: 'btn btn-success btn-sm', method: :get
               .title Request
               .body
                 = request_method.request_content

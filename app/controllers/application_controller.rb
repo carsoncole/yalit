@@ -1,5 +1,7 @@
 #TODO Add home page (not logged in) and fix top banner for not logged in
 #TODO Add a maintenance mode
+#TODO Flash messages don't seem to work--try updating error code
+#TODO Fix flash banner related to domain hosting
 class ApplicationController < ActionController::Base
   include Clearance::Controller
   before_action :set_project, except: [:not_found]

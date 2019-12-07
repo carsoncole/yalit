@@ -5,7 +5,7 @@ class CreateErrorCodes < ActiveRecord::Migration[6.0]
       t.string :title
       t.integer :http_status_code
       t.integer :custom_status_code
-      t.string :description
+      t.string :message
 
       t.timestamps
     end

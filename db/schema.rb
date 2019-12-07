@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_06_175738) do
+ActiveRecord::Schema.define(version: 2019_12_07_002456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_175738) do
     t.string "title"
     t.integer "http_status_code"
     t.integer "custom_status_code"
-    t.string "description"
+    t.string "message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["section_id"], name: "index_error_codes_on_section_id"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_175738) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_error_codes", default: false
+    t.string "error_endpoint_path"
     t.index ["chapter_id"], name: "index_sections_on_chapter_id"
   end
 
