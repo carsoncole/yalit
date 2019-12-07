@@ -1,2 +1,0 @@
-class Ddd < ApplicationRecord
-end
