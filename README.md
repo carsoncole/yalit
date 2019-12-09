@@ -1,24 +1,10 @@
-# README
+# Yalit.io
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
+This an API document hosting and testing service.
 
 * Configuration
 
-* Database creation
+Credentials are managed with Environment Variables including the following
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- HEROKU_APP_NAME
+- HEROKU_API_KEY

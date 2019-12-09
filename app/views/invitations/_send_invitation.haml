@@ -10,9 +10,9 @@
           .col-auto
             .field
               = f.text_field :email , placeholder: 'Email', class: 'form-control'
-          .col-auto
-            .field
-              = f.select :role, options_for_select(UserProject.roles - ['owner']), {},class: 'form-control'
+          / .col-auto
+          /   .field
+          /     = f.select :role, options_for_select(UserProject.roles - ['owner']), {},class: 'form-control'
           .col-auto
             .form-check.mb-2
               = f.check_box :send_invite_email, class: 'form-check-input'

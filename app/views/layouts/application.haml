@@ -7,7 +7,7 @@
     = render "main_nav"
     .container-fluid#main-container
       - if @hosted
-        - flash[:notice] = "Only the the project #{@project.name} is viewable and editable as you are accessing it on a hosted site. To view other projects, you need to access them on https://yalit.io."
+        - flash[:notice] = "Only the the project #{@project.title} is viewable and editable as you are accessing it on a hosted site. To view other projects, you need to access them on https://yalit.io."
       = render 'flash'
       .row
         .col-md-6.offset-3#main-content

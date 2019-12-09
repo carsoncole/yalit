@@ -5,11 +5,7 @@ class Chapter < ApplicationRecord
   has_many :sections, dependent: :destroy
   has_many :sub_sections, through: :sections
   validates :title, presence: true
-
-  def set_defaults!
-    last_ranked_chapter = project.chapters.where.not(id: nil, rank: nil).order(rank: :asc).last
-    self.rank = last_ranked_chapter ? last_ranked_chapter.rank + 1 : 1
-  end
+  before_save :set_rank!, if: proc { |c| c.rank.blank? }
 
   def set_rank!
     chapters = project.chapters.where.not(rank: nil).order(rank: :asc)

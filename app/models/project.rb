@@ -9,9 +9,8 @@ class Project < ApplicationRecord
   has_many :invitations, dependent: :destroy
   has_many :servers, dependent: :destroy
 
-  validates :name, presence: true
-  validates :description, presence: true
-  validates :version, presence: true
+  validates :title, presence: true
+  validates :color, format: { with: /\A#(?:[A-F0-9]{3}){1,2}\z/i, message: "requires a hex value" }
   validate :is_hosted_needs_host_name
 
   validates :host_name, uniqueness: true, if: proc { |p| p.host_name.present? }
@@ -28,12 +27,13 @@ class Project < ApplicationRecord
   attr_accessor :generate_default_content
 
   after_create :generate_content!, if: proc { |p| p.generate_default_content }
-  before_save :disable_hosting_if_host_name_changed!, if: proc { |p| p.host_name_changed? && p.is_hosted? }
-  before_save :update_hostname_on_heroku!, if: proc { |p| p.is_hosted_changed? }
+  before_save :disable_hosting_if_host_name_changed!, if: proc { |p| p.host_name_changed? && p.is_hosted? && heroku_configured? }
+  before_save :update_hostname_on_heroku!, if: proc { |p| p.is_hosted_changed? && heroku_configured? }
   before_save :set_color_if_blank!, if: proc { |p| p.color.blank? }
 
   def initialize(args)
     super
+    # These defaults ensure basic conformance to OpenAPI requirements
     self.open_api_version = Schema.new(self).openapi_version
     self.color = "#0f4c81"
     self.contact_email = "contact@example.com"
@@ -86,7 +86,6 @@ class Project < ApplicationRecord
   def heroku_get_domain_status!
     return nil unless host_name.present?
     heroku = Heroku.new.client
-    # result = heroku.domain.info('yalit-staging',host_name) rescue nil
     result = heroku.domain.info(ENV["HEROKU_APP_NAME"],host_name) rescue nil
     if result
       self.heroku_acm_status = result["acm_status"]
@@ -104,19 +103,25 @@ class Project < ApplicationRecord
     servers.where(use_for_ping: true).first
   end
 
+  def heroku_configured?
+    if ENV["HEROKU_APP_NAME"] && ENV["HEROKU_API_KEY"]
+      true
+    else
+      puts WARNING: "Heroku environment variables not set to access API"
+      false
+    end
+  end
+
   def heroku_find_or_create_host_name
-    return nil unless ENV["HEROKU_APP_NAME"]
     heroku = Heroku.new.client
     heroku.domain.info(ENV["HEROKU_APP_NAME"],host_name)
-    # heroku.domain.info('yalit-staging',host_name)
+
   rescue Excon::Error::NotFound
     response = heroku.domain.create(ENV["HEROKU_APP_NAME"], { hostname: host_name })
-    # response = heroku.domain.create('yalit-staging', { hostname: host_name })
     response
   end
 
   def heroku_find_and_destroy_host_name
-    # return nil unless ENV["HEROKU_APP_NAME"]
     self.heroku_acm_status = nil
     self.heroku_cname = nil
     self.heroku_acm_status_reason = nil
@@ -172,5 +177,4 @@ class Project < ApplicationRecord
   def set_color_if_blank!
     self.color = "#0f4c81" if color.blank?
   end
-
 end

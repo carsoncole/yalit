@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def hosted_site
-    Project.where(host_name: request.host_with_port).first
+    Project.where(is_hosted: true, host_name: request.host_with_port).first
   end
 
   def root_site?

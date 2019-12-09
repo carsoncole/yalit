@@ -5,10 +5,10 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   #   @section = sections(:one)
   # end
 
-  # test "should get index" do
-  #   get sections_url
-  #   assert_response :success
-  # end
+  test "should not get index" do
+    get sections_url
+    assert_response :redirect
+  end
 
   # test "should get new" do
   #   get new_section_url

@@ -19,7 +19,7 @@
   %tbody
     - @projects.each do |project|
       %tr
-        %td= project.name
+        %td= project.title
         %td.text-center
           - if project.is_hosted
             = fa_icon "check"

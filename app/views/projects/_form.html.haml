@@ -15,8 +15,8 @@
 
 
       .form-group
-        = f.label :name, "Name (*)"
-        = f.text_field :name, class: 'form-control', required: true
+        = f.label :title, "Title (*)"
+        = f.text_field :title, class: 'form-control', required: true
 
       .form-group
         = f.label :description, "Description (*)"
@@ -62,7 +62,7 @@
         = f.text_field :license_url, class: 'form-control'
 
       .form-group
-        = f.label :color
+        = f.label :color, "Hex Color"
         = f.text_field :color, class: 'form-control'
 
       .form-group

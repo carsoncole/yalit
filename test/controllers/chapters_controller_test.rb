@@ -10,11 +10,6 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
   end
 
-  # test "should not list chapters" do
-  #   get chapters_url
-  #   assert_response :redirect
-  # end
-
   # test "should not show a chapter not logged in or on hosted" do
   #   chapter = create(:chapter)
   #   assert chapter.valid?
@@ -22,7 +17,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   #   assert_redirected_to sign_in_url
   # end
 
-  # test "should show chapter" do
+  # test "should get chapter" do
   #   get chapter_url(@chapter)
   #   assert_response :success
   # end

@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class ServersControllerTest < ActionDispatch::IntegrationTest
-  # test "should get index" do
-  #   get servers_index_url
-  #   assert_response :success
-  # end
+  test "should not get index" do
+    get servers_url
+    assert_response :redirect
+  end
 
   # test "should get show" do
   #   get servers_show_url

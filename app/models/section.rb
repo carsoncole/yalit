@@ -4,7 +4,7 @@ class Section < ApplicationRecord
   has_many :request_methods, dependent: :destroy
   has_many :error_codes, dependent: :destroy
 
-  before_save :set_rank!, if: proc { |c| c.rank.nil? }
+  before_save :set_rank!, if: proc { |c| c.rank.blank? }
 
   def set_rank!
     sections = chapter.sections.where.not(rank: nil).order(rank: :asc)

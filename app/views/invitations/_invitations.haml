@@ -13,6 +13,6 @@
           %tr
             %td= invitation.email
             %td.text-right
-              = invitation.role.capitalize
+              / = invitation.role.capitalize
               = link_to project_invitation_path(@project, invitation), method: :delete do
                 = fa_icon "times"

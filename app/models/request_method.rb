@@ -1,17 +1,19 @@
 class RequestMethod < ApplicationRecord
   include HTTParty
-  VERBS = ["get", "post", "delete", "patch"]
+  VERBS = ["GET", "POST", "DELETE", "PATCH"]
 
   belongs_to :section
   has_many :parameters
 
   validates :path, presence: true
   validates :description, presence: true
+  validates :verb, inclusion: { in: VERBS,
+    message: "%{value} is not a valid HTTP verb" }
 
-  before_save :downcase_verb!, if: proc { |rm| rm.verb_changed? || !rm.persisted? }
+  before_validation :upcase_verb!, if: proc { |rm| rm.verb_changed? || !rm.persisted? }
 
-  def downcase_verb!
-    self.verb = verb.downcase
+  def upcase_verb!
+    self.verb = verb.upcase if verb.present?
   end
 
   def project

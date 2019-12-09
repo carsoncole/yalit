@@ -5,10 +5,10 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   #   @project = projects(:one)
   # end
 
-  # test "should get index" do
-  #   get projects_url
-  #   assert_response :success
-  # end
+  test "should get index" do
+    get projects_url
+    assert_response :redirect
+  end
 
   # test "should get new" do
   #   get new_project_url
@@ -17,7 +17,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
   # test "should create project" do
   #   assert_difference('Project.count') do
-  #     post projects_url, params: { project: { name: @project.name } }
+  #     post projects_url, params: { project: { title: @project.title } }
   #   end
 
   #   assert_redirected_to project_url(Project.last)
@@ -34,7 +34,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test "should update project" do
-  #   patch project_url(@project), params: { project: { name: @project.name } }
+  #   patch project_url(@project), params: { project: { title: @project.title } }
   #   assert_redirected_to project_url(@project)
   # end
 

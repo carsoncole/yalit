@@ -11,14 +11,14 @@ class Schema
   end
 
   #TODO This needs to be further worked on
-  def compliant?
+  def open_api_compliant?
     valid = true
     valid = false unless open_api[:openapi].present?
     unless open_api[:info].present? && open_api[:info][:title].present? && open_api[:info][:version].present? && open_api[:info][:license].present?
       valid = false
     end
-    valid = false unless open_api[:servers].present? && open_api[:servers].any?
-    valid = false unless open_api[:paths].present?
+    # valid = false unless open_api[:paths].present?
+    # valid = false unless open_api[:servers].present? && open_api[:servers].any?
     valid
   end
 
@@ -38,7 +38,7 @@ class Schema
 
   def info
     result = {}
-    result.merge!({ "title": @project.name })
+    result.merge!({ "title": @project.title })
     result.merge!({ "description": @project.description })
     result.merge!({ "termsOfService": @project.terms_of_service_url }) if @project.terms_of_service_url.present?
     result.merge!({ contact: contact })
@@ -74,7 +74,6 @@ class Schema
     result
   end
 
-  #FIXME Important! This remains broken
   def paths
     result = {}
     chapter_ids = project.chapters.select(:id)

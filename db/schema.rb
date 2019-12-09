@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_07_002456) do
+ActiveRecord::Schema.define(version: 2019_12_08_070041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2019_12_07_002456) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "host_name"
@@ -120,7 +120,6 @@ ActiveRecord::Schema.define(version: 2019_12_07_002456) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "api_key"
     t.boolean "use_for_ping", default: false
     t.string "authorization_header"
     t.string "content_type_header", default: "application/json"

@@ -12,6 +12,12 @@ class UserProject < ApplicationRecord
 
   validate :check_if_role_changing_from_owner
 
+
+  def initialize(args)
+    super
+    self.role = "owner" unless role.present?
+  end
+
   def check_if_role_changing_from_owner
     if self.role_changed? && self.role_was == 'owner'
       errors.add(:role, "Ownership can not be removed")

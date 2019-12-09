@@ -3,13 +3,16 @@ class User < ApplicationRecord
   has_many :user_projects
   has_many :projects, through: :user_projects
 
-  before_destroy :delete_owned_projects!
+  before_destroy :delete_owned_projects_if_unowned!
 
-  def delete_owned_projects!
+  def delete_owned_projects_if_unowned!
     ups = user_projects.where(role: 'owner')
     ups.each do |up|
-      UserProject.where(project_id: up.project_id).destroy_all
-      up.project.destroy
+      unless up.project.users.where.not(id: self.id).any?
+        project = up.project
+        up.destroy
+        project.destroy
+      end
     end
   end
 end
