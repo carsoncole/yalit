@@ -31,10 +31,16 @@ body {
   }
 }
 
-.card#error_explanation {
+#error_explanation {
   margin: 1em 0 2em 0;
-  .card-header {
-    font-size: 1.5em;
+  padding: 1em;
+  background-color: lighten(red, 35%);
+  border-radius: 10px;
+  ul {
+    margin-bottom: 0;
+  }
+  h2 {
+    font-size: 1.4em;
   }
 }
 

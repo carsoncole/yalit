@@ -4,7 +4,7 @@
       %h2= "#{pluralize(@error_code.errors.count, "error")} prohibited this section from being saved:"
       %ul
         - @error_code.errors.full_messages.each do |message|
-          %li= messagew
+          %li= message
 
   .form-group
     = f.label :title

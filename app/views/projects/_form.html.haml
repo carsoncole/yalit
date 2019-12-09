@@ -28,11 +28,6 @@
           .col-md-2
             = f.text_field :version, class: 'form-control', placeholder: '1.0.0', required: true
 
-      - unless @project.persisted?
-        .form-group
-          = f.label :generate_default_content
-          = f.check_box :generate_default_content, class: 'form-control'
-
       .form-group
         = f.label :open_api_version
         = f.text_field :open_api_version, class: 'form-control'
@@ -65,9 +60,15 @@
         = f.label :color, "Hex Color"
         = f.text_field :color, class: 'form-control'
 
-      .form-group
-        = f.label :host_name
-        = f.text_field :host_name, class: 'form-control'
+      - if @project.persisted?
+        .form-group
+          = f.label :host_name
+          = f.text_field :host_name, class: 'form-control'
+
+      - unless @project.persisted?
+        .form-group
+          = f.label :generate_default_content
+          = f.check_box :generate_default_content, class: 'form-control'
 
       .actions
         = f.submit 'Save', class: 'btn btn-primary'
