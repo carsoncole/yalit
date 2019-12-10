@@ -6,7 +6,7 @@
 %p.float-right
   = link_to new_project_path do
     = fa_icon "plus"
-    New project
+    New Project
 
 %table.table
   %thead
@@ -25,14 +25,12 @@
             = fa_icon "check"
         %td= project.host_name
         %td.text-right
-          = link_to project_path(project, view: true) do
-            = fa_icon "eye"
+          = link_to "View", project_path(project, view: true)
           \|
-          = link_to edit_project_path(project) do
-            = fa_icon "edit"
+          = link_to "Settings", project_api_details_path(project, view: true)
           \|
           = link_to project, method: :delete, data: { confirm: 'Are you sure? This will result in all project information to be destroyed and is not recoverable.' } do
-            = fa_icon "times"
+            Destroy
 
 %br
 

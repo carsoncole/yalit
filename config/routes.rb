@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get 'sign_up' => "users#new", as: 'noname'
-  post 'users' => "users#create", as: 'noname_create'
   constraints Clearance::Constraints::SignedIn.new do
     root to: 'projects#index', as: :signed_in_root
   end

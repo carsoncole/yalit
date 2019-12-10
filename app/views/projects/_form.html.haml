@@ -3,12 +3,11 @@
   - if @project.errors.any?
     .row
       .col-md-10.offset-1
-        .card#error_explanation
-          .card-header= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
-          .card-body
-            %ul.list-group.list-group-flush
-              - @project.errors.full_messages.each do |message|
-                %li.list-group-item= message
+        #error_explanation
+          %h2.error_title= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+          %ul
+            - @project.errors.full_messages.each do |message|
+              %li= message
 
   .row
     .col-md-8.offset-2
@@ -19,14 +18,14 @@
         = f.text_field :title, class: 'form-control', required: true
 
       .form-group
-        = f.label :description, "Description (*)"
-        = f.text_field :description, class: 'form-control', required: true, placeholder: "A brief description..."
-
-      .form-group
         = f.label :version, "API Version (*)"
         .row
           .col-md-2
             = f.text_field :version, class: 'form-control', placeholder: '1.0.0', required: true
+
+      .form-group
+        = f.label :description, "Description (*)"
+        = f.text_field :description, class: 'form-control', placeholder: "A brief description..."
 
       .form-group
         = f.label :open_api_version
@@ -71,4 +70,4 @@
           = f.check_box :generate_default_content, class: 'form-control'
 
       .actions
-        = f.submit 'Save', class: 'btn btn-primary'
+        = f.submit class: 'btn btn-primary'

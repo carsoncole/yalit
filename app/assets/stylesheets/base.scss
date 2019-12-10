@@ -33,14 +33,17 @@ body {
 
 #error_explanation {
   margin: 1em 0 2em 0;
-  padding: 1em;
+  padding: 1.5em;
   background-color: lighten(red, 35%);
   border-radius: 10px;
   ul {
     margin-bottom: 0;
   }
-  h2 {
+  h2.error_title {
     font-size: 1.4em;
+    border-top: none;
+    padding: 0;
+    margin: 0 0 1em 0;
   }
 }
 

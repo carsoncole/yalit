@@ -30,6 +30,7 @@ class Project < ApplicationRecord
   before_save :disable_hosting_if_host_name_changed!, if: proc { |p| p.host_name_changed? && p.is_hosted? && heroku_configured? }
   before_save :update_hostname_on_heroku!, if: proc { |p| p.is_hosted_changed? && heroku_configured? }
   before_save :set_color_if_blank!, if: proc { |p| p.color.blank? }
+  before_destroy :remove_hosting!, if: proc { |p| p.is_hosted? }
 
   def initialize(args)
     super
@@ -134,7 +135,6 @@ class Project < ApplicationRecord
     # result = heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name)
     # result = heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name_changed? ? host_name_was : host_name)
     result = heroku.domain.delete(ENV["HEROKU_APP_NAME"], host_name)
-    puts result
   rescue Excon::Error::NotFound => e
     puts e
   end
@@ -176,5 +176,9 @@ class Project < ApplicationRecord
 
   def set_color_if_blank!
     self.color = "#0f4c81" if color.blank?
+  end
+
+  def remove_hosting!
+    disable_hosting_if_host_name_changed!
   end
 end

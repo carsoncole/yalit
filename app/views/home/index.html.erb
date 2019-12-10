@@ -48,10 +48,10 @@
           <%= form_tag "/sign_up", method: :get do %>
             <div class="form-row">
               <div class="col-12 col-md-9 mb-2 mb-md-0">
-                <%= email_field_tag :email, nil, class: 'form-control form-control-lg', placeholder: "Enter your email..." %>
+                <%= email_field_tag :email, nil, id: "primary-email-field", class: 'form-control form-control-lg', placeholder: "Enter your email..." %>
               </div>
               <div class="col-12 col-md-3">
-                <%= submit_tag "Sign up!", class: "btn btn-block btn-lg btn-primary" %>
+                <%= submit_tag "Sign up!", id: "primary-signup-button", class: "btn btn-block btn-lg btn-primary" %>
               </div>
             </div>
           <%- end %>
@@ -168,7 +168,7 @@
                 <%= email_field_tag :email, nil, class: 'form-control form-control-lg', placeholder: "Enter your email..." %>
               </div>
               <div class="col-12 col-md-3">
-                <%= submit_tag "Sign up!", class: "btn btn-block btn-lg btn-primary" %>
+                <%= submit_tag "Sign up!", id: "secondary-signup-button", class: "btn btn-block btn-lg btn-primary" %>
               </div>
             </div>
           <%- end %>

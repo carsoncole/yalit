@@ -48,4 +48,15 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
+
+  config.action_mailer.default_url_options = { host: 'yalit.io' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      :address => "email-smtp.us-west-2.amazonaws.com",
+      :port => 587, # Port 25 is throttled on AWS
+      :user_name => ENV["AMAZON_SES_SMTP_USER_NAME"], # Your SMTP user here.
+      :password => ENV["AMAZON_SES_SMTP_PASSWORD"], # Your SMTP password here.
+      :authentication => :login,
+      :enable_starttls_auto => true
+  }
 end

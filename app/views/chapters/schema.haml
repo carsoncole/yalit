@@ -16,7 +16,8 @@
 
       %p.mb-3.text-right
         = link_to project_schema_path(@project, download: true) do
-          = fa_icon "download"
+          = fa_icon "download", id: "downloadlink", alt: "download-link"
+          Download
         \|
         = link_to "http://petstore.swagger.io/?url=#{request.original_url}.json" do
           = fa_icon "external-link"

@@ -25,4 +25,16 @@ class User < ApplicationRecord
       errors.add(:email, "is not an allowable email domain")
     end
   end
+
+  def owner?(project)
+    user_projects.find_by(project: project).role == 'owner'
+  end
+
+  def owner_or_admin?(project)
+    ['owner', 'admin'].include? user_projects.find_by(project: project).role
+  end
+
+  def user?(project)
+    ['user'].include? user_projects.find_by(project: project).role
+  end
 end

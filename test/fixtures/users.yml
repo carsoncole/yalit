@@ -1,5 +1,5 @@
 standard:
-  email: user@example.com
+  email: user@grade.us
   encrypted_password: <%= BCrypt::Password.create("password", cost: 4) %>
   remember_token: <%= Clearance::Token.new %>
 

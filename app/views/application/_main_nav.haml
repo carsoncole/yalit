@@ -20,14 +20,14 @@
               Editor
         - if @project&.persisted? && ['chapters', 'projects', 'sections', 'request_methods', 'sub_sections', 'error_codes'].include?(controller_name)
           %li.nav-item
-            = link_to project_path(@project), class: 'nav-link', "data-toggle": 'tooltip', "title": 'Project' do
+            = link_to project_path(@project), id: "archive-link", class: 'nav-link', "data-toggle": 'tooltip', "title": 'Project' do
               = fa_icon "archive"
           %li.nav-item
-            = link_to projects_path, class: 'nav-link', "data-toggle": 'tooltip', "title": 'All projects' do
+            = link_to projects_path, id: "folder-link",class: 'nav-link', "data-toggle": 'tooltip', "title": 'All projects' do
               = fa_icon "folder"
         - if @project && @project.persisted? && controller_name == 'projects'
           %li.nav-item
-            = link_to project_path(@project, view: true), class: 'nav-link' do
+            = link_to project_path(@project, view: true), id: "eye-link",class: 'nav-link' do
               = fa_icon "eye"\
         %li.nav-item.dropdown
           = link_to "#", id: "navbarDropdown",class: 'nav-link dropdown-toggle', "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false", "role": "button" do

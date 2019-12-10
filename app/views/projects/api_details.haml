@@ -5,7 +5,7 @@
     .col-md-12
 
       %p.float-right
-        = link_to edit_project_path(@project) do
+        = link_to edit_project_path(@project), id: "edit-link" do
           = fa_icon "edit"
 
       %table.table
@@ -51,3 +51,11 @@
           %td.text-right= @project.color
 
       = render 'servers'
+
+
+%br
+
+- if current_user.owner?(@project)
+  .row
+    .col-md-10.offset-1
+      = button_to "DESTROY PROJECT", project_path(@project), method: :delete, data: { confirm: "Are you sure? This is totally non-recoverable." }, class: 'btn btn-lg btn-block btn-danger mb-3'

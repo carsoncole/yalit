@@ -89,6 +89,17 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.action_mailer.default_url_options = { host: 'yalit.io' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      :address => "email-smtp.us-west-2.amazonaws.com",
+      :port => 587, # Port 25 is throttled on AWS
+      :user_name => ENV["AMAZON_SES_SMTP_USER_NAME"], # Your SMTP user here.
+      :password => ENV["AMAZON_SES_SMTP_PASSWORD"], # Your SMTP password here.
+      :authentication => :login,
+      :enable_starttls_auto => true
+  }
+
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write

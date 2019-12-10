@@ -1,7 +1,7 @@
 = form_for @request_method do |f|
   - if @request_method.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@request_method.errors.count, "error")} prohibited this request_method from being saved:"
+      %h2.error_title= "#{pluralize(@request_method.errors.count, "error")} prohibited this request_method from being saved:"
       %ul
         - @request_method.errors.full_messages.each do |message|
           %li= message

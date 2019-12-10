@@ -25,7 +25,7 @@ class ChaptersController < ApplicationController
     # @project = current_user.projects.find(params[:project_id])
     @schema = @project.schema.open_api
     if params[:download]
-      send_data(JSON.pretty_generate(@schema), filename: "openapi.json")
+      send_data(JSON.pretty_generate(@schema), filename: "openapi.json") and return
     end
 
     respond_to do |format|
