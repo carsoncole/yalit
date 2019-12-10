@@ -31,10 +31,13 @@ class RequestMethod < ApplicationRecord
       begin
         response = HTTParty.get(request, headers: headers)
       rescue => e
-        puts "*"*80
         response = nil
       end
-      update(response_content: response.nil? ? "Failed" : response.body, response_code: response.nil? ? 500 : response.code)
+      update(
+        response_content: response.nil? ? "Failed" : response.body,
+        response_code: response.nil? ? nil : response.code,
+        response_body: response.nil? ? "Server failure (Possibly a bad server url)" : response.body
+        )
     end
   end
 end

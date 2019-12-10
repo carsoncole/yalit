@@ -72,7 +72,7 @@
                   = surround("(", ")") do
                     = request_method.response_code
               .body
-                %pre= JSON.pretty_generate(JSON.parse(request_method.response_content)) rescue request_method.response_content
+                %pre= JSON.pretty_generate(JSON.parse(request_method.response_body)) rescue request_method.response_body
 
       - if @next_chapter.any? || @previous_chapter.any?
         #chapter-pagination

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_08_070041) do
+ActiveRecord::Schema.define(version: 2019_12_10_193753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 2019_12_08_070041) do
     t.integer "project_id"
     t.string "description"
     t.integer "response_code"
+    t.text "response_body"
     t.index ["section_id"], name: "index_request_methods_on_section_id"
   end
 
