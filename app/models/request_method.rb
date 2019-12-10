@@ -28,8 +28,8 @@ class RequestMethod < ApplicationRecord
       headers = {}
       headers = headers.merge({ "Authorization" => server.authorization_header }) if server.authorization_header.present?
       headers = headers.merge({ "Content-Type" => server.content_type_header}) if server.authorization_header.present?
-      response = HTTParty.get(request, headers: headers)
-      update(response_content: response.body, response_code: response.code)
+      response = HTTParty.get(request, headers: headers) rescue nil
+      update(response_content: response.nil? ? "Failed" : response.body, response_code: response.nil? ? 500 : response.code)
     end
   end
 end
