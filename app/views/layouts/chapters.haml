@@ -9,6 +9,7 @@
         .col-md-2.pl-0
           = render "side_nav" if @project
         .col-md-8.offset-1#main-content
+          = render 'flash'
           = yield
 
     - if current_user && @editing_mode

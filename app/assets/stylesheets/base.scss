@@ -79,6 +79,8 @@ body {
   }
   .body {
     padding: 1em;
+    word-break: break-all;
+    overflow-wrap: break-word;
   }
   .refresh {
     float: right;

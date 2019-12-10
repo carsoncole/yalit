@@ -29,7 +29,7 @@ class RequestMethodsController < ApplicationController
 
   def ping
     @request_method.ping!
-    redirect_to chapter_path(@request_method.section.chapter)
+    redirect_to chapter_path(@request_method.section.chapter), notice: "Successfully pinged Endpoint."
   end
 
   # POST /request_methods

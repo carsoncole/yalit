@@ -39,6 +39,9 @@
             - if @editing_mode && current_user
               = link_to edit_chapter_section_request_method_path(@chapter, section, request_method), id: "method-#{request_method.title.parameterize}" do
                 = fa_icon "edit"
+              - if current_user.is_beta_user?
+                = link_to request_method_ping_path(request_method.id), id: "method-#{request_method.title.parameterize}" do
+                  = fa_icon "refresh"
               = link_to chapter_section_request_method_path(@chapter, section, request_method), method: :delete do
                 = fa_icon "times"
           = Kramdown::Document.new(request_method.description).to_html.html_safe if request_method.description
@@ -69,7 +72,7 @@
                   = surround("(", ")") do
                     = request_method.response_code
               .body
-                %pre= JSON.pretty_generate(JSON.parse(request_method.response_content)) rescue "Content is not valid JSON"
+                %pre= JSON.pretty_generate(JSON.parse(request_method.response_content)) rescue request_method.response_content
 
       - if @next_chapter.any? || @previous_chapter.any?
         #chapter-pagination
