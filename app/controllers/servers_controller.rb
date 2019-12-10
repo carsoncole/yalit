@@ -47,6 +47,6 @@ class ServersController < ApplicationController
   end
 
   def server_params
-    params.require(:server).permit(:url, :description, :api_key, :use_for_ping, :content_type_header, :authorization_header)
+    params.require(:server).permit(:url, :description, :use_for_ping, :content_type_header, :authorization_header)
   end
 end

@@ -23,7 +23,6 @@ class RequestMethod < ApplicationRecord
   def ping!
     if project && project.ping_server
       server = project.ping_server
-      api_key = server.api_key
       request = server.url + path
       update(request_content: verb.upcase + ' ' + request)
       headers = {}
