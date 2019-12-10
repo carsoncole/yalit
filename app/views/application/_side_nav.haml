@@ -4,7 +4,7 @@
       - @project.chapters.order(rank: :asc).each do |chapter|
         - next unless chapter.persisted?
         %li.nav-item{ class: params[:id].to_i == chapter.id ? 'active' : nil }
-          = link_to chapter.title, chapter_path(chapter), class: 'nav-link'
+          = link_to chapter.title, chapter_path(chapter), id: "chapter-#{chapter.title.parameterize}", class: 'nav-link'
           - if chapter.sections.any?
             %ul
               - chapter.sections.each do |section|

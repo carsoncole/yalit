@@ -37,7 +37,7 @@
           %h3(id="#{request_method.title.parameterize}")
             = request_method.title
             - if @editing_mode && current_user
-              = link_to edit_chapter_section_request_method_path(@chapter, section, request_method) do
+              = link_to edit_chapter_section_request_method_path(@chapter, section, request_method), id: "method-#{request_method.title.parameterize}" do
                 = fa_icon "edit"
               = link_to chapter_section_request_method_path(@chapter, section, request_method), method: :delete do
                 = fa_icon "times"
@@ -69,8 +69,6 @@
                   = surround("(", ")") do
                     = request_method.response_code
               .body
-                - j = ActiveSupport::JSON
-                - rm = j.decode(request_method.response_content)
                 %pre= JSON.pretty_generate(JSON.parse(request_method.response_content)) rescue "Content is not valid JSON"
 
       - if @next_chapter.any? || @previous_chapter.any?

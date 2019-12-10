@@ -1,3 +1,4 @@
+#TODO Fix Editor link in main nav--requires 2 clicks
 #TODO Add home page (not logged in) and fix top banner for not logged in
 #TODO Add a maintenance mode
 #TODO Flash messages don't seem to work--try updating error code
