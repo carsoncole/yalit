@@ -121,7 +121,7 @@ body {
 }
 
 i.fa {
-  &.fa-edit, &.fa-times {
+  &.fa-edit, &.fa-times, &.fa-refresh {
     font-size: 1.3rem;
     color: lighten(red, 20%);
   }
