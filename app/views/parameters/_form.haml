@@ -1,0 +1,21 @@
+= form_for [@request_method,@parameter] do |f|
+  - if @parameter.errors.any?
+    #error_explanation
+      %h2.error_title= "#{pluralize(@parameter.errors.count, "error")} prohibited this section from being saved:"
+      %ul
+        - @parameter.errors.full_messages.each do |message|
+          %li= messagew
+
+  .row
+    .col
+      = f.label :key
+      = f.text_field :key, placeholder: 'key', class: 'form-control'
+
+    .col
+      = f.label :value
+      = f.text_field :value, placeholder: 'value', class: 'form-control'
+  %br
+  .row
+    .col-md-6.offset-3
+      .actions
+        = f.submit class: 'form-control btn btn-primary'

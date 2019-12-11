@@ -1,0 +1,8 @@
+%h3(id="#{sub_section.title.camelize}")
+  = sub_section.title
+  - if @editing_mode && current_user
+    = link_to edit_chapter_section_sub_section_path(@chapter, section, sub_section) do
+      = fa_icon "edit"
+    = link_to chapter_section_sub_section_path(@chapter, section, sub_section), method: :delete do
+      = fa_icon "times"
+= Kramdown::Document.new(sub_section.content).to_html.html_safe if sub_section.content

@@ -1,0 +1,12 @@
+- if next_chapter.any? || previous_chapter.any?
+  #chapter-pagination
+    - if next_chapter.any?
+      .float-right
+        = link_to chapter_path(next_chapter.first.id) do
+          = next_chapter.first.title
+          = fa_icon "arrow-right"
+    - if previous_chapter.any?
+      .float-left
+        = link_to chapter_path(previous_chapter.first.id) do
+          = fa_icon "arrow-left"
+          = previous_chapter.first.title

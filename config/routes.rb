@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'parameters/index'
+  get 'parameters/show'
+  get 'parameters/edit'
+  get 'parameters/update'
+  get 'parameters/new'
+  get 'parameters/create'
+  get 'parameters/destroy'
   get 'sign_up' => "users#new", as: 'noname'
   constraints Clearance::Constraints::SignedIn.new do
     root to: 'projects#index', as: :signed_in_root
@@ -14,6 +21,7 @@ Rails.application.routes.draw do
     get 'schema' => 'chapters#schema', as: 'schema'
     get 'api_details' => 'projects#api_details', as: 'api_details'
     get 'users' => 'projects#users', as: 'users'
+    get 'servers' => 'projects#servers', as: 'servers'
     get 'host_name' => 'projects#host_name', as: 'host_name'
     resources :invitations
     post 'toggle_is_published' => 'projects#toggle_is_published', as: 'toggle_is_published'
@@ -21,6 +29,7 @@ Rails.application.routes.draw do
 
   resources :request_methods do 
     get 'ping' => 'request_methods#ping', as: 'ping'
+    resources :parameters
   end
 
   resources :sections, :sub_sections

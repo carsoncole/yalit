@@ -20,10 +20,29 @@ class RequestMethod < ApplicationRecord
     section.chapter.project
   end
 
+  def full_path
+    if path.present?
+      params = path.scan(/{[a-zA-Z0-9_.-]*}/)
+      params_with_values = []
+      params.each do |p|
+        parameter = parameters.find_by(key: p.gsub("{","").gsub("}",""))
+        params_with_values << [p, parameter&.value]
+      end
+      result = path
+      params_with_values.each do |pv|
+        next if pv[1].nil?
+        result.gsub!(pv[0], pv[1])
+      end
+      result
+    else
+      nil
+    end
+  end
+
   def ping!
     if project && project.ping_server
       server = project.ping_server
-      request = server.url + path
+      request = server.url + full_path || ""
       update(request_content: verb.upcase + ' ' + request)
       headers = {}
       headers = headers.merge({ "Authorization" => server.authorization_header }) if server.authorization_header.present?

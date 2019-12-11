@@ -1,0 +1,18 @@
+.row
+  .col-md-12
+    %h4.mb-0
+      = link_to "Request Method", chapter_path(@request_method.section.chapter, anchor: @request_method.title.parameterize)
+    %p= @request_method.path
+    %h1.mt-0 Parameters
+
+    %p.float-right
+      = link_to new_request_method_parameter_path(@request_method) do
+        = fa_icon "plus"
+        Add Parameter
+
+%table.table#parameters
+  - @parameters.each do |parameter|
+    %tr
+      %td.key= parameter.key
+      %td.value= parameter.value
+

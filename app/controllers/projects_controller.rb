@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :require_login
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :users, :api_details]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :users, :api_details, :servers]
 
   #TODO Redirect to a welcome page if no projects exist
   def index
@@ -21,6 +21,10 @@ class ProjectsController < ApplicationController
   end
 
   def api_details
+    @servers = @project.servers
+  end
+
+  def servers
     @servers = @project.servers
   end
 

@@ -1,0 +1,11 @@
+%h2(id="#{section.title.camelize}")
+  = section.title
+  - if @editing_mode && current_user
+    = link_to edit_chapter_section_path(@chapter, section), class: 'action' do
+      = fa_icon "edit"
+    = link_to chapter_section_path(@chapter, section), class: 'action', method: :delete do
+      = fa_icon "times"
+= Kramdown::Document.new(section.content).to_html.html_safe if section.content
+
+- if section.is_error_codes?
+  = render partial: 'error_codes/error_codes', locals: { section: section }

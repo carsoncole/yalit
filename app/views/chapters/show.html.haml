@@ -4,89 +4,19 @@
       %h1.chapter
         = @chapter.title
         - if @editing_mode && current_user
-          = link_to edit_chapter_path(@chapter) do
+          = link_to edit_chapter_path(@chapter), class: 'action' do
             = fa_icon "edit"
-          = link_to chapter_path(@chapter), method: :delete do
+          = link_to chapter_path(@chapter), class: 'action', method: :delete do
             = fa_icon "times"
       = Kramdown::Document.new(@chapter.content).to_html.html_safe if @chapter.content
 
       - @chapter.sections.each do |section|
-        %h2(id="#{section.title.camelize}")
-          = section.title
-          - if @editing_mode && current_user
-            = link_to edit_chapter_section_path(@chapter, section) do
-              = fa_icon "edit"
-            = link_to chapter_section_path(@chapter, section), method: :delete do
-              = fa_icon "times"
-        = Kramdown::Document.new(section.content).to_html.html_safe if section.content
-
-        - if section.is_error_codes?
-          = render partial: 'error_codes/error_codes', locals: { section: section }
+        = render partial: 'section', locals: { section: section, chapter: @chapter }
 
         - section.sub_sections.order(rank: :asc).each do |sub_section|
-          %h3(id="#{sub_section.title.camelize}")
-            = sub_section.title
-            - if @editing_mode && current_user
-              = link_to edit_chapter_section_sub_section_path(@chapter, section, sub_section) do
-                = fa_icon "edit"
-              = link_to chapter_section_sub_section_path(@chapter, section, sub_section), method: :delete do
-                = fa_icon "times"
-          = Kramdown::Document.new(sub_section.content).to_html.html_safe if sub_section.content
+          = render partial: 'sub_section', locals: { sub_section: sub_section, chapter: @chapter }
 
         - section.request_methods.order(rank: :asc).each do |request_method|
-          %h3(id="#{request_method.title.parameterize}")
-            = request_method.title
-            - if @editing_mode && current_user
-              = link_to edit_chapter_section_request_method_path(@chapter, section, request_method), id: "method-#{request_method.title.parameterize}" do
-                = fa_icon "edit"
-              - if current_user.is_beta_user?
-                = link_to request_method_ping_path(request_method.id), id: "method-#{request_method.title.parameterize}" do
-                  = fa_icon "refresh"
-              = link_to chapter_section_request_method_path(@chapter, section, request_method), method: :delete do
-                = fa_icon "times"
-          = Kramdown::Document.new(request_method.description).to_html.html_safe if request_method.description
-          / .request-info
-          /   .verb{style: "color: #{@project.color}"}= request_method.verb.upcase
-          /   .url
-          /     - url = ""
-          /     - server = @project.servers.any? ? @project.servers.first.url : ""
-          /     - url += server + request_method.path
-          /     = url
-          - if request_method.request_content.present?
-            / #interaction.request{style: "background-color: #{@project.color}"}
-            #interaction.request
-              - if @editing_mode && current_user && current_user.is_beta_user?
-                .refresh
-                  = link_to request_method_ping_path(request_method.id) do
-                    = fa_icon "refresh"
-                / .refresh= button_to "Refresh", request_method_ping_path(request_method.id), class: 'btn btn-success btn-sm', method: :get
-              .title Request
-              .body
-                = request_method.request_content
+          = render partial: 'request_method', locals: { request_method: request_method, chapter: @chapter, section: section }
 
-          - if request_method.response_content.present?
-            #interaction.response
-              .title
-                Response
-                - if request_method.response_code.present?
-                  = surround("(", ")") do
-                    = request_method.response_code
-              .body
-                %pre= JSON.pretty_generate(JSON.parse(request_method.response_body)) rescue request_method.response_body
-
-      - if @next_chapter.any? || @previous_chapter.any?
-        #chapter-pagination
-          - if @next_chapter.any?
-            .float-right
-              = link_to chapter_path(@next_chapter.first.id) do
-                = @next_chapter.first.title
-                = fa_icon "arrow-right"
-          - if @previous_chapter.any?
-            .float-left
-              = link_to chapter_path(@previous_chapter.first.id) do
-                = fa_icon "arrow-left"
-                = @previous_chapter.first.title
-      %br
-      %br
-      %br
-      %br
+    = render partial: 'pagination', locals: { next_chapter: @next_chapter, previous_chapter: @previous_chapter }

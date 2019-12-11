@@ -32,7 +32,6 @@ class ChaptersController < ApplicationController
       format.html {render :schema }
       format.json { render json: @schema}
     end
-
   end
 
   def create

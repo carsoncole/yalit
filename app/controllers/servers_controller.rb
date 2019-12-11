@@ -13,7 +13,7 @@ class ServersController < ApplicationController
 
   def update
     if @server.update(server_params)
-      redirect_to project_api_details_path(@project), notice: "Project was successfully updated."
+      redirect_to project_servers_path(@project), notice: "Project was successfully updated."
     else
       render :edit
     end
@@ -28,7 +28,7 @@ class ServersController < ApplicationController
 
     respond_to do |format|
       if @server.save
-        format.html { redirect_to project_api_details_path(@project), notice: "Server was successfully created." }
+        format.html { redirect_to project_servers_path(@project), notice: "Server was successfully created." }
         format.json { render :show, status: :created, location: @server }
       else
         format.html { render :new }
@@ -39,7 +39,7 @@ class ServersController < ApplicationController
 
   def destroy
     @server.destroy
-    redirect_to project_api_details_path(@project)
+    redirect_to project_servers_path(@project)
   end
 
   def set_server

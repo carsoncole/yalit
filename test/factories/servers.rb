@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :server do
     project
-    url { Faker::Internet.url }
-    description { Faker::Lorem.sentences(number: 2) }
+    url { "https://postman-echo.com/get" }
+    description { "This is a test server hosted by Postman." }
   end
 end

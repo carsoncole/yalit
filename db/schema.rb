@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_10_193753) do
+ActiveRecord::Schema.define(version: 2019_12_11_163651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,12 +48,10 @@ ActiveRecord::Schema.define(version: 2019_12_10_193753) do
 
   create_table "parameters", force: :cascade do |t|
     t.bigint "request_method_id", null: false
-    t.string "name"
-    t.string "description"
-    t.string "type", default: "integer"
-    t.boolean "is_required", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "key"
+    t.string "value"
     t.index ["request_method_id"], name: "index_parameters_on_request_method_id"
   end
 

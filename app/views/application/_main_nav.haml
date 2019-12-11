@@ -8,11 +8,11 @@
     .collapse.navbar-collapse#navbarSupportedContent
       %ul.navbar-nav.mr-auto
 
-      %ul.navbar-nav
+      %ul.navbar-nav#main-nav
         - if @project&.persisted? && controller_name == 'chapters' && action_name != 'edit'
           %li.nav-item
             - url = request.url + '?editing_mode=true'
-            = link_to url, class: 'nav-link' do
+            = link_to url, id: 'editor2-link', 'data-turbolinks': false,  class: 'nav-link' do
               - if @editing_mode
                 = fa_icon "toggle-on"
               - else

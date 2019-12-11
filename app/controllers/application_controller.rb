@@ -33,13 +33,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_editing_mode
-    if params["editing_mode"]
-      if session["editing_mode"] == false
-        session["editing_mode"] = true
-      else
-        session["editing_mode"] = false
-      end
-    end
 
     @editing_mode = session["editing_mode"] if session["editing_mode"].present? && session["editing_mode"]
   end

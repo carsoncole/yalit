@@ -120,11 +120,9 @@ body {
   margin-top: 1.666em;
 }
 
-i.fa {
-  &.fa-edit, &.fa-times, &.fa-refresh {
-    font-size: 1.3rem;
+.action {
+    font-size: 16px !important;
     color: lighten(red, 20%);
-  }
 }
 
 h1 {
@@ -150,6 +148,7 @@ form {
 
 
 #chapter {
+  margin-bottom: 5em;
   ul, .info {
     display: block;
     margin: 2em 5em;
@@ -326,5 +325,16 @@ li.nav-item .endpoint {
 table.table th,td {
   &.action {
     width: 6em;
+  }
+}
+
+table#parameters {
+  td.key, td.value {
+    word-break: break-all;
+    overflow-wrap: break-word;
+  }
+  td.key { width: 10em; }
+  td.value {
+    text-align: right;
   }
 }
