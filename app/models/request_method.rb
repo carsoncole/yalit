@@ -43,21 +43,34 @@ class RequestMethod < ApplicationRecord
     if project && project.ping_server
       server = project.ping_server
       request = server.url + full_path || ""
-      update(request_content: verb.upcase + ' ' + request)
       headers = {}
       headers = headers.merge({ "Authorization" => server.authorization_header }) if server.authorization_header.present?
       headers = headers.merge({ "Content-Type" => server.content_type_header}) if server.authorization_header.present?
       begin
+        query = nil
         if verb == 'GET'
           response = HTTParty.get(request, headers: headers)
         elsif verb == 'POST'
-          response = HTTParty.post(request, headers: headers)
+          query = {}
+          parameters.each do |param|
+            query[param.key.to_sym] = param.value
+          end
+          puts"7"*80
+          puts query.to_s
+          response = HTTParty.post(request, headers: headers, query: query)
         elsif verb == 'DELETE'
           response = HTTParty.delete(request, headers: headers)
+        elsif verb == 'PATCH'
+          query = {}
+          parameters.each do |param|
+            query[param.key.to_sym] = param.value
+          end
+          response = HTTParty.put(request, headers: headers, query: query)
         end
       rescue => e
         response = nil
       end
+      update(request_content: verb.upcase + ' ' + request + (!query.nil? ? " query: #{query.to_s}" : ""))
       update(
         response_content: response.nil? ? "Failed" : response.body,
         response_code: response.nil? ? nil : response.code,

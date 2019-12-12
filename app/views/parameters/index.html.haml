@@ -13,6 +13,11 @@
 %table.table#parameters
   - @parameters.each do |parameter|
     %tr
-      %td.key= parameter.key
+      %td.key
+        = parameter.key
+        = link_to request_method_parameter_path(@request_method, parameter), method: :delete do
+          = fa_icon "times"
+        = link_to edit_request_method_parameter_path(@request_method, parameter) do
+          = fa_icon "edit"
       %td.value= parameter.value
 

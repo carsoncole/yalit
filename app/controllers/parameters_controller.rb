@@ -13,6 +13,11 @@ class ParametersController < ApplicationController
   end
 
   def update
+    if @parameter.update(parameter_params)
+      redirect_to request_method_parameters_path(@request_method), notice: "param was successfully updated."
+    else
+      render :edit
+    end
   end
 
   def new
