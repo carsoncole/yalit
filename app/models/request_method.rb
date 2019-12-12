@@ -55,15 +55,14 @@ class RequestMethod < ApplicationRecord
           parameters.each do |param|
             query[param.key.to_sym] = param.value
           end
-          puts"7"*80
-          puts query.to_s
           response = HTTParty.post(request, headers: headers, query: query)
         elsif verb == 'DELETE'
           response = HTTParty.delete(request, headers: headers)
         elsif verb == 'PATCH'
           query = {}
           parameters.each do |param|
-            query[param.key.to_sym] = param.value
+            puts param.value
+            query[param.key.to_sym] = JSON.parse(param.value) rescue param.value
           end
           response = HTTParty.put(request, headers: headers, query: query)
         end
@@ -72,7 +71,6 @@ class RequestMethod < ApplicationRecord
       end
       update(request_content: verb.upcase + ' ' + request + (!query.nil? ? " query: #{query.to_s}" : ""))
       update(
-        response_content: response.nil? ? "Failed" : response.body,
         response_code: response.nil? ? nil : response.code,
         response_body: response.nil? ? "Server failure (Possibly a bad server url)" : response.body
         )
