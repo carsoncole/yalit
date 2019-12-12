@@ -354,14 +354,15 @@ table#error-codes {
       display: inline-block;
       padding: 0.09em 0.6em;
       margin-right: 0.75em;
-      background-color: lighten($base-color, 50%);
+      background-color: lighten($base-color, 60%);
+      border: 1px solid $base-color;
       color: $base-color;
       font-weight: 500;
       border-radius: 5px;
     }
     .message {
       line-height: 1.333em;
-      margin-top: 0.75em;
+      margin-top: 0.65em;
     }
   }
 }
