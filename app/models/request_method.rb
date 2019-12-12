@@ -53,7 +53,7 @@ class RequestMethod < ApplicationRecord
         elsif verb == 'POST'
           query = {}
           parameters.each do |param|
-            query[param.key.to_sym] = param.value
+            query[param.key.to_sym] = JSON.parse(param.value) rescue param.value
           end
           response = HTTParty.post(request, headers: headers, query: query)
         elsif verb == 'DELETE'
