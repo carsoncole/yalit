@@ -48,7 +48,13 @@ class RequestMethod < ApplicationRecord
       headers = headers.merge({ "Authorization" => server.authorization_header }) if server.authorization_header.present?
       headers = headers.merge({ "Content-Type" => server.content_type_header}) if server.authorization_header.present?
       begin
-        response = HTTParty.get(request, headers: headers)
+        if verb == 'GET'
+          response = HTTParty.get(request, headers: headers)
+        elsif verb == 'POST'
+          response = HTTParty.post(request, headers: headers)
+        elsif verb == 'DELETE'
+          response = HTTParty.delete(request, headers: headers)
+        end
       rescue => e
         response = nil
       end
