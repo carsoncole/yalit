@@ -1,6 +1,6 @@
 class SectionsController < ApplicationController
   before_action :require_login
-  before_action :set_section, only: [:show, :edit, :update, :destroy]
+  before_action :set_section, only: [:show, :edit, :update, :destroy, :ping]
   before_action :set_chapter, only: [:create, :edit, :update, :destroy]
 
   # GET /sections
@@ -63,6 +63,11 @@ class SectionsController < ApplicationController
     end
   end
 
+  def ping
+    @section.ping_for_error_codes!
+    redirect_to chapter_path(@section.chapter)
+  end
+
   private
     def set_chapter
       @chapter = Chapter.find(params[:chapter_id]) if params[:chapter_id]
@@ -70,7 +75,7 @@ class SectionsController < ApplicationController
     end
 
     def set_section
-      @section = Section.find(params[:id])
+      @section = params[:section_id].present? ? Section.find(params[:section_id]) : Section.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

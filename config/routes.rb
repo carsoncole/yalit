@@ -32,7 +32,11 @@ Rails.application.routes.draw do
     resources :parameters
   end
 
-  resources :sections, :sub_sections
+  resources :sections do
+    get 'ping' => 'sections#ping', as: 'ping'
+  end 
+
+  resources :sub_sections
   resources :user_projects, :servers
   
   resources :sections do

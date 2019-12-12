@@ -1,34 +1,42 @@
 %br
 .row
-  .col-md-10.offset-1
+  .col-md-10
     - if @editing_mode
       %p.text-right
         = link_to new_section_error_code_path(section) do
           = fa_icon "plus"
           Add Code
-        - if section.error_endpoint_path.present?
-          &nbsp;
-          = link_to new_section_error_code_path(section) do
-            = fa_icon "refresh"
-            Sync
-    %table.table
-      %thead
+
+    %table#error-codes
+      - section.error_codes.order(:custom_status_code, :http_status_code).each do |error_code|
         %tr
-          %th Error
-          %th HTTP Status
-          %th Custom Status
-          %th Message
-          - if @editing_mode
-            %th
-      - section.error_codes.each do |error_code|
-        %tr
-          %td= error_code.title
-          %td= error_code.http_status_code
-          %td= error_code.custom_status_code
-          %td= error_code.message
-          - if @editing_mode
-            %td.action.text-right
-              = link_to edit_section_error_code_path(section, error_code) do
-                = fa_icon "edit"
-              = link_to section_error_code_path(section, error_code), method: :delete do
-                = fa_icon "times"
+          %td.code= error_code.custom_status_code
+          %td.details
+            .title= error_code.title
+            - if error_code.http_status_code
+              = surround("(", ")") do
+                = error_code.http_status_code
+            %br
+            %p.message= error_code.message
+
+    / %table.table0
+    /   %thead
+    /     %tr
+    /       %th Error
+    /       %th HTTP Status
+    /       %th Custom Status
+    /       %th Message
+    /       - if @editing_mode
+    /         %th
+    /   - section.error_codes.each do |error_code|
+    /     %tr
+    /       %td= error_code.title
+    /       %td= error_code.http_status_code
+    /       %td= error_code.custom_status_code
+    /       %td= error_code.message
+    /       - if @editing_mode
+    /         %td.action.text-right
+    /           = link_to edit_section_error_code_path(section, error_code) do
+    /             = fa_icon "edit"
+    /           = link_to section_error_code_path(section, error_code), method: :delete do
+    /             = fa_icon "times"

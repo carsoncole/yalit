@@ -338,3 +338,31 @@ table#parameters {
     text-align: right;
   }
 }
+
+table#error-codes {
+  td {
+    vertical-align: top;
+    padding: 0.5em 0.5em 0.5em 0;
+  }
+  td.code {
+    text-align: left;
+    width: 6em;
+    font-weight: 900;
+  }
+  td.details {
+    .title {
+      display: inline-block;
+      padding: 0.09em 0.6em;
+      margin-right: 0.75em;
+      background-color: lighten($base-color, 50%);
+      color: $base-color;
+      font-weight: 500;
+      border-radius: 5px;
+    }
+    .message {
+      line-height: 1.333em;
+      margin-top: 0.75em;
+    }
+  }
+}
+
