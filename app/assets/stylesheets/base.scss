@@ -201,7 +201,7 @@ form {
 }
 
 #side-nav {
-  background-color: $background;
+  background-color: grayscale($base-color);
   min-height: 100%;
 
   ul {
@@ -240,7 +240,7 @@ nav {
         display: none;
       }
       li a {
-        color: lighten($base-black, 50%)
+        color: lighten($base-black, 70%)
         }
       li.active a {
         color: #000;
@@ -400,5 +400,5 @@ article#test-params {
   @include box-shadow(inset 0 1px 0 lighten($base-color, 20%));
 }
 .clear {
-  clear: both;
+  clear: both
 }
