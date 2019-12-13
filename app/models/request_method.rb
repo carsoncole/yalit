@@ -61,10 +61,9 @@ class RequestMethod < ApplicationRecord
         response = nil
       end
       full_content = verb.upcase + ' ' + request + (!parameters_hash.empty? ? " query: #{parameters_hash.to_s}" : "")
-      self.request_content = full_content
-      self.response_code = response.nil? ? nil : response.code,
-      self.response_body = response.nil? ? "Server failure (Possibly a bad server url)" : response.body
-      self.save
+      update(request_content: full_content)
+      update(response_code: response.nil? ? nil : response.code, response_body: response.nil? ? "Server failure (Possibly a bad server url)" : response.body
+      )
     end
   end
 end
