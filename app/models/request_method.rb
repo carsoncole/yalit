@@ -1,6 +1,6 @@
 class RequestMethod < ApplicationRecord
   include HTTParty
-  VERBS = ["GET", "POST", "DELETE", "PATCH"]
+  VERBS = ["GET", "POST", "DELETE", "PUT", "PATCH"]
 
   belongs_to :section
   has_many :parameters
@@ -54,7 +54,7 @@ class RequestMethod < ApplicationRecord
           response = HTTParty.post(request, headers: headers, query: parameters_hash)
         when 'DELETE'
           response = HTTParty.delete(request, headers: headers)
-        when 'PATCH'
+        when 'PATCH', 'PUT'
           response = HTTParty.put(request, headers: headers, query: parameters_hash)
         end
       rescue => e
@@ -66,12 +66,13 @@ class RequestMethod < ApplicationRecord
       )
     end
   end
-end
 
-def parameters_hash
-  result = {}
-  parameters.each do |param|
-    result[param.key.to_sym] = JSON.parse(param.value) rescue param.value
+
+  def parameters_hash
+    result = {}
+    parameters.each do |param|
+      result[param.key.to_sym] = JSON.parse(param.value) rescue param.value
+    end
+    result
   end
-  result
 end
