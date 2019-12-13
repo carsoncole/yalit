@@ -2,7 +2,7 @@
 
 
 .row
-  .col-md-6
+  .col-md-5
     %h3(id="#{request_method.title.parameterize}")
       = request_method.title
       - if @editing_mode && current_user
@@ -21,10 +21,10 @@
       = Kramdown::Document.new(request_method.description).to_html.html_safe
 
     %h6 Path
-    %p= request_method.path
+    %code= request_method.path
 
     .clear
-  .col-md-6
+  .col-md-7
     #interaction.request
       .title
         Request
