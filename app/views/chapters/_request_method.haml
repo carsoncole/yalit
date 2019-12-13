@@ -1,5 +1,5 @@
 - if @editing_mode && request_method.parameters.any?
-  .float-right= render partial: "request_methods/test_params", locals: { request_method: request_method }
+  = render partial: "request_methods/test_params", locals: { request_method: request_method }
 
 %h3(id="#{request_method.title.parameterize}")
   = request_method.title
@@ -13,12 +13,15 @@
     = link_to chapter_section_request_method_path(chapter, section, request_method), class: 'action', method: :delete do
       = fa_icon "times"
 
-%h6 Description
+- if request_method.description
+  %h6 Description
 
-= Kramdown::Document.new(request_method.description).to_html.html_safe if request_method.description
+  = Kramdown::Document.new(request_method.description).to_html.html_safe
 
 %h6 Path
 %p= request_method.path
+
+.clear
 
 #interaction.request
   .title
