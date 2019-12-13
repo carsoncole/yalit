@@ -159,14 +159,23 @@ form {
     padding-bottom: 0.6em;
     margin: 1em 0 1em 0;
     border-bottom: 1px solid #eee;
-    font-weight: 300;
-    font-size: 3.2rem
+    font-weight: 600;
+    font-size: 3.0rem
   }
 
   h2 {
     font-weight: 300;
     font-size: 2.25rem;
     margin: 1.5em 0 1em 0;
+    &.endpoint {
+      font-weight: 500;
+      font-size: 2.4em;
+      .icon {
+        display: inline;
+        font-size: 0.8em;
+        color: $base-color;
+      }
+    }
   }
 
   h3 {
@@ -287,7 +296,7 @@ code {
   display: inline;
   color: red;
   background-color: #efefef;
-  padding: 0.15em;
+  padding: 0.25em 0.45em;
   border-radius: 0.45em;
 }
 #project-nav {
@@ -313,12 +322,7 @@ code {
 
 li.nav-item .endpoint {
   display: inline-block;
-  background-color: $third-color;
-  font-size: 0.9em;
-  padding-left: 0.4em;
-  padding-right: 0.4em;
-  color: #efefef;
-  border-radius: 0.35em;
+  margin-right: 0.15em;
 }
 
 table.table th,td {
