@@ -3,6 +3,7 @@ $secondary-color: lighten($base-color, 10%);
 $third-color: darken($base-color, 10%);
 $base-black: #111111;
 $background: #efefef;
+$editing: lighten(red, 20%);
 $highlight: green;
 
 html {
@@ -64,7 +65,7 @@ body {
 #interaction.request, #interaction.response  {
   display: block;
   font-family: "Fira Mono", monospace;
-  margin: 2em;
+  margin: 2em 0;
   background-color: darken($background, 10%);
   border-radius: 0.45em;
 
@@ -82,18 +83,6 @@ body {
     word-break: break-all;
     overflow-wrap: break-word;
   }
-  .refresh {
-    float: right;
-    margin-top: 0.55em;
-    padding-right: 1em;
-    font-size: 1.15em;
-    a {
-      color: #efefef;
-    }
-  }
-
-
-
 }
 
 #toggle-is-published {
@@ -122,7 +111,7 @@ body {
 
 .action {
     font-size: 16px !important;
-    color: lighten(red, 20%);
+    color: $editing;
 }
 
 h1 {
@@ -179,8 +168,8 @@ form {
   }
 
   h3 {
-    font-weight: 300;
-    font-size: 1.3rem;
+    font-weight: 500;
+    font-size: 1.5rem;
     margin: 2.5em 0 1em 0;
   }
 
@@ -205,6 +194,11 @@ form {
       padding: 0.5em;
       font-weight: 100;
     }
+  }
+  h6 {
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 1em;
+    margin: 3em 0 1.25em 0;
   }
 
 }
@@ -371,17 +365,15 @@ table#error-codes {
 }
 
 article#test-params {
-  float: right;
+  display: block;
   font-size: 0.9em;
   font-family: "Fira Mono", monospace;
-  width: 35em;
   padding: 0 0 1em 0;
-  margin: 1.5em 0 1.5em 1.5em;
-  border: 1px solid lighten($base-color, 15%);
-  background-color: lighten($base-color, 65%);
+  border: 1px solid lighten($editing, 15%);
+  background-color: lighten($editing, 65%);
   border-radius: 7px;
   .title {
-    background-color: $base-color;
+    background-color: $editing;
     color: #fff;
     padding: .75em 1em;
     font-weight: 500;
