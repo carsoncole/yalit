@@ -1,5 +1,6 @@
 require "test_helper"
 
+#TODO Tests
 class SchemaTest < ActiveSupport::TestCase
   
   test "schema object is created" do

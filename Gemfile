@@ -66,3 +66,4 @@ gem 'platform-api'
 gem 'json'
 gem 'rack-cors'
 gem 'httparty'
+gem 'simplecov', require: false, group: :test

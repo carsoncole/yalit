@@ -6,6 +6,11 @@ class InvitationTest < ActiveSupport::TestCase
     assert invite.valid?, "factory built an invite without minimum attributes"
   end
 
+  test "owner is the default role" do
+    invite = Invitation.new
+    assert_equal invite.role, "owner"
+  end
+
   test "email must be present" do
     invite = build(:invitation, email: nil)
     assert_not invite.save, "Saved an invite without an email"

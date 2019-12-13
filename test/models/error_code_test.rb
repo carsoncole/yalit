@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ErrorCodeTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "default factory works" do
+    assert create(:error_code)
+  end
 end

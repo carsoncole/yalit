@@ -12,10 +12,10 @@ class ParameterTest < ActiveSupport::TestCase
     assert_not parameter.save, "Saved a parameter without a value"
   end
 
-  test "key must must be unique" do
+  test "key must be unique for request methods" do
     request_method = create(:request_method)
     create(:parameter, key: "user_id", request_method_id: request_method.id)
     parameter = build(:parameter, key: "user_id", request_method_id: request_method.id)
-    assert_not parameter.save, "Saved a parameter without a value"
+    assert_not parameter.save, "Saved a non-unique parameter key within a request method"
   end
 end
