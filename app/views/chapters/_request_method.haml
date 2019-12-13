@@ -29,7 +29,7 @@
       .title
         Request
       .body
-        = request_method.request_content
+        %pre= request_method.request_content
 
     - if request_method.response_body.present?
       #interaction.response

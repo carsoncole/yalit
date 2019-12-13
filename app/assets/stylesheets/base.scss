@@ -1,3 +1,4 @@
+
 $base-color: #0f4c81;
 $secondary-color: lighten($base-color, 10%);
 $third-color: darken($base-color, 10%);
@@ -62,9 +63,12 @@ body {
   }
 }
 
+#old-font {
+    font-family: "Fira Mono", monospace;
+}
+
 #interaction.request, #interaction.response  {
   display: block;
-  font-family: "Fira Mono", monospace;
   margin: 2em 0;
   background-color: darken($background, 10%);
   border-radius: 0.45em;
@@ -79,7 +83,7 @@ body {
     border-radius: 0.45em 0.45em 0 0;
   }
   .body {
-    padding: 2em;
+    padding: 1.7em 1.4em;
     word-break: break-all;
     overflow-wrap: break-word;
   }
@@ -309,6 +313,10 @@ code {
   }
 }
 
+pre {
+  margin-bottom: 0;
+}
+
 .badge-verb {
   background-color: $secondary-color;
   color: #efefef;
@@ -367,7 +375,6 @@ table#error-codes {
 article#test-params {
   display: block;
   font-size: 0.9em;
-  font-family: "Fira Mono", monospace;
   padding: 0 0 1em 0;
   border: 1px solid lighten($editing, 15%);
   background-color: lighten($editing, 65%);
