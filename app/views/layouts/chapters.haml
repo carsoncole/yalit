@@ -4,6 +4,7 @@
 
   %body
     = render "main_nav"
+    = render "message" if @project && @message
     .container-fluid#main-container
       .row.side-nav
         .col-md-2.pl-0

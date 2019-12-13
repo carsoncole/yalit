@@ -59,6 +59,10 @@
         = f.label :color, "Hex Color"
         = f.text_field :color, class: 'form-control'
 
+      .form-group
+        = f.label :message, "Message (Display on all content)"
+        = f.text_field :message, class: 'form-control'
+
       - if @project.persisted?
         .form-group
           = f.label :host_name

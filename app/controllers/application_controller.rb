@@ -6,6 +6,7 @@
 class ApplicationController < ActionController::Base
   include Clearance::Controller
   before_action :set_project, except: [:not_found]
+  before_action :set_message, except: [:not_found]
   before_action :set_editing_mode
 
   def set_project
@@ -18,6 +19,12 @@ class ApplicationController < ActionController::Base
       end
     end
     # redirect_to not_found_path unless @project && root_site?
+  end
+
+  def set_message
+    if @project && @project.message
+      @message = @project.message
+    end
   end
 
   def hosted_site

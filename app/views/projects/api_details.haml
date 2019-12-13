@@ -50,6 +50,10 @@
           %th Color
           %td.text-right= @project.color
 
+        %tr
+          %th Message
+          %td.text-right= @project.message
+
 %br
 
 - if current_user.owner?(@project)
