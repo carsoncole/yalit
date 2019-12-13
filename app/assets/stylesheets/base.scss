@@ -71,14 +71,14 @@ body {
   .title {
     background-color: $base-color;
     color: #fff;
-    padding: 0.6em 1em;
+    padding: .75em 2em;
     font-weight: 500;
     margin: 0;
     text-transform: uppercase;
     border-radius: 0.45em 0.45em 0 0;
   }
   .body {
-    padding: 1em;
+    padding: 2em;
     word-break: break-all;
     overflow-wrap: break-word;
   }
@@ -363,6 +363,29 @@ table#error-codes {
       line-height: 1.333em;
       margin-top: 0.65em;
     }
+  }
+}
+
+article#test-params {
+  font-size: 0.9em;
+  font-family: "Fira Mono", monospace;
+  display: block;
+  width: 35em;
+  padding: 0 0 1em 0;
+  border: 1px solid lighten($base-color, 15%);
+  background-color: lighten($base-color, 65%);
+  border-radius: 7px;
+  .title {
+    background-color: $base-color;
+    color: #fff;
+    padding: .75em 1em;
+    font-weight: 500;
+    margin: 0;
+    text-transform: uppercase;
+    border-radius: 0.45em 0.45em 0 0;
+  }
+  .body {
+    padding: 1em 1em 0 1em;
   }
 }
 

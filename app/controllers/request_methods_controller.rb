@@ -1,6 +1,6 @@
 class RequestMethodsController < ApplicationController
   before_action :require_login
-  before_action :set_chapter, except: [:new, :create]
+  before_action :set_chapter, except: [:new, :create, :ping]
   before_action :set_section, except: [:new, :create]
   before_action :set_request_method, only: [:show, :edit, :update, :ping, :destroy]
 
@@ -29,7 +29,7 @@ class RequestMethodsController < ApplicationController
 
   def ping
     @request_method.ping!
-    redirect_to chapter_path(@request_method.section.chapter), notice: "Successfully pinged endpoint."
+    redirect_to chapter_path(@request_method.section.chapter, anchor: @request_method.title.parameterize), notice: "Successfully pinged endpoint."
   end
 
   # POST /request_methods
@@ -55,7 +55,7 @@ class RequestMethodsController < ApplicationController
     @chapter = @request_method.section.chapter
     respond_to do |format|
       if @request_method.update(request_method_params)
-        format.html { redirect_to @chapter, notice: "Sub section was successfully updated." }
+        format.html { redirect_to chapter_path(@chapter, anchor: @request_method.title.parameterize), notice: "Sub section was successfully updated." }
         format.json { render :show, status: :ok, location: @request_method }
       else
         format.html { render :edit }

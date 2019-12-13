@@ -28,7 +28,7 @@ class RequestMethod < ApplicationRecord
         parameter = parameters.find_by(key: p.gsub("{","").gsub("}",""))
         params_with_values << [p, parameter&.value]
       end
-      result = path
+      result = path.dup
       params_with_values.each do |pv|
         next if pv[1].nil?
         result.gsub!(pv[0], pv[1])
@@ -47,33 +47,32 @@ class RequestMethod < ApplicationRecord
       headers = headers.merge({ "Authorization" => server.authorization_header }) if server.authorization_header.present?
       headers = headers.merge({ "Content-Type" => server.content_type_header}) if server.authorization_header.present?
       begin
-        query = nil
-        if verb == 'GET'
-          response = HTTParty.get(request, headers: headers)
-        elsif verb == 'POST'
-          query = {}
-          parameters.each do |param|
-            query[param.key.to_sym] = JSON.parse(param.value) rescue param.value
-          end
-          response = HTTParty.post(request, headers: headers, query: query)
-        elsif verb == 'DELETE'
+        case verb
+        when 'GET'
+          response = HTTParty.get(request, headers: headers, query: parameters_hash)
+        when 'POST'
+          response = HTTParty.post(request, headers: headers, query: parameters_hash)
+        when 'DELETE'
           response = HTTParty.delete(request, headers: headers)
-        elsif verb == 'PATCH'
-          query = {}
-          parameters.each do |param|
-            puts param.value
-            query[param.key.to_sym] = JSON.parse(param.value) rescue param.value
-          end
-          response = HTTParty.put(request, headers: headers, query: query)
+        when 'PATCH'
+          response = HTTParty.put(request, headers: headers, query: parameters_hash)
         end
       rescue => e
         response = nil
       end
-      update(request_content: verb.upcase + ' ' + request + (!query.nil? ? " query: #{query.to_s}" : ""))
-      update(
-        response_code: response.nil? ? nil : response.code,
-        response_body: response.nil? ? "Server failure (Possibly a bad server url)" : response.body
-        )
+      full_content = verb.upcase + ' ' + request + (!parameters_hash.empty? ? " query: #{parameters_hash.to_s}" : "")
+      self.request_content = full_content
+      self.response_code = response.nil? ? nil : response.code,
+      self.response_body = response.nil? ? "Server failure (Possibly a bad server url)" : response.body
+      self.save
     end
   end
+end
+
+def parameters_hash
+  result = {}
+  parameters.each do |param|
+    result[param.key.to_sym] = JSON.parse(param.value) rescue param.value
+  end
+  result
 end

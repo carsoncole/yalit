@@ -1,0 +1,11 @@
+%article#test-params
+  .row
+    .col-md-12
+      .title Params
+
+      .body
+        %table.table.table-sm.mb-0
+          - request_method.parameters.each do |param|
+            %tr
+              %td= param.key
+              %td.text-right= param.value

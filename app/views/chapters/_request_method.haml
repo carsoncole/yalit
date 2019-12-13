@@ -1,3 +1,6 @@
+- if @editing_mode && request_method.parameters.any?
+  .float-right= render partial: "request_methods/test_params", locals: { request_method: request_method }
+
 %h3(id="#{request_method.title.parameterize}")
   = request_method.title
   - if @editing_mode && current_user
@@ -9,15 +12,19 @@
       = link_to "{..}", request_method_parameters_path(request_method), class: 'action'
     = link_to chapter_section_request_method_path(chapter, section, request_method), class: 'action', method: :delete do
       = fa_icon "times"
+
+%h6 Description
+
 = Kramdown::Document.new(request_method.description).to_html.html_safe if request_method.description
-- if request_method.request_content.present?
-  #interaction.request
-    .title
-      Request
-      = surround('(',')') do
-        = request_method.path
-    .body
-      = request_method.request_content
+
+%h6 Path
+%p= request_method.path
+
+#interaction.request
+  .title
+    Request
+  .body
+    = request_method.request_content
 
 - if request_method.response_body.present?
   #interaction.response

@@ -14,7 +14,7 @@
     = f.text_field :title, class: 'form-control'
   .form-group
     = f.label :verb
-    = f.select :verb, options_for_select(RequestMethod::VERBS), {}, class: 'form-control'
+    = f.select :verb, options_for_select(RequestMethod::VERBS, f.object.verb), {},  class: 'form-control'
   .form-group
     = f.label :description
     = f.text_field :description, class: 'form-control'
