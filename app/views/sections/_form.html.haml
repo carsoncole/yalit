@@ -31,6 +31,12 @@
   .form-group
     = f.label :is_resource
     = f.check_box :is_resource, class: 'form-control'
+
+  - if @section.is_resource && @section.request_methods.any?
+    .form-group
+      = f.label :request_method_id, "Request Method to source attributes"
+      = f.collection_select :request_method_id, @section.request_methods, :id, :title, { include_blank: true }, class: 'form-control'
+
   .row
     .col-md-2
       .form-group

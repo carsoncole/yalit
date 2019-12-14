@@ -1,6 +1,6 @@
 class SectionsController < ApplicationController
   before_action :require_login
-  before_action :set_section, only: [:show, :edit, :update, :destroy, :ping]
+  before_action :set_section, only: [:show, :edit, :update, :destroy, :ping, :process_resource]
   before_action :set_chapter, only: [:create, :edit, :update, :destroy]
 
   # GET /sections
@@ -68,6 +68,11 @@ class SectionsController < ApplicationController
     redirect_to chapter_path(@section.chapter)
   end
 
+  def process_resource
+    @section.process_resource_attributes!
+    redirect_to @section.chapter
+  end
+
   private
     def set_chapter
       @chapter = Chapter.find(params[:chapter_id]) if params[:chapter_id]
@@ -80,6 +85,6 @@ class SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:chapter_id, :title, :content, :rank, :is_resource, :is_error_codes, :error_endpoint_path)
+      params.require(:section).permit(:chapter_id, :title, :content, :rank, :is_resource, :is_error_codes, :error_endpoint_path, :request_method_id)
     end
 end

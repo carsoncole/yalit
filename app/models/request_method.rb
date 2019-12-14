@@ -85,7 +85,6 @@ class RequestMethod < ApplicationRecord
     end
   end
 
-
   def parameters_hash
     result = {}
     parameters.each do |param|

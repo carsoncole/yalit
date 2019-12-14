@@ -2,9 +2,12 @@
 #TODO Add popover for details on integrating external errors
 class Section < ApplicationRecord
   belongs_to :chapter
+  belongs_to :request_method
   has_many :sub_sections, dependent: :destroy
   has_many :request_methods, dependent: :destroy
   has_many :error_codes, dependent: :destroy
+  has_many :resource_attributes, dependent: :destroy
+
 
   before_save :set_rank!, if: proc { |c| c.rank.blank? }
 
@@ -41,6 +44,23 @@ class Section < ApplicationRecord
             error.message = error_code["message"]
             error.save
           end
+        end
+      end
+    end
+  end
+
+  def process_resource_attributes!
+    return nil unless request_method
+    return unless request_method.response_body.present? && content = (JSON.parse(request_method.response_body) rescue nil)
+    if content.is_a?(Hash)
+      content.each do |k,v|
+        attribute = resource_attributes.find_or_create_by(key: k)
+        if v.is_a? Array
+          attribute.update(field_type: 'array')
+        elsif v.is_a? Integer
+          attribute.update(field_type: 'integer')
+        else
+          attribute.update(field_type: 'string')
         end
       end
     end

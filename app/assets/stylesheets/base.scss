@@ -405,3 +405,17 @@ article#test-params {
 .clear {
   clear: both
 }
+
+.attribute {
+  line-height: 1.666em;
+  margin-bottom: 2.666em;
+  .key {
+    font-weight: 700;
+    display: inline-block;
+  }
+  .characteristic {
+    display: inline;
+    color: #aaa;
+  }
+
+}

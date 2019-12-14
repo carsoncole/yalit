@@ -1,0 +1,14 @@
+%h1 Attributes
+
+%table.table
+  - @resource_attributes.each do |attribute|
+    %tr
+      %td
+        = attribute.key
+        %br
+        = attribute.field_type
+        %br
+        = attribute.description
+        %br
+        = link_to "Delete", request_method_resource_attribute_path(@request_method, attribute), method: :delete
+        = link_to "Edit", edit_request_method_resource_attribute_path(@request_method, attribute)

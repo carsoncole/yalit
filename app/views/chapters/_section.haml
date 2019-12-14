@@ -8,9 +8,15 @@
     - if current_user.is_beta_user? && section.is_error_codes? && @project.servers.where(use_for_ping: true).any?
       = link_to section_ping_path(section.id), class: 'action', data: { confirm: "Are you sure? If the request for error codes is successful, all current error codes will be replaced." } do
         = fa_icon "refresh"
+        Errors
+    = link_to section_process_resource_path(section.id), class: 'action', data: { confirm: "This will refresh resource attributes. This will DELETE any existing attributes that do not exist on the remote object. Continue?" } do
+      = fa_icon "refresh"
+      Resource
     = link_to chapter_section_path(@chapter, section), class: 'action', method: :delete do
       = fa_icon "times"
 = Kramdown::Document.new(section.content).to_html.html_safe if section.content
 
 - if section.is_error_codes?
   = render partial: 'error_codes/error_codes', locals: { section: section }
+- if section.resource_attributes.any?
+  = render partial: "/resource_attributes/attributes", locals: { resource_attributes: section.resource_attributes, section: section }

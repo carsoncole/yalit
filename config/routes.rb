@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'attributes/index'
+  get 'attributes/show'
+  get 'attributes/edit'
+  get 'attributes/new'
+  get 'attributes/update'
+  get 'attributes/create'
+  get 'attributes/destroy'
   get 'parameters/index'
   get 'parameters/show'
   get 'parameters/edit'
@@ -33,7 +40,9 @@ Rails.application.routes.draw do
   end
 
   resources :sections do
+    resources :resource_attributes
     get 'ping' => 'sections#ping', as: 'ping'
+    get 'process' => 'sections#process_resource', as: 'process_resource'
   end 
 
   resources :sub_sections
