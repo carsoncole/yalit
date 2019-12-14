@@ -407,8 +407,10 @@ article#test-params {
 }
 
 .attribute {
+  border-top: 1px solid #ccc;
   line-height: 1.666em;
-  margin-bottom: 2.666em;
+  padding-top: 1.6em;
+  margin-bottom: 3.66em;
   .key {
     font-weight: 700;
     display: inline-block;
@@ -416,6 +418,10 @@ article#test-params {
   .characteristic {
     display: inline;
     color: #aaa;
+  }
+  .description {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
   }
 
 }

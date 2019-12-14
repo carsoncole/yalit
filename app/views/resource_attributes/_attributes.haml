@@ -1,16 +1,19 @@
 .row
-  .col-md-10
+  .col-md-12
     %h6 
       Object Attributes
       - if @editing_mode
         .action= link_to "View", section_resource_attributes_path(section)
 
+%br
+.row
+  .col-md-8
     - resource_attributes.each do |attribute|
       
       .attribute
         %code.key= attribute.key
         .characteristic= attribute.field_type
         .characteristic= attribute.is_required? ? "Required" : nil
-        %p= attribute.description
+        .description= attribute.description
         - if @editing_mode
           %p= link_to "Edit", edit_section_resource_attribute_path(section, attribute)
