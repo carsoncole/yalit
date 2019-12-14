@@ -2,7 +2,7 @@
 #TODO Add popover for details on integrating external errors
 class Section < ApplicationRecord
   belongs_to :chapter
-  belongs_to :request_method
+  belongs_to :request_method, optional: true
   has_many :sub_sections, dependent: :destroy
   has_many :request_methods, dependent: :destroy
   has_many :error_codes, dependent: :destroy
