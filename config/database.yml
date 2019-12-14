@@ -11,6 +11,13 @@ development:
   username: carsoncole
   password: password
 
+# development:
+#   <<: *default
+#   host: ec2-174-129-253-104.compute-1.amazonaws.com
+#   database: d7av4jjmluvot8
+#   username: d7av4jjmluvot8
+#   password: ab720eb4694563aba049cf4b9022549f280d96c0975bcea6d56f318110383788
+
 test:
   <<: *default
   database: yalit_test

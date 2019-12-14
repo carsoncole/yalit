@@ -52,17 +52,19 @@ class Section < ApplicationRecord
   def process_resource_attributes!
     return nil unless request_method
     return unless request_method.response_body.present? && content = (JSON.parse(request_method.response_body) rescue nil)
+    resource_attributes.update_all(not_found_on_last_ping: true)
     if content.is_a?(Hash)
       content.each do |k,v|
         attribute = resource_attributes.find_or_create_by(key: k)
         if v.is_a? Array
-          attribute.update(field_type: 'array')
+          attribute.update(field_type: 'array', not_found_on_last_ping: false)
         elsif v.is_a? Integer
-          attribute.update(field_type: 'integer')
+          attribute.update(field_type: 'integer', not_found_on_last_ping: false)
         else
-          attribute.update(field_type: 'string')
+          attribute.update(field_type: 'string', not_found_on_last_ping: false)
         end
       end
     end
+    resource_attributes.where(not_found_on_last_ping: true).destroy_all
   end
 end
