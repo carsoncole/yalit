@@ -14,9 +14,11 @@
         = render partial: 'section', locals: { section: section, chapter: @chapter }
 
         - section.sub_sections.order(rank: :asc).each do |sub_section|
+          .content-break
           = render partial: 'sub_section', locals: { sub_section: sub_section, chapter: @chapter }
 
         - section.request_methods.order(rank: :asc).each do |request_method|
+          .content-break
           = render partial: 'request_method', locals: { request_method: request_method, chapter: @chapter, section: section }
 
     = render partial: 'pagination', locals: { next_chapter: @next_chapter, previous_chapter: @previous_chapter }
