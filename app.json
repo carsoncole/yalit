@@ -3,7 +3,7 @@
     "test": {
       "scripts": {
         "test-setup": "bin/rails assets:precompile",
-        "test": "rubocop ."
+        "test": "test test:system"
       },
       "addons":[
         "heroku-postgresql:in-dyno"
