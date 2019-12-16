@@ -3,8 +3,7 @@
     "test": {
       "scripts": {
         "test-setup": "bin/rails assets:precompile",
-        "test-system": "rails test:system",
-        "test-models": "rails test"
+        "test": "bin/rails test:system"
       },
       "addons":[
         "heroku-postgresql:in-dyno"
