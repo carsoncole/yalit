@@ -2,16 +2,10 @@
   "environments": {
     "test": {
       "scripts": {
-        "test-setup": "bin/rails assets:precompile",
-        "test": "bin/rails test:system"
+        "test-setup": "bin/rails assets:precompile"
       },
       "addons":[
         "heroku-postgresql:in-dyno"
-      ],
-      "buildpacks": [
-        { "url": "https://github.com/heroku/heroku-buildpack-google-chrome" },
-        { "url": "heroku/chromedriver"},
-        { "url": "heroku/ruby"}
       ]
     }
   },
