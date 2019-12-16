@@ -2,7 +2,7 @@
   "environments": {
     "test": {
       "scripts": {
-        "test-setup": "bin/rails assets:precompile",
+        "test-setup": "bin/rails assets:precompile"
       },
       "addons":[
         "heroku-postgresql:in-dyno"
