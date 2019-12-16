@@ -1,18 +1,4 @@
 Rails.application.routes.draw do
-  get 'attributes/index'
-  get 'attributes/show'
-  get 'attributes/edit'
-  get 'attributes/new'
-  get 'attributes/update'
-  get 'attributes/create'
-  get 'attributes/destroy'
-  get 'parameters/index'
-  get 'parameters/show'
-  get 'parameters/edit'
-  get 'parameters/update'
-  get 'parameters/new'
-  get 'parameters/create'
-  get 'parameters/destroy'
   get 'sign_up' => "users#new", as: 'noname'
   constraints Clearance::Constraints::SignedIn.new do
     root to: 'projects#index', as: :signed_in_root
@@ -24,9 +10,10 @@ Rails.application.routes.draw do
 
   get 'not_found' => 'home#not_found', as: 'not_found'
 
+
   resources :projects do
     get 'schema' => 'chapters#schema', as: 'schema'
-    get 'api_details' => 'projects#api_details', as: 'api_details'
+    get 'details' => 'projects#details', as: 'details'
     get 'users' => 'projects#users', as: 'users'
     get 'servers' => 'projects#servers', as: 'servers'
     get 'host_name' => 'projects#host_name', as: 'host_name'
@@ -57,5 +44,7 @@ Rails.application.routes.draw do
       resources :sub_sections
       resources :request_methods
     end
+    get 'testapi' => 'testapi#index', as: 'testapi'
+    post 'set-api-key' => 'testapi#set_api_key_cookie', as: 'set_api_key'
   end
 end

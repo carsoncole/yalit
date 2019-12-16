@@ -1,0 +1,15 @@
+%h1 Test API
+
+- if @api_key
+  %h6 API Key
+  %p= @api_key.truncate(10)
+  %br
+= form_tag "/set-api-key" do
+  .form-group
+    = text_field_tag :api_key, nil, placeholder: "Enter your Grade.us API Key", class: 'form-control'
+
+  = submit_tag "Save Key", class: 'btn btn-success'
+
+.form-group
+  = form_tag "/select-an-endpoint" do
+    = select_tag :request_method_id, options_for_select(@endpoints), class: 'form-control'

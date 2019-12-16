@@ -1,13 +1,13 @@
 #side-nav
   %nav.nav.side-nav
     %ul.navbar-nav.mr-auto
-      - @project.chapters.order(rank: :asc).each do |chapter|
+      - @chapters.order(rank: :asc).each do |chapter|
         - next unless chapter.persisted?
         %li.nav-item{ class: params[:id].to_i == chapter.id ? 'active' : nil }
           = link_to chapter.title, chapter_path(chapter), id: "chapter-#{chapter.title.parameterize}", class: 'nav-link'
           - if chapter.sections.any?
             %ul
-              - chapter.sections.each do |section|
+              - chapter.sections.order(rank: :asc).each do |section|
                 %li.nav-item
                   = link_to chapter_path(chapter, anchor: section.title.camelize), class: 'nav-link' do
                     - if section.is_resource?
@@ -28,6 +28,10 @@
                             = request_method.title
                             
 
+      / %li.nav_item
+      /   = link_to chapter_testapi_path(@chapter), class: "nav-link #{ controller_name == 'testapi' ? 'active' : nil }" do
+      /     = fa_icon "flask"
+      /     Test
       %li.nav_item
         = link_to project_schema_path(@project), class: "nav-link #{ action_name == 'schema' ? 'active' : nil }" do
           = fa_icon "map"

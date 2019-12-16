@@ -8,7 +8,7 @@
     %br
     %ul.nav.justify-content-end#project-nav
       %li.nav-item= link_to "View", project_path(@project, view: true), class: "nav-link"
-      %li.nav-item= link_to "Details", project_api_details_path(@project), class: "nav-link #{ action_name == "api_details" ? "active" : nil }"
+      %li.nav-item= link_to "Details", project_details_path(@project), class: "nav-link #{ action_name == "details" ? "active" : nil }"
       %li.nav_item= link_to "Servers", project_servers_path(@project), class: "nav-link #{ action_name == 'servers' || controller_name == 'servers' ? 'active' : nil }"
       %li.nav_item= link_to "Hosting", project_host_name_path(@project), class: "nav-link #{ action_name == 'host_name' ? 'active' : nil }"
       %li.nav_item= link_to "Users", project_users_path(@project), class: "nav-link #{ action_name == 'users' ? 'active' : nil }"

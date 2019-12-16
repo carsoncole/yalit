@@ -1,6 +1,6 @@
 %nav.navbar.navbar-expand-lg.navbar-dark.main-nav.mb-0(style="background-color: #{ @project ? @project.color : '#0f4c81'} !important")
   .navbar-brand
-    - if @project && @project.persisted?
+    - if @project && @project.persisted? && @project.chapters.any?
       = link_to @project.title, chapter_path(@project.first_chapter )
     - else
       = link_to "Yalit", root_path
@@ -18,7 +18,7 @@
               - else
                 = fa_icon "toggle-off"
               Editor
-        - if @project&.persisted? && ['chapters', 'projects', 'sections', 'request_methods', 'sub_sections', 'error_codes'].include?(controller_name)
+        - if @project&.persisted? && ['chapters', 'projects', 'sections', 'request_methods', 'sub_sections', 'error_codes', 'testapi'].include?(controller_name)
           %li.nav-item
             = link_to project_path(@project), id: "archive-link", class: 'nav-link', "data-toggle": 'tooltip', "title": 'Project' do
               = fa_icon "archive"

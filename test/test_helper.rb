@@ -17,6 +17,5 @@ class ActiveSupport::TestCase
   def martech_email
     Faker::Name.first_name + "@" + User::MARTECH_DOMAINS.sample
   end
-
   # Add more helper methods to be used by all tests here...
 end

@@ -10,7 +10,7 @@
             = fa_icon "times"
       = Kramdown::Document.new(@chapter.content).to_html.html_safe if @chapter.content
 
-      - @chapter.sections.each do |section|
+      - @sections.each do |section|
         = render partial: 'section', locals: { section: section, chapter: @chapter }
 
         - section.sub_sections.order(rank: :asc).each do |sub_section|

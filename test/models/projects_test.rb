@@ -1,8 +1,8 @@
 require "test_helper"
 
 #FIXME Fix hosting-related tests
-class ProjectTest < ActiveSupport::TestCase
-  def setup
+class ProjectsTest < ActiveSupport::TestCase
+  setup do
     @project = build(:project)
   end
 
@@ -63,12 +63,14 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test "generating of default content" do
-    project = create(:project, generate_default_content: false)
-    assert project.chapters.empty?
-
     project = create(:project, generate_default_content: true)
-    assert project.chapters.any?
+    assert_equal 2, project.chapters.count
     assert_equal project.chapters.first.title, "Introduction"
+  end
+
+  test "generating of basic content" do
+    project = create(:project, generate_default_content: false)
+    assert_equal 1, project.chapters.count
   end
 
   # test "changing host_name should remove hosting" do

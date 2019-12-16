@@ -5,10 +5,12 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   #   @chapter = chapters(:one)
   # end
 
-  test "should get new" do
-    get new_chapter_url
-    assert_response :redirect
-  end
+  # test "should redirect on new and not logged on" do
+  #   user = create(:user)
+  #   sign_in_as_user(user)
+  #   get new_chapter_url
+  #   assert_response :redirect
+  # end
 
   # test "should not show a chapter not logged in or on hosted" do
   #   chapter = create(:chapter)

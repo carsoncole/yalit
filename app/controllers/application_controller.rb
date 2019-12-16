@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_message
-    if @project && @project.message
+    if @project && @project.message.present?
       @message = @project.message
     end
   end

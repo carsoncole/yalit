@@ -3,8 +3,8 @@
     .col-md-10.offset-1
       #flash
         - if flash[:notice]
-          .alert.alert-info
+          %p.alert.alert-info
             = flash[:notice]
         - if flash[:alert]
-          .alert.alert-warning
+          %p.alert.alert-warning
             = flash[:alert]

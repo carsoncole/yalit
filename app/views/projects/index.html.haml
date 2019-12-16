@@ -27,7 +27,7 @@
         %td.text-right
           = link_to "View", project_path(project, view: true)
           \|
-          = link_to "Settings", project_api_details_path(project, view: true)
+          = link_to "Settings", project_details_path(project, view: true)
           \|
           = link_to project, method: :delete, data: { confirm: 'Are you sure? This will result in all project information to be destroyed and is not recoverable.' } do
             Destroy
