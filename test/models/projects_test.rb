@@ -63,13 +63,13 @@ class ProjectsTest < ActiveSupport::TestCase
   end
 
   test "generating of default content" do
-    project = create(:project, generate_default_content: true)
+    project = create(:project, generate_default_content: '1')
     assert_equal 2, project.chapters.count
     assert_equal project.chapters.first.title, "Introduction"
   end
 
   test "generating of basic content" do
-    project = create(:project, generate_default_content: false)
+    project = create(:project, generate_default_content: '0')
     assert_equal 1, project.chapters.count
   end
 
