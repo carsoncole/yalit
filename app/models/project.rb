@@ -26,8 +26,8 @@ class Project < ApplicationRecord
 
   attr_accessor :generate_default_content
 
-  after_create :generate_default_content!, if: proc { |p| generate_default_content == true }
-  after_create :generate_basic_content!, unless: proc { |p| generate_default_content == true }
+  after_create :generate_default_content!, if: proc { |p| generate_default_content == '1' }
+  after_create :generate_basic_content!, unless: proc { |p| generate_default_content == '1' }
   before_save :disable_hosting_if_host_name_changed!, if: proc { |p| p.host_name_changed? && p.is_hosted? && heroku_configured? }
   before_save :update_hostname_on_heroku!, if: proc { |p| p.is_hosted_changed? && heroku_configured? }
   before_save :set_color_if_blank!, if: proc { |p| p.color.blank? }

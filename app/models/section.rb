@@ -34,9 +34,9 @@ class Section < ApplicationRecord
           response = nil
         end
         json_response = response.parsed_response
-        if response && response.code == 200 && json_response["errors"].class == Array
+        if response && response.code == 200 && json_response.class == Array
           error_codes.destroy_all
-          json_response["errors"].each do |error_code|
+          json_response.each do |error_code|
             error = error_codes.new
             error.title = error_code["name"]
             error.http_status_code = error_code["http_status_code"]

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
 
   resources :projects do
+    get 'toggle-editor' => 'projects#toggle_editor', as: 'toggle_editor'
     get 'schema' => 'chapters#schema', as: 'schema'
     get 'details' => 'projects#details', as: 'details'
     get 'users' => 'projects#users', as: 'users'

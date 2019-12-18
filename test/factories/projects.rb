@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :project do
-    title { "A Project" }
+    title { "Widget Co. API" }
   end
 end

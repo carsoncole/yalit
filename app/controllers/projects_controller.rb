@@ -90,6 +90,15 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def toggle_editor
+    if session["editing_mode"] == false || !session["editing_mode"]
+      session["editing_mode"] = true
+    else
+      session["editing_mode"] = false
+    end
+    redirect_back(fallback_location: root_path)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
