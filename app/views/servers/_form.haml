@@ -14,10 +14,9 @@
     = f.label :description
     = f.text_field :description, class: 'form-control'
 
-  - if current_user.is_beta_user?
-    .form-group
-      = f.label :use_for_ping, "Use for Testing"
-      = f.check_box :use_for_ping, class: 'form-control'
+  .form-group
+    = f.label :use_for_ping, "Use for Testing"
+    = f.check_box :use_for_ping, class: 'form-control'
 
     .form-group
       = f.label :content_type_header

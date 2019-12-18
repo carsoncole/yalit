@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class RequestMethodsTest < ApplicationSystemTestCase
   setup do
-    @user = create(:user, is_beta_user: true)
+    @user = create(:user)
     sign_in_as(@user)
   end
 

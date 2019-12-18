@@ -6,7 +6,7 @@
         - if @editing_mode && current_user
           = link_to edit_chapter_section_request_method_path(chapter, section, request_method), class: 'action', id: "method-#{request_method.title.parameterize}" do
             = fa_icon "edit"
-          - if current_user.is_beta_user?
+          - if current_user
             = link_to request_method_ping_path(request_method.id), class: 'action' do
               = fa_icon "refresh"
             = link_to "{..}", request_method_parameters_path(request_method), class: 'action'
