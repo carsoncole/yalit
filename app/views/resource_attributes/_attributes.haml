@@ -12,6 +12,8 @@
         %code.key= attribute.key
         .characteristic= attribute.field_type
         .characteristic= attribute.is_required? ? "Required" : nil
-        .description= attribute.description
+        .description
+          = Kramdown::Document.new(attribute.description).to_html.html_safe if attribute.description.present?
+
         - if @editing_mode
           %p= link_to "Edit", edit_section_resource_attribute_path(section, attribute)

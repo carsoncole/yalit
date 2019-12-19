@@ -5,11 +5,11 @@ default: &default
   encoding: unicode
   timeout: 5000
 
-development:
-  <<: *default
-  database: yalit_development
-  username: carsoncole
-  password: password
+# development:
+#   <<: *default
+#   database: yalit_development
+#   username: carsoncole
+# password: password
 
 development:
   <<: *default
