@@ -28,6 +28,8 @@ class Schema
     result.merge!({info: info})
     result.merge!({ servers: servers })
     result.merge!({ paths: paths })
+    result.merge!({ security: security })
+    result.merge!({ components: components })
     result.merge!(external_docs) if external_docs
     result
   end
@@ -59,6 +61,12 @@ class Schema
     result = {}
     result.merge!({ "name": @project.license_name }) if @project.license_name.present?
     result.merge!({ "url": @project.license_url }) if @project.license_url.present?
+    result
+  end
+
+  def security
+    result = []
+    result << { "api_key": []}
     result
   end
 
@@ -112,13 +120,22 @@ class Schema
     result
   end
 
-  def security
-    { "api_key": [] }
-  end
-
   def external_docs
     return nil unless project.is_hosted? && project.host_name
     { externalDocs: { url: project.url } }
+  end
+
+  def components
+    { "securitySchemes": 
+      {
+        "api_key": 
+        {
+          "type": "apiKey",
+          "name": "api_key",
+          "in": "header"
+        }
+      }
+    }
   end
 
 

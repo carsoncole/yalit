@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2019-12-18T16:36:03-08:00">2019-12-18T16:36:03-08:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2019-12-18T22:39:23-08:00">2019-12-18T22:39:23-08:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -4363,7 +4363,7 @@
         <li class="missed" data-hits="0" data-linenumber="94">
           
           
-          <code class="ruby">      params.require(:request_method).permit(:section_id, :title, :request_content, :response_content, :content, :rank, :verb, :path, :description, :response_code, :response_body, :process_attributes_on_next_ping)</code>
+          <code class="ruby">      params.require(:request_method).permit(:section_id, :title, :request_content, :response_content, :content, :rank, :verb, :path, :description, :response_code, :response_body)</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="95">
@@ -8488,7 +8488,7 @@
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">  VERBS = [&quot;GET&quot;, &quot;POST&quot;, &quot;DELETE&quot;, &quot;PUT&quot;, &quot;PATCH&quot;]</code>
+          <code class="ruby">  VERBS = [&quot;get&quot;, &quot;post&quot;, &quot;delete&quot;, &quot;put&quot;, &quot;patch&quot;]</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="4">
@@ -8548,7 +8548,7 @@
         <li class="covered" data-hits="3" data-linenumber="13">
           <span class="hits">3</span>
           
-          <code class="ruby">  before_validation :upcase_verb!, if: proc { |rm| rm.verb_changed? || !rm.persisted? }</code>
+          <code class="ruby">  before_validation :downcase_verb!, if: proc { |rm| rm.verb_changed? || !rm.persisted? }</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="14">
@@ -8560,13 +8560,13 @@
         <li class="covered" data-hits="1" data-linenumber="15">
           <span class="hits">1</span>
           
-          <code class="ruby">  def upcase_verb!</code>
+          <code class="ruby">  def downcase_verb!</code>
         </li>
       
         <li class="covered" data-hits="2" data-linenumber="16">
           <span class="hits">2</span>
           
-          <code class="ruby">    self.verb = verb.upcase if verb.present?</code>
+          <code class="ruby">    self.verb = verb.downcase if verb.present?</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="17">
@@ -8860,7 +8860,7 @@
         <li class="never" data-hits="" data-linenumber="65">
           
           
-          <code class="ruby">        when &#39;GET&#39;</code>
+          <code class="ruby">        when &#39;get&#39;</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="66">
@@ -8896,7 +8896,7 @@
         <li class="never" data-hits="" data-linenumber="71">
           
           
-          <code class="ruby">        when &#39;POST&#39;</code>
+          <code class="ruby">        when &#39;post&#39;</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="72">
@@ -8908,7 +8908,7 @@
         <li class="never" data-hits="" data-linenumber="73">
           
           
-          <code class="ruby">        when &#39;DELETE&#39;</code>
+          <code class="ruby">        when &#39;delete&#39;</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="74">
@@ -8920,7 +8920,7 @@
         <li class="never" data-hits="" data-linenumber="75">
           
           
-          <code class="ruby">        when &#39;PATCH&#39;, &#39;PUT&#39;</code>
+          <code class="ruby">        when &#39;patch&#39;, &#39;put&#39;</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="76">
