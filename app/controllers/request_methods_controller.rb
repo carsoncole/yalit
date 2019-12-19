@@ -91,6 +91,6 @@ class RequestMethodsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_method_params
-      params.require(:request_method).permit(:section_id, :title, :request_content, :response_content, :content, :rank, :verb, :path, :description, :response_code, :response_body, :process_attributes_on_next_ping)
+      params.require(:request_method).permit(:section_id, :title, :request_content, :response_content, :content, :rank, :verb, :path, :description, :response_code, :response_body)
     end
 end

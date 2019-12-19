@@ -1,6 +1,6 @@
 class RequestMethod < ApplicationRecord
   include HTTParty
-  VERBS = ["GET", "POST", "DELETE", "PUT", "PATCH"]
+  VERBS = ["get", "post", "delete", "put", "patch"]
 
   belongs_to :section
   has_many :parameters
@@ -10,10 +10,10 @@ class RequestMethod < ApplicationRecord
   validates :verb, inclusion: { in: VERBS,
     message: "%{value} is not a valid HTTP verb" }
 
-  before_validation :upcase_verb!, if: proc { |rm| rm.verb_changed? || !rm.persisted? }
+  before_validation :downcase_verb!, if: proc { |rm| rm.verb_changed? || !rm.persisted? }
 
-  def upcase_verb!
-    self.verb = verb.upcase if verb.present?
+  def downcase_verb!
+    self.verb = verb.downcase if verb.present?
   end
 
   def project
@@ -62,17 +62,17 @@ class RequestMethod < ApplicationRecord
       headers = headers.merge({ "Content-Type" => server.content_type_header}) if server.authorization_header.present?
       begin
         case verb
-        when 'GET'
+        when 'get'
           if parameters_hash.empty?
             response = HTTParty.get(request, headers: headers)
           else
             response = HTTParty.get(request, headers: headers, query: parameters_hash)
           end
-        when 'POST'
+        when 'post'
           response = HTTParty.post(request, headers: headers, query: parameters_hash)
-        when 'DELETE'
+        when 'delete'
           response = HTTParty.delete(request, headers: headers)
-        when 'PATCH', 'PUT'
+        when 'patch', 'put'
           response = HTTParty.put(request, headers: headers, query: parameters_hash)
         end
       rescue => e
