@@ -1,4 +1,4 @@
-#TODO Add more key/values to complete schema
+#TODO Add other possible Components/Security values for other authentication methods
 # This schema is based on https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md
 #TODO Add a COPY TEXT button to schema page
 class Schema
@@ -131,7 +131,7 @@ class Schema
         "api_key": 
         {
           "type": "apiKey",
-          "name": "api_key",
+          "name": "Authorization",
           "in": "header"
         }
       }
