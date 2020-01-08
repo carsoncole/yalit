@@ -15,6 +15,7 @@ class ChaptersController < ApplicationController
   end
 
   def new
+    @chapters = @project.chapters
     @chapter = @project.chapters.build
   end
 
