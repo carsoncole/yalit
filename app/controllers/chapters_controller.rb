@@ -20,6 +20,7 @@ class ChaptersController < ApplicationController
   end
 
   def edit
+    @chapters = @project.chapters
   end
 
   #TODO Fix for Postman importing
