@@ -3,7 +3,7 @@ class RequestMethod < ApplicationRecord
   VERBS = ["get", "post", "delete", "put", "patch"]
 
   belongs_to :section
-  has_many :parameters
+  has_many :parameters, dependent: :destroy
 
   validates :path, presence: true
   validates :description, presence: true
