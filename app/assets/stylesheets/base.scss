@@ -68,6 +68,10 @@ body {
 }
 
 
+pre {
+  overflow: visible !important;
+}
+
 
 #request-method {
   .params, .request, .response {

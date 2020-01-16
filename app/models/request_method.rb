@@ -39,6 +39,33 @@ class RequestMethod < ApplicationRecord
     end
   end
 
+  def curl
+    result = case verb
+    when "post"
+      "curl -d #{params_encoded} #{full_url}"
+    when "get"
+      "curl #{full_url}"
+    when "patch", "put"
+      "curl -d #{params_encoded} #{full_url}"
+    when "delete"
+      "curl #{full_url}"
+    end
+    result + ' -H "Authorization: API-KEY"'
+  end
+
+  def params_encoded
+    result = ""
+    parameters_hash.each do |key, value|
+      result += "#{key}=#{value}&"
+    end
+    encoded = URI::encode(result.chomp('&')) rescue nil
+    if encoded
+      '"' + encoded + '"'
+    else
+      nil
+    end
+  end
+
   def params_in_path
     if path.present?
       params_with_brackets = path.scan(/{[a-zA-Z0-9_.-]*}/)
@@ -53,10 +80,19 @@ class RequestMethod < ApplicationRecord
     end
   end
 
+  def full_url
+    if project && project.ping_server
+      server = project.ping_server
+      server.url + full_path || ""
+    else
+      nil
+    end
+  end
+
   def ping!
     if project && project.ping_server
       server = project.ping_server
-      request = server.url + full_path || ""
+      request = full_url
       headers = {}
       headers = headers.merge({ "Authorization" => server.authorization_header }) if server.authorization_header.present?
       headers = headers.merge({ "Content-Type" => server.content_type_header}) if server.authorization_header.present?
