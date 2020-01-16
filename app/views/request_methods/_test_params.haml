@@ -1,11 +1,21 @@
-%article#test-params
+.params
   .row
     .col-md-12
       .title Params
 
       .body
         %table.table.table-sm.mb-0
+          %tr
+            %th Name
+            %th Description
+            %th Required
+            %th Default
           - request_method.parameters.each do |param|
             %tr
               %td= param.key
-              %td.text-right= param.value
+              %td= param.description
+              %td= param.is_required
+              %td= param.default_value
+            / %tr
+            /   %td= param.key
+            /   %td.text-right= param.value

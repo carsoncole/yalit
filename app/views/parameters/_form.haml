@@ -8,9 +8,34 @@
 
   .row
     .col
-      = f.label :key
-      = f.text_field :key, placeholder: 'key', class: 'form-control'
+      .form-group
+        = f.label :name
+        = f.text_field :key, class: 'form-control'
+  .row
+    .col-md-6
+      .form-group
+        = f.label :is_required
+        = f.check_box :is_required, class: 'form-control'
 
+  .row
+    .col-md-12
+      .form-group
+        = f.label :description
+        = f.text_area :description, class: 'form-control'
+
+  .row
+    .col-md-6
+      .form-group
+        = f.label :default_value
+        = f.text_field :default_value, class: 'form-control'
+
+  %br
+  %hr
+
+  %h5 Test Values for Request/Response
+
+
+  .row
     .col
       = f.label :value
       = f.text_field :value, placeholder: 'value', class: 'form-control'

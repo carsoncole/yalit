@@ -18,5 +18,5 @@
 
 - if section.is_error_codes?
   = render partial: 'error_codes/error_codes', locals: { section: section }
-- if section.resource_attributes.any?
-  = render partial: "/resource_attributes/attributes", locals: { resource_attributes: section.resource_attributes.order(:key), section: section }
+/ # - if section.resource_attributes.any?
+/ #   = render partial: "/resource_attributes/attributes", locals: { resource_attributes: section.resource_attributes.order(:key), section: section }

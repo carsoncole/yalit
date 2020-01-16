@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'params/index'
+  get 'params/show'
+  get 'params/edit'
+  get 'params/update'
+  get 'params/create'
+  get 'params/destroy'
   get 'sign_up' => "users#new", as: 'noname'
   constraints Clearance::Constraints::SignedIn.new do
     root to: 'projects#index', as: :signed_in_root

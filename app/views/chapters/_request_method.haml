@@ -1,6 +1,6 @@
-.row
-  .col-md-5
-    #request-method
+#request-method
+  .row
+    .col-md-12
       %h3(id="#{request_method.title.parameterize}")
         = request_method.title
         - if @editing_mode && current_user
@@ -15,11 +15,16 @@
 
       - if request_method.description
         %h6 Description
-
         = Kramdown::Document.new(request_method.description).to_html.html_safe
 
-      %h6 Path
-      %code= request_method.path
+      - if request_method.parameters.any?
+        = render partial: "request_methods/test_params", locals: { request_method: request_method }
+
+.row
+  .col-md-5
+
+    %h6 Path
+    %code= request_method.path
 
     .clear
   .col-md-7
@@ -39,5 +44,3 @@
         .body
           %pre= JSON.pretty_generate(JSON.parse(request_method.response_body)) rescue request_method.response_body
 
-    - if @editing_mode && request_method.parameters.any?
-      = render partial: "request_methods/test_params", locals: { request_method: request_method }
