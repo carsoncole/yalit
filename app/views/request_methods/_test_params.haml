@@ -14,7 +14,11 @@
             %tr
               %td= param.key
               %td= param.description
-              %td= param.is_required
+              %td
+                - if param.is_required
+                  Yes
+                - else
+                  No
               %td= param.default_value
             / %tr
             /   %td= param.key
