@@ -331,10 +331,12 @@ nav {
 }
 
 code {
-  display: inline;
-  color: red;
-  background-color: #efefef;
-  padding: 0.25em 0.45em;
+  display: inline-block;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  color: #000;
+  background-color: $background;
+
   border-radius: 0.45em;
 }
 #project-nav {
