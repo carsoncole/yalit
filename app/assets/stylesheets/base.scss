@@ -67,6 +67,8 @@ body {
     font-family: "Fira Mono", monospace;
 }
 
+
+
 #request-method {
   .params, .request, .response {
     display: block;
@@ -90,9 +92,13 @@ body {
     }
     table.parameters {
       th, td {
-        &.default, &.required {
+        &.required {
           width: 6.5em;
         }
+        &.default {
+          width: 12em;
+        }
+        padding-right: 0.75em;
         &.name {
           width: 13em;
         }
@@ -372,7 +378,7 @@ table#parameters {
     word-break: break-all;
     overflow-wrap: break-word;
   }
-  td.key { width: 10em; }
+  td.key { width: 18em; }
   td.value {
     text-align: right;
   }
