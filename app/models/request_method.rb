@@ -89,6 +89,7 @@ class RequestMethod < ApplicationRecord
     result = {}
     parameters.each do |param|
       next if params_in_path.include? param.key
+      next unless param.value.present?
       result[param.key.to_sym] = JSON.parse(param.value) rescue param.value
     end
     result
