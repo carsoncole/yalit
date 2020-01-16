@@ -88,6 +88,16 @@ body {
       word-break: break-all;
       overflow-wrap: break-word;
     }
+    table.parameters {
+      th, td {
+        &.default, &.required {
+          width: 6.5em;
+        }
+        &.name {
+          width: 13em;
+        }
+      }
+    }
   }
 }
 
