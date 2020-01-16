@@ -4,7 +4,7 @@
       %h2.error_title= "#{pluralize(@server.errors.count, "error")} prohibited this section from being saved:"
       %ul
         - @server.errors.full_messages.each do |message|
-          %li= messagew
+          %li= message
 
   .form-group
     = f.label :url

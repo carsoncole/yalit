@@ -4,7 +4,7 @@
       %h2.error_title= "#{pluralize(@parameter.errors.count, "error")} prohibited this section from being saved:"
       %ul
         - @parameter.errors.full_messages.each do |message|
-          %li= messagew
+          %li= message
 
   .row
     .col
