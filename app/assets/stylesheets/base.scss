@@ -68,7 +68,7 @@ body {
 }
 
 #request-method {
-  .params {
+  .params, .request, .response {
     display: block;
     margin: 2em 0;
     background-color: $background;
