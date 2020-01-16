@@ -10,7 +10,7 @@
             %th.description Description
             %th.required Required
             %th.default Default
-          - request_method.parameters.each do |param|
+          - request_method.parameters.order(:name).each do |param|
             %tr
               %td= param.key
               %td= param.description
