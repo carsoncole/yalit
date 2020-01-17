@@ -42,11 +42,11 @@ class RequestMethod < ApplicationRecord
   def curl
     result = case verb
     when "post"
-      "curl -d #{params_encoded} #{full_url}"
+      "curl -d #{params_encoded || "" } #{full_url}"
     when "get"
       "curl #{full_url}"
     when "patch", "put"
-      "curl -d #{params_encoded} #{full_url}"
+      "curl -d #{params_encoded || "" } #{full_url}"
     when "delete"
       "curl #{full_url}"
     end
