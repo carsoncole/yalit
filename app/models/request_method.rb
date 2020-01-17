@@ -95,7 +95,8 @@ class RequestMethod < ApplicationRecord
       request = full_url
       headers = {}
       headers = headers.merge({ "Authorization" => server.authorization_header }) if server.authorization_header.present?
-      headers = headers.merge({ "Content-Type" => server.content_type_header}) if server.authorization_header.present?
+      headers = headers.merge({ "Content-Type" => server.content_type_header}) if server.content_type_header.present?
+      full_content = verb.upcase + ' ' + request
       begin
         case verb
         when 'get'
@@ -103,18 +104,20 @@ class RequestMethod < ApplicationRecord
             response = HTTParty.get(request, headers: headers)
           else
             response = HTTParty.get(request, headers: headers, query: parameters_hash)
+            full_content += '  params: ' + parameters_hash.to_json
           end
         when 'post'
-          response = HTTParty.post(request, headers: headers, query: parameters_hash)
+          response = HTTParty.post(request, headers: headers, body: parameters_hash.to_json)
+          full_content += '  body: ' + parameters_hash.to_json
         when 'delete'
           response = HTTParty.delete(request, headers: headers)
         when 'patch', 'put'
-          response = HTTParty.put(request, headers: headers, query: parameters_hash)
+          response = HTTParty.put(request, headers: headers, body: parameters_hash.to_json)
+          full_content += '  body: ' + parameters_hash.to_json
         end
       rescue => e
         response = nil
       end
-      full_content = verb.upcase + ' ' + request + (!parameters_hash.empty? ? "  #{parameters_hash.to_s}" : "")
       update(request_content: full_content)
       update(response_code: response.nil? ? nil : response.code, response_body: response.nil? ? "Server failure (Possibly a bad server url)" : response.body
       )
