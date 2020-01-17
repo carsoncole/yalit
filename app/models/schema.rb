@@ -116,7 +116,10 @@ class Schema
 
   def parameters_payload(rm)
     result = []
-    result << {"in": "path", name: 'user_uuid', required: true, schema: { type: 'string' }, description: "Some description"}
+    rm.parameters.each do |parameter|
+      next unless parameter.value.present?
+      result << {"in": "path", name: parameter.key, required: parameter.is_required, schema: { type: 'string' }, descripton: parameter.description}
+    end
     result
   end
 
