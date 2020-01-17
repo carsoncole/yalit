@@ -72,7 +72,7 @@ class RequestMethod < ApplicationRecord
       params = []
       params_with_brackets.each do |p|
         parameter = parameters.find_by(key: p.gsub("{","").gsub("}",""))
-        params << parameter.key
+        params << parameter.key if parameter
       end
       params
     else
