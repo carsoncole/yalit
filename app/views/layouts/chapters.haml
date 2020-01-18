@@ -4,12 +4,13 @@
 
   %body
     = render "main_nav"
-    = render "message" if @project && @message
     .container-fluid#main-container
-      .row.side-nav
-        .col-md-2.pl-0
-          = render "side_nav" if @project
-        .col-md-8.offset-1#main-content
+      .row
+        .col-md-2.pl-0.d-none.d-md-block.sidebar
+          .sidebar-sticky
+            = render "side_nav" if @project
+        .col-md-9.ml-sm-auto.col-lg-10.px-4#main-content
+          = render "message" if @project && @message
           = render 'flash'
           = yield
 

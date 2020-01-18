@@ -1,4 +1,4 @@
-%nav.navbar.navbar-expand-lg.navbar-dark.main-nav.mb-0(style="background-color: #{ @project ? @project.color : '#0f4c81'} !important")
+%nav.navbar.navbar-expand-lg.navbar-dark.fixed-top.main-nav.mb-0(style="background-color: #{ @project ? @project.color : '#0f4c81'} !important")
   .navbar-brand
     - if @project && @project.persisted? && @project.chapters.any?
       = link_to @project.title, chapter_path(@project.first_chapter )
