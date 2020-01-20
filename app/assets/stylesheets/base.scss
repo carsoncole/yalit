@@ -10,7 +10,6 @@ $font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", 
 
 html {
   height: 100%;
-  font-size: 14px;
 }
 
 body {
@@ -76,6 +75,40 @@ pre {
 
 
 #request-method {
+  .params, .request, .response {
+    display: block;
+    margin: 2em 0;
+    padding-top: 3em;
+    border-top: 1px solid #d6d6d6;
+
+    .title {
+      color: #000;
+      font-weight: 600;
+      font-size: 1.7em;
+      text-transform: uppercase;
+    }
+    .body {
+      word-break: break-all;
+      overflow-wrap: break-word;
+    }
+    table.parameters {
+      th, td {
+        &.required {
+          width: 6.5em;
+        }
+        &.default {
+          width: 12em;
+        }
+        padding-right: 0.75em;
+        &.name {
+          width: 13em;
+        }
+      }
+    }
+  }
+}
+
+#request-method-old {
   .params, .request, .response {
     display: block;
     margin: 2em 0;
@@ -196,16 +229,19 @@ form {
     padding: 1em 2em;
   }
 
+  h1,h2,h3,h4,h5,h6 { 
+    font-weight: 600;
+    margin-top: 0;
+    }
+
   h1 {
     padding-bottom: 0.6em;
     margin: 1em 0 1em 0;
     border-bottom: 1px solid #eee;
-    font-weight: 600;
     font-size: 3.0rem
   }
 
   h2 {
-    font-weight: 300;
     font-size: 2.25rem;
     margin: 1.5em 0 1em 0;
     &.endpoint {
@@ -220,9 +256,7 @@ form {
   }
 
   h3 {
-    font-weight: 500;
     font-size: 1.5rem;
-    margin: 2.5em 0 1em 0;
   }
 
   .request-info {
@@ -256,7 +290,7 @@ form {
 }
 
 #side-nav {
-  background-color: grayscale($base-color);
+  background-color: darken($background, 70%);
   min-height: 100%;
 
   ul {
@@ -295,10 +329,10 @@ nav {
         display: none;
       }
       li a {
-        color: lighten($base-black, 70%)
+        color: #efefef;
         }
       li.active a {
-        color: #000;
+        color: darken(#efefef, 20%);
       }
       li.active ul {
         display: block;
@@ -335,6 +369,7 @@ nav {
   border-top: 1px solid #efefef;
   padding-top: 1.666em;
   margin-top: 3em;
+  margin-bottom: 3em;
   text-transform: uppercase
 }
 
