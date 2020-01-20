@@ -13,10 +13,10 @@
           = render "message" if @project && @message
           = render 'flash'
           = yield
-
-    - if current_user && @editing_mode
-      #editing-mode
-        = render partial: 'editing_nav'
+      .row
+        - if current_user && @editing_mode
+          #editing-mode
+            = render partial: 'editing_nav'
 
 %script
   $(document).ready(function(){$('[data-toggle="tooltip"]').tooltip(); });
