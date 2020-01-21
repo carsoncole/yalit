@@ -1,6 +1,6 @@
 %h2{class: section.is_resource ? "endpoint" : nil}(id="#{section.title.camelize}")
   - if section.is_resource?
-    .icon= fa_icon "info-circle"
+    / .icon= fa_icon "info-circle"
   = section.title
   - if @editing_mode && current_user
     = link_to edit_chapter_section_path(@chapter, section), class: 'action' do

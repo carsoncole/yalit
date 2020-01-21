@@ -34,7 +34,8 @@
             .col-md-3
               %h4
                 Request
-                = fa_icon "arrow-right"
+                / = fa_icon "arrow-right"
+                = evil_icon 'ei-arrow-right', size: :m
             .col-md-9
               .body
                 %pre
@@ -53,7 +54,8 @@
               .col-md-3
                 %h4 
                   Response
-                  = fa_icon "arrow-left"
+                  / = fa_icon "arrow-left"
+                  = evil_icon 'ei-arrow-left', size: :m
                   - if request_method.response_code.present?
                     = surround("(", ")") do
                       = request_method.response_code

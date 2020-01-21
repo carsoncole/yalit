@@ -8,14 +8,14 @@
           - if chapter.sections.any?
             %ul
               - chapter.sections.order(rank: :asc).each do |section|
-                %li.nav-item
+                %li.nav-item.section
                   = link_to chapter_path(chapter, anchor: section.title.camelize), class: 'nav-link' do
-                    - if section.is_resource?
-                      .endpoint
-                        / = fa_icon "info-circle"
-                        = evil_icon 'ei-star', size: :s
-                    = section.title
-                  %ul
+                    / - if section.is_resource?
+                    / .endpoint
+                    / = fa_icon "info-circle"
+                    / = evil_icon 'ei-star', size: :s
+                    .section-title= section.title
+                  %ul.request_methods
                     - if section.sub_sections.any?
                       - section.sub_sections.each do |sub_section|
                         %li.nav-item
