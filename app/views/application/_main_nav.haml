@@ -29,7 +29,8 @@
         - if @project && @project.persisted? && controller_name == 'projects'
           %li.nav-item
             = link_to project_path(@project, view: true), id: "eye-link",class: 'nav-link', "data-toggle": 'tooltip', "title": 'View API Docs' do
-              = fa_icon "eye"
+              / = fa_icon "eye"
+              = evil_icon 'ei-eye', size: :s
         %li.nav-item.dropdown
           = link_to "#", id: "navbarDropdown",class: 'nav-link dropdown-toggle', "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false", "role": "button" do
             / = fa_icon "user-circle"
