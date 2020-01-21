@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   end
 
   resources :request_methods do 
-    get 'ping' => 'request_methods#ping', as: 'ping'
+    post 'ping' => 'request_methods#ping', as: 'ping'
     resources :parameters
   end
 
