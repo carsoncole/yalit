@@ -285,7 +285,7 @@ form {
 }
 
 #side-nav {
-  background-color: darken($background, 70%);
+  background-color: ligthen($background, 0%);
   min-height: 100%;
 
   ul {
@@ -324,16 +324,11 @@ nav {
         display: none;
       }
       li a {
-        color: #efefef;
         }
       li.active a {
-        color: darken(#efefef, 20%);
       }
       li.active ul {
         display: block;
-        li a {
-          color: lighten($base-black, 50%)
-        }
       }
       li a:hover {
         text-decoration: none;
