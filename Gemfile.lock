@@ -94,6 +94,7 @@ GEM
       activemodel
     erubi (1.9.0)
     erubis (2.7.0)
+    evil_icons (1.10.1)
     excon (0.71.1)
     execjs (2.7.0)
     factory_bot (5.1.1)
@@ -316,6 +317,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   clearance
+  evil_icons
   factory_bot_rails
   faker
   font-awesome-rails

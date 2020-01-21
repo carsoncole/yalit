@@ -67,3 +67,4 @@ gem 'json'
 gem 'rack-cors'
 gem 'httparty'
 gem 'simplecov', require: false, group: :test
+gem 'evil_icons'

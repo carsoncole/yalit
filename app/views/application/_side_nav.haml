@@ -1,3 +1,4 @@
+= evil_icons_sprite
 #side-nav
   %nav.nav.navbara.navbar-light.bg-light.side-nav
     %ul.navbar-nav.mr-auto
@@ -12,7 +13,8 @@
                   = link_to chapter_path(chapter, anchor: section.title.camelize), class: 'nav-link' do
                     - if section.is_resource?
                       .endpoint
-                        = fa_icon "info-circle"
+                        / = fa_icon "info-circle"
+                        = evil_icon 'ei-star', size: :s
                     = section.title
                   %ul
                     - if section.sub_sections.any?
@@ -24,7 +26,8 @@
                       - section.request_methods.order(rank: :asc).each do |request_method|
                         %li.nav-item
                           = link_to chapter_path(chapter, anchor: request_method.title.parameterize), class: 'nav-link' do
-                            = fa_icon "arrow-right"
+                            / = fa_icon "arrow-right"
+                            = evil_icon 'ei-retweet', size: :s
                             = request_method.title
                             
 
@@ -34,5 +37,6 @@
       /     Test
       %li.nav_item
         = link_to project_schema_path(@project), class: "nav-link #{ action_name == 'schema' ? 'active' : nil }" do
-          = fa_icon "map"
+          / = fa_icon "map"
+          = evil_icon 'ei-share-google', size: :s
           Schema

@@ -21,17 +21,19 @@
         - if @project&.persisted? && ['chapters', 'projects', 'sections', 'request_methods', 'sub_sections', 'error_codes', 'testapi'].include?(controller_name)
           %li.nav-item
             = link_to project_path(@project), id: "archive-link", class: 'nav-link', "data-toggle": 'tooltip', "title": 'Project' do
-              = fa_icon "archive"
-          %li.nav-item
-            = link_to projects_path, id: "folder-link",class: 'nav-link', "data-toggle": 'tooltip', "title": 'All projects' do
-              = fa_icon "folder"
+              / = fa_icon "archive"
+              = evil_icon 'ei-archive', size: :s
+          / %li.nav-item
+          /   = link_to projects_path, id: "folder-link",class: 'nav-link', "data-toggle": 'tooltip', "title": 'All projects' do
+          /     = fa_icon "folder"
         - if @project && @project.persisted? && controller_name == 'projects'
           %li.nav-item
             = link_to project_path(@project, view: true), id: "eye-link",class: 'nav-link', "data-toggle": 'tooltip', "title": 'View API Docs' do
               = fa_icon "eye"
         %li.nav-item.dropdown
           = link_to "#", id: "navbarDropdown",class: 'nav-link dropdown-toggle', "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false", "role": "button" do
-            = fa_icon "user-circle"
+            / = fa_icon "user-circle"
+            = evil_icon 'ei-user', size: :s
           .dropdown-menu.dropdown-menu-right(aria-labelledby="navbarDropdown")
             .dropdown-item= current_user.email
             = link_to sign_out_path, method: :delete, class: 'dropdown-item' do
