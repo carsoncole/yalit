@@ -14,7 +14,10 @@
                     / .endpoint
                     / = fa_icon "info-circle"
                     / = evil_icon 'ei-star', size: :s
-                    .section-title= section.title
+                    - if section.is_resource
+                      .section-title= section.title.upcase
+                    - else
+                      .section-title= section.title
                   %ul.request_methods
                     - if section.sub_sections.any?
                       - section.sub_sections.each do |sub_section|

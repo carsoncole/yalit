@@ -14,14 +14,25 @@
             = link_to chapter_section_request_method_path(chapter, section, request_method), class: 'action', method: :delete do
               = fa_icon "times"
     .row
-      .col-md-7
-        - if request_method.description
-          %h6 Description
-          = Kramdown::Document.new(request_method.description).to_html.html_safe
+      .col-md-12
+        .request
+          .row
+            .col-md-3
+              - if request_method.description
+                %h4 Description
+            .col-md-9
+              .body
+                = Kramdown::Document.new(request_method.description).to_html.html_safe
 
-      .col-md-5
-        %h6 Path
-        %code= request_method.path
+    .row
+      .col-md-12
+        .request
+          .row
+            .col-md-3
+              %h4 Path
+            .col-md-9
+              %code= request_method.path
+
     - if request_method.parameters.any?
       .row
         .col-md-12
@@ -34,6 +45,7 @@
             .col-md-3
               %h4
                 Request
+                %br
                 / = fa_icon "arrow-right"
                 = evil_icon 'ei-arrow-right', size: :m
             .col-md-9
@@ -55,12 +67,15 @@
                 %h4 
                   Response
                   / = fa_icon "arrow-left"
+                  %br
                   = evil_icon 'ei-arrow-left', size: :m
-                  - if request_method.response_code.present?
-                    = surround("(", ")") do
-                      = request_method.response_code
               .col-md-9
                 .body
+                  - if request_method.response_code.present?
+                    %p
+                      Response code
+                      = surround("<",">") do
+                        = request_method.response_code
                   %pre= JSON.pretty_generate(JSON.parse(request_method.response_body)) rescue request_method.response_body
 
 
