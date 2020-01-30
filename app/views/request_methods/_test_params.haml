@@ -12,7 +12,12 @@
             %th.description Description
           - request_method.parameters.order(:key).each do |param|
             %tr
-              %td= param.key
+              %td
+                = param.key
+                - unless param.is_required?
+                  %small.text-muted
+                    Optional
+                  %br
               %td.type= param.field_type
               %td
                 - if param.description.present?
@@ -27,10 +32,7 @@
                   Default:
                   %code= param.default_value
                   %br
-                - unless param.is_required?
-                  = surround("[", "]") do
-                    Optional
-                  %br
+
             / %tr
             /   %td= param.key
             /   %td.text-right= param.value
