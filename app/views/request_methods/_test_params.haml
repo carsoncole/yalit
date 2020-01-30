@@ -15,14 +15,22 @@
               %td= param.key
               %td.type= param.field_type
               %td
-                = param.description
-                / # = Kramdown::Document.new(param.description).to_html.html_safe if param.description
+                - if param.description.present?
+                  = param.description
+                  %br
+                / - content = ""
+                / - content += param.description if param.description
+                / - content += " Default: <code>" + param.default_value + "</code>" if param.default_value.present?
+                / - content += " (Optional)" unless param.is_required?
+                / = Kramdown::Document.new(content).to_html.html_safe if content.present?
                 - if param.default_value.present?
-                  Defaults to
+                  Default:
                   %code= param.default_value
+                  %br
                 - unless param.is_required?
-                  = surround("(", ")") do
+                  = surround("[", "]") do
                     Optional
+                  %br
             / %tr
             /   %td= param.key
             /   %td.text-right= param.value
