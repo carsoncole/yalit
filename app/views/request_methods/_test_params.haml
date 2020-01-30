@@ -8,19 +8,21 @@
         %table.table.table-sm.mb-0.parameters
           %tr
             %th.name Name
+            %th.type Type
             %th.description Description
-            %th.required Required
-            %th.default Default
           - request_method.parameters.order(:key).each do |param|
             %tr
               %td= param.key
-              %td= param.description
+              %td.type= param.field_type
               %td
-                - if param.is_required
-                  Yes
-                - else
-                  No
-              %td= param.default_value
+                = param.description
+                / # = Kramdown::Document.new(param.description).to_html.html_safe if param.description
+                - if param.default_value.present?
+                  Defaults to
+                  %code= param.default_value
+                - unless param.is_required?
+                  = surround("(", ")") do
+                    Optional
             / %tr
             /   %td= param.key
             /   %td.text-right= param.value

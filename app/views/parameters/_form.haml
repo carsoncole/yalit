@@ -26,6 +26,12 @@
   .row
     .col-md-6
       .form-group
+        = f.label :field_type
+        = f.select :field_type, options_for_select(Parameter::FIELD_TYPES, f.object.field_type), {}, class: 'form-control'
+
+  .row
+    .col-md-6
+      .form-group
         = f.label :default_value
         = f.text_field :default_value, class: 'form-control'
 

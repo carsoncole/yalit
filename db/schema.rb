@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_15_221258) do
+ActiveRecord::Schema.define(version: 2020_01_30_191501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2020_01_15_221258) do
     t.boolean "is_required", default: false
     t.text "description"
     t.string "default_value"
+    t.string "field_type", default: "String"
     t.index ["request_method_id"], name: "index_parameters_on_request_method_id"
   end
 

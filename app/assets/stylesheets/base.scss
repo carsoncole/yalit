@@ -95,12 +95,15 @@ pre {
         &.required {
           width: 6.5em;
         }
+        &.type {
+          width: 5em;
+        }
         &.default {
           width: 12em;
         }
         padding-right: 0.75em;
         &.name {
-          width: 13em;
+          width: 12em;
         }
       }
     }
