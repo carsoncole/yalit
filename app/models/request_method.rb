@@ -111,8 +111,11 @@ class RequestMethod < ApplicationRecord
           full_content += '  body: ' + parameters_hash.to_json
         when 'delete'
           response = HTTParty.delete(request, headers: headers)
-        when 'patch', 'put'
+        when 'put'
           response = HTTParty.put(request, headers: headers, body: parameters_hash.to_json)
+          full_content += '  body: ' + parameters_hash.to_json
+        when 'patch'
+          response = HTTParty.patch(request, headers: headers, body: parameters_hash.to_json)
           full_content += '  body: ' + parameters_hash.to_json
         end
       rescue => e
