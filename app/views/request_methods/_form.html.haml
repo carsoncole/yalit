@@ -22,6 +22,12 @@
     = f.label :path, "Path (should begin with '/'. Include any params in {})"
     = f.text_field :path, class: 'form-control'
   .form-group
+    = f.label :send_object_name
+    = f.text_field :send_object_name, class: 'form-control'
+  .form-group
+    = f.label :send_as_array
+    = f.check_box :send_as_array, class: 'form-control'
+  .form-group
     = f.label :request_content
     = f.text_area :request_content, cols: 50, rows: 15, class: 'form-control'
   .form-group

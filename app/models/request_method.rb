@@ -134,6 +134,10 @@ class RequestMethod < ApplicationRecord
       next unless param.value.present?
       result[param.key.to_sym] = JSON.parse(param.value) rescue param.value
     end
-    result
+    if send_as_array && send_object_name.present?
+      { send_object_name: [ result ] }
+    else
+      result
+    end
   end
 end
