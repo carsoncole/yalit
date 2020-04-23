@@ -313,7 +313,7 @@ nav {
 
 
   &.side-nav {
-    padding-top: 2em;
+    padding: 1em;
     ul {
       list-style: none;
       padding-inline-start: 1em;
@@ -533,10 +533,4 @@ article#test-params {
 
 li.nav-item.section {
   margin-left: 0.25em;
-}
-
-ul {
-  li.section, ul.request-methods {
-    font-size: 0.9em;
-  }
 }

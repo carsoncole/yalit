@@ -5,11 +5,12 @@
   %body
     = evil_icons_sprite
     = render "main_nav"
-    .container-fluid
-      .row.flex-xl-nowrap
-        .col-xl-2.col-12.col-md-3.bd-sidebar
-          = render "side_nav" if @project
-        .col-xl-10.col-md-9.col-xl-10.py-md-3.pl-md-5
+    .container-fluid#main-container
+      .row
+        .col-md-2.pl-0.d-none.d-md-block.sidebar
+          .sidebar-sticky
+            = render "side_nav" if @project
+        .col-md-9.ml-sm-auto.col-lg-10.px-4#main-content
           = render "message" if @project && @message
           = render 'flash'
           = yield

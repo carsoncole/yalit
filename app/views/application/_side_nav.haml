@@ -1,9 +1,5 @@
-
-%nav.navbar.navbar-light.bg-light.side-nav
-  %button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
-    %span.navbar-toggler-icon
-
-  %div.collapse#navbarSupportedContent
+#side-nav
+  %nav.nav.navbara.navbar-light.bg-light.side-nav
     %ul.navbar-nav.mr-auto
       - @chapters.order(rank: :asc).each do |chapter|
         - next unless chapter.persisted?
