@@ -110,7 +110,7 @@ class RequestMethod < ApplicationRecord
           response = HTTParty.post(request, headers: headers, body: parameters_hash.to_json)
           full_content += '  body: ' + parameters_hash.to_json
         when 'delete'
-          response = HTTParty.delete(request, headers: headers)
+          response = HTTParty.delete(request, headers: headers, body: parameters_hash.to_json)
         when 'put'
           response = HTTParty.put(request, headers: headers, body: parameters_hash.to_json)
           full_content += '  body: ' + parameters_hash.to_json
