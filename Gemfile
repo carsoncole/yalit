@@ -60,6 +60,7 @@ gem "haml-rails"
 gem "bootstrap", "~> 4.3.1"
 gem "jquery-rails"
 gem "kramdown"
+gem "font-awesome-rails"
 gem "clearance"
 gem 'platform-api'
 gem 'json'
