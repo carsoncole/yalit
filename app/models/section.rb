@@ -26,7 +26,7 @@ class Section < ApplicationRecord
       if server
         request = server.url + error_endpoint_path
         headers = {}
-        headers = headers.merge({ "Bearer" => server.authorization_header }) if server.authorization_header.present?
+        headers = headers.merge({ "Authorization" => server.authorization_header }) if server.authorization_header.present?
         headers = headers.merge({ "Content-Type" => server.content_type_header}) if server.authorization_header.present?
         begin
           response = HTTParty.get(request, headers: headers)
