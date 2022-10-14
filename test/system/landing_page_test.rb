@@ -3,7 +3,7 @@ require "application_system_test_case"
 class LandingPageTest < ApplicationSystemTestCase
   test "visting the landing page" do
     visit root_url
-    assert_text "Yalit 2019. All Rights Reserved."
+    assert_text "Yalit 2022. All Rights Reserved."
 
     assert_selector "form", count: 2 # sign up forms
   end

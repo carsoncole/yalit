@@ -21,8 +21,10 @@
   <!-- Custom styles for this template -->
   <!--   <link href="css/landing-page.min.css" rel="stylesheet"> -->
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+
 
 </head>
 
@@ -31,7 +33,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Yalit</a>
+      <a class="navbar-brand logo" href="#">Yalit</a>
       <a class="btn btn-primary" href="/sign_in">Sign In</a>
     </div>
   </nav>
@@ -199,7 +201,7 @@
               <a href="#">Privacy Policy</a>
             </li>
           </ul> -->
-          <p class="text-muted small mb-4 mb-lg-0">&copy; Yalit 2019. All Rights Reserved.</p>
+          <p class="text-muted small mb-4 mb-lg-0">&copy; Yalit 2022. All Rights Reserved.</p>
         </div>
         <!-- <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
           <ul class="list-inline mb-0">

@@ -278,7 +278,6 @@ form {
       font-weight: 100;
     }
   }
-
 }
 
 #side-nav {
@@ -292,6 +291,11 @@ form {
 }
 
 nav {
+  .logo {
+    font-size: 2em;
+    font-weight: 600;
+  }
+
   &.main-nav {
     background-color: $base-color;
     ul {
@@ -299,7 +303,7 @@ nav {
     }
     margin-bottom: 2em;
     .navbar-brand {
-      font-size: 1.5rem;
+      font-size: 2rem;
       font-weight: 300;
       a {
         color: #fff;
@@ -473,7 +477,7 @@ article#test-params {
   color: #fff;
 
   text-shadow: 0 -1px 0 darken($base-color, 10%);
-  @include box-shadow(inset 0 1px 0 lighten($base-color, 20%));
+
 }
 .clear {
   clear: both
