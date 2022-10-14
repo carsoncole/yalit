@@ -2,16 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_05_233013) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_200806) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,8 +19,8 @@ ActiveRecord::Schema.define(version: 2020_02_05_233013) do
     t.string "title"
     t.text "content"
     t.integer "rank"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_chapters_on_project_id"
   end
 
@@ -31,8 +30,8 @@ ActiveRecord::Schema.define(version: 2020_02_05_233013) do
     t.integer "http_status_code"
     t.integer "custom_status_code"
     t.string "message"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "url"
     t.index ["section_id"], name: "index_error_codes_on_section_id"
   end
@@ -42,15 +41,15 @@ ActiveRecord::Schema.define(version: 2020_02_05_233013) do
     t.string "email"
     t.string "role"
     t.integer "invited_by_user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_invitations_on_project_id"
   end
 
   create_table "parameters", force: :cascade do |t|
     t.bigint "request_method_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "key"
     t.string "value"
     t.string "name"
@@ -63,8 +62,8 @@ ActiveRecord::Schema.define(version: 2020_02_05_233013) do
 
   create_table "projects", force: :cascade do |t|
     t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "host_name"
     t.string "ssl_endpoint_domain"
     t.string "color"
@@ -80,10 +79,10 @@ ActiveRecord::Schema.define(version: 2020_02_05_233013) do
     t.string "heroku_acm_status"
     t.string "heroku_acm_status_reason"
     t.string "heroku_cname"
-    t.datetime "heroku_acm_created_at"
+    t.datetime "heroku_acm_created_at", precision: nil
     t.string "heroku_acm_id"
     t.string "heroku_domain_status"
-    t.datetime "heroku_acm_updated_at"
+    t.datetime "heroku_acm_updated_at", precision: nil
     t.boolean "is_hosted", default: false
     t.string "root_url"
     t.string "open_api_version"
@@ -98,8 +97,8 @@ ActiveRecord::Schema.define(version: 2020_02_05_233013) do
     t.text "request_content"
     t.text "response_content"
     t.integer "rank"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "project_id"
     t.string "description"
     t.integer "response_code"
@@ -115,8 +114,8 @@ ActiveRecord::Schema.define(version: 2020_02_05_233013) do
     t.boolean "is_required", default: false
     t.string "field_type", default: "string"
     t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "not_found_on_last_ping", default: false
     t.index ["section_id"], name: "index_resource_attributes_on_section_id"
   end
@@ -127,8 +126,8 @@ ActiveRecord::Schema.define(version: 2020_02_05_233013) do
     t.text "content"
     t.integer "rank"
     t.boolean "is_resource", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "is_error_codes", default: false
     t.string "error_endpoint_path"
     t.integer "request_method_id"
@@ -139,8 +138,8 @@ ActiveRecord::Schema.define(version: 2020_02_05_233013) do
     t.bigint "project_id", null: false
     t.string "url"
     t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "use_for_ping", default: false
     t.string "authorization_header"
     t.string "content_type_header", default: "application/json"
@@ -152,8 +151,8 @@ ActiveRecord::Schema.define(version: 2020_02_05_233013) do
     t.string "title"
     t.text "content"
     t.integer "rank"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_sub_sections_on_section_id"
   end
 
@@ -161,15 +160,15 @@ ActiveRecord::Schema.define(version: 2020_02_05_233013) do
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
     t.string "role", default: "owner"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_user_projects_on_project_id"
     t.index ["user_id"], name: "index_user_projects_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "email", null: false
     t.string "encrypted_password", limit: 128, null: false
     t.string "confirmation_token", limit: 128
