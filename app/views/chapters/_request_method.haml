@@ -8,7 +8,7 @@
             = link_to edit_chapter_section_request_method_path(chapter, section, request_method), class: 'action', id: "method-#{request_method.title.parameterize}" do
               = fa_icon "edit"
             - if current_user
-              = link_to request_method_ping_path(request_method.id), method: :post, class: 'action' do
+              = button_to request_method_ping_path(request_method.id), data: {"turbo-method": :post}, class: 'action' do
                 = fa_icon "refresh"
               = link_to "{..}", request_method_parameters_path(request_method), class: 'action'
             = link_to chapter_section_request_method_path(chapter, section, request_method), class: 'action', method: :delete do

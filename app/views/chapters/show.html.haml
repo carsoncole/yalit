@@ -6,7 +6,7 @@
         - if @editing_mode && current_user
           = link_to edit_chapter_path(@chapter), class: 'action' do
             = fa_icon "edit"
-          = link_to chapter_path(@chapter), class: 'action', method: :delete do
+          = link_to chapter_path(@chapter), class: 'action', method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do
             = fa_icon "times"
       = Kramdown::Document.new(@chapter.content).to_html.html_safe if @chapter.content
 

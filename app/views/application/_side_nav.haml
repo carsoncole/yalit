@@ -1,5 +1,5 @@
 #side-nav
-  %nav.nav.navbara.navbar-light.bg-light.side-nav
+  %nav.nav.navbar.navbar-light.bg-light.side-nav
     %ul.navbar-nav.mr-auto
       - @chapters.order(rank: :asc).each do |chapter|
         - next unless chapter.persisted?
