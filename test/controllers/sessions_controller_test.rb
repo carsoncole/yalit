@@ -6,12 +6,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should be able to sign out" do
+  test "should be able to access site as user" do
     user = create(:user)
     get root_url(as: user)
-    assert_response :success
-
-    get projects_path
     assert_response :success
   end
 end

@@ -5,16 +5,6 @@ class UserTest < ActiveSupport::TestCase
     assert create(:user)
   end
 
-  test "non-Martech domains can not register" do
-    user = build(:user, email: "john.doe@example.com")
-    assert_not user.save, "Was able to create a new user with a non-Martech domain"
-  end
-
-  test "only Martech domains can register" do
-    user = build(:user, email: "john.doe@grade.us")
-    assert user.save, "Was not able to register a Martech domain email"
-  end
-
   test "identify owner/user of a project" do
     user = create(:user)
     project = user.projects.create(attributes_for(:project))
