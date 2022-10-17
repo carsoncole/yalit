@@ -6,11 +6,16 @@ class ProjectTest < ActionDispatch::IntegrationTest
     @project = @user.projects.create(title: "ACME Com")
   end
 
-  # test "list of all projects" do
-  #   get projects_path(as: @user)
-  #   assert :success
-  #   assert_select "h1", "Projects"
-  # end
+  test "list of all projects" do
+    get projects_path(as: @user)
+    assert :success
+    assert_select "h1", "Projects"
+  end
+
+  test "viewing a project" do
+    get projects_path(as: @user)
+    assert_select "table tr td", "ACME Com"
+  end
 
   test "editing the title of a project" do
     project = @user.projects.create(title: 'XYX API')
