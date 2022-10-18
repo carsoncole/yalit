@@ -15,3 +15,7 @@ Default configuration is to use Heroku for DNS resolution to white-labeled API d
 - HEROKU_APP_NAME
 - HEROKU_API_KEY
 
+### Testing
+
+Yalit uses Rails Minitest.
+
