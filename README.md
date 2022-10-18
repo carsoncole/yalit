@@ -1,6 +1,6 @@
-# Yalit.io
+# Yalit
 
-This an API document hosting and testing service.
+API white label document hosting and testing service. Default configuration is to utilize Heroku for hosting the app and DNS resolution, but easily modifiable to host in any cloud.
 
 ## Configuration
 
