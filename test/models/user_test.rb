@@ -13,14 +13,11 @@ class UserTest < ActiveSupport::TestCase
     assert user.owner_or_admin?(project)
   end
 
-  # test "user-created projects don't remain after destroying user if they are owner" do
-  #   user = create(:user)
-  #   user_project = user.user_projects.last
-  #   project = user.user_projects.last
-
-  #   assert_equal user_project.role, "owner"
-
-  #   assert user.destroy
-  #   assert_not Project.find_by(id: project.id)
-  # end
+  test "user-created projects don't remain after destroying user if they are owner" do
+    user = create(:user)
+    project = user.projects.create(attributes_for(:project))
+    assert_equal project.user_projects.where(user: user).first.role, "owner"
+    assert user.destroy
+    assert_not Project.find_by(id: project.id)
+  end
 end
